@@ -500,6 +500,14 @@ dinitctl enable sddm
 dinitctl enable grub-btrfsd
 ```
 
+### Configure zram
+
+Change #ZRAM_SIZE=100 to ZRAM_SIZE=50 to set zram to 50% of RAM
+
+```bash
+nano /etc/dinit.d/config/zramen.conf
+```
+
 ### Enable grub-btrfs 
 
 ```bash
