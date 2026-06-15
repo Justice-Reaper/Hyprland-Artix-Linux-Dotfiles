@@ -171,7 +171,7 @@ artix-chroot /media
 
 ```bash
 pacman -Syu
-pacman -S git ttf-liberation xdg-user-dirs nano dbus-dinit networkmanager-dinit cronie-dinit hyprland kitty grub os-prober efibootmgr btrfs-progs snapper snap-pac grub-btrfs
+pacman -S git ttf-liberation xdg-user-dirs nano dbus-dinit networkmanager-dinit cronie-dinit hyprland kitty grub os-prober efibootmgr btrfs-progs snapper snap-pac grub-btrfs zramen-dinit
 ```
 
 ### Configure the system timezone
@@ -488,6 +488,7 @@ dinitctl --user enable pipewire-pulse
 
 ```bash
 su root
+dinitctl enable zramen
 dinitctl enable dbus
 dinitctl enable elogind
 dinitctl enable chrony
