@@ -751,6 +751,10 @@ sudo cp -r fonts /usr/local/share
 gsettings set org.cinnamon.desktop.default-applications.terminal exec kitty
 ```
 
+### Configure Firefox middle-click autoscroll
+
+Open Firefox, type about:config in the address bar and set general.autoScroll to true
+
 ### Configure zshrc and Powerlevel10k
 
 ```bash
