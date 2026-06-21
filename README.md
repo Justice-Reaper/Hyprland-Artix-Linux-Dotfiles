@@ -452,7 +452,7 @@ sudo pacman -S bluez-dinit bluez-utils inter-font noto-fonts noto-fonts-emoji no
 sudo pacman -S xdg-desktop-portal-hyprland xdg-desktop-portal-gtk xdg-desktop-portal qt5-wayland qt6-wayland hyprland-qt-support libnotify
 sudo pacman -S ntfs-3g exfatprogs dosfstools unzip plocate wget blueman nm-connection-editor gvfs nemo xed nwg-look jre21-openjdk xdg-utils
 sudo pacman -S waybar hyprpaper rofi dunst btop fastfetch jq lsd bat fzf grim flameshot wl-clipboard wl-clip-persist xf86-input-libinput
-sudo pacman -S zsh-autosuggestions zsh-completions zsh-syntax-highlighting celluloid openbsd-netcat qt5ct qt6ct pix 
+sudo pacman -S zsh-autosuggestions zsh-completions zsh-syntax-highlighting celluloid openbsd-netcat qt5ct qt6ct pix net-tools
 ```
 
 ### Install paru as AUR helper
