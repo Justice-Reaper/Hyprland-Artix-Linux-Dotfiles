@@ -148,11 +148,15 @@ if [[ ! -d "$SNAP_PATH" ]]; then
     exit 1
 fi
 
-SNAP_DATE=$(stat -c "%y" "$SNAP_PATH" 2>/dev/null | cut -d. -f1)
+SNAP_DATE=""
 SNAP_DESC=""
 INFO_XML="$TMP_MNT/@snapshots/$SNAP_NUM/info.xml"
 if [[ -f "$INFO_XML" ]]; then
+    SNAP_DATE=$(grep -oP '(?<=<date>).*(?=</date>)' "$INFO_XML" 2>/dev/null || true)
     SNAP_DESC=$(grep -oP '(?<=<description>).*(?=</description>)' "$INFO_XML" 2>/dev/null || true)
+fi
+if [[ -z "$SNAP_DATE" ]]; then
+    SNAP_DATE=$(stat -c "%y" "$SNAP_PATH" 2>/dev/null | cut -d. -f1)
 fi
 
 BACKUP_NAME="@_old_$(date +%Y-%m-%d_%H:%M)"
@@ -189,7 +193,9 @@ echo
 echo -e "${GREEN}Rollback complete!${NC}"
 echo
 echo "After reboot, verify everything works and then clean up:"
-echo -e "  ${CYAN}sudo $0 --cleanup${NC}"
+echo -e "  ${CYAN}sudo $0 --list${NC}                              # list old @ backups"
+echo -e "  ${CYAN}sudo $0 --cleanup $BACKUP_NAME${NC}    # delete this one"
+echo -e "  ${CYAN}sudo $0 --cleanup-all${NC}                       # delete all"
 echo
 
 read -rp "Reboot now? [y/N] " reboot_confirm
