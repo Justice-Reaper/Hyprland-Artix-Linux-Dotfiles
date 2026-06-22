@@ -72,12 +72,37 @@ if [[ "${1:-}" == "--cleanup" ]]; then
     exit 0
 fi
 
+BOOTED_SNAP=$(grep -oP 'subvol=@snapshots/\K[0-9]+' /proc/cmdline 2>/dev/null || true)
+
 if [[ $# -ge 1 ]]; then
     SNAP_NUM="$1"
+elif [[ -n "$BOOTED_SNAP" ]]; then
+    echo -e "${GREEN}Detected: booted from snapshot #$BOOTED_SNAP${NC}"
+    SNAP_NUM="$BOOTED_SNAP"
 else
     echo -e "${BOLD}Available snapshots:${NC}"
     echo
-    snapper list 2>/dev/null || ls "$TMP_MNT/@snapshots/"
+    printf "  ${BOLD}%-6s %-20s %-8s %s${NC}\n" "#" "Date" "Type" "Description"
+    echo "  ────── ──────────────────── ──────── ─────────────────────────"
+    for dir in "$TMP_MNT/@snapshots"/*/; do
+        num=$(basename "$dir")
+        if [[ ! "$num" =~ ^[0-9]+$ ]]; then
+            continue
+        fi
+        info_xml="$dir/info.xml"
+        snap_date=""
+        snap_type=""
+        snap_desc=""
+        if [[ -f "$info_xml" ]]; then
+            snap_date=$(grep -oP '(?<=<date>).*(?=</date>)' "$info_xml" 2>/dev/null || true)
+            snap_type=$(grep -oP '(?<=<type>).*(?=</type>)' "$info_xml" 2>/dev/null || true)
+            snap_desc=$(grep -oP '(?<=<description>).*(?=</description>)' "$info_xml" 2>/dev/null || true)
+        fi
+        if [[ -z "$snap_date" ]]; then
+            snap_date=$(stat -c "%y" "$dir/snapshot" 2>/dev/null | cut -d. -f1 || true)
+        fi
+        printf "  %-6s %-20s %-8s %s\n" "$num" "$snap_date" "$snap_type" "$snap_desc"
+    done
     echo
     read -rp "Snapshot number to rollback to: " SNAP_NUM
 fi
