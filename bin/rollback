@@ -14,6 +14,9 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 ROOT_DEV=$(findmnt -n -o SOURCE / | sed 's/\[.*\]//')
+if [[ -z "$ROOT_DEV" || "$ROOT_DEV" == "rootfs" ]]; then
+    ROOT_DEV=$(findmnt -n -o SOURCE /home | sed 's/\[.*\]//')
+fi
 if [[ -z "$ROOT_DEV" ]]; then
     echo -e "${RED}Could not detect root btrfs device${NC}"
     exit 1
