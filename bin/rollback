@@ -5,8 +5,22 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 CYAN='\033[0;36m'
-BOLD='\033[1m'
 NC='\033[0m'
+
+if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
+    echo "Usage:"
+    echo "  sudo rollback                                     Interactive snapshot selection"
+    echo "  sudo rollback <snapshot id>                       Rollback to a specific snapshot"
+    echo "  sudo rollback --list                              List old @ backups"
+    echo "  sudo rollback --cleanup <backup name>             Delete a specific old @ backup"
+    echo "  sudo rollback --cleanup-all                       Delete all old @ backups"
+    echo
+    echo "Examples:"
+    echo "  sudo rollback                                     Interactive snapshot selection"
+    echo "  sudo rollback 820                                 Rollback to snapshot #820"
+    echo "  sudo rollback --cleanup @_old_2026-06-22_22:03    Delete specific backup"
+    exit 0
+fi
 
 if [[ $EUID -ne 0 ]]; then
     echo -e "${RED}Execute as root: sudo $0 [snapshot_number]${NC}"
@@ -57,14 +71,14 @@ list_old() {
 }
 
 if [[ "${1:-}" == "--list" ]]; then
-    echo -e "${BOLD}Old @ backups on $ROOT_DEV:${NC}"
+    echo -e "Old @ backups on $ROOT_DEV:${NC}"
     echo
     list_old
     exit 0
 fi
 
 if [[ "${1:-}" == "--cleanup-all" ]]; then
-    echo -e "${BOLD}Old @ backups on $ROOT_DEV:${NC}"
+    echo -e "Old @ backups on $ROOT_DEV:${NC}"
     echo
     if ! list_old; then
         exit 0
@@ -88,7 +102,7 @@ if [[ "${1:-}" == "--cleanup" ]]; then
     if [[ -z "${2:-}" ]]; then
         echo -e "${RED}Specify which backup to delete: sudo rollback --cleanup @_old_2026-06-22_22:03${NC}"
         echo
-        echo -e "${BOLD}Available:${NC}"
+        echo -e "Available:${NC}"
         echo
         list_old
         exit 1
@@ -115,9 +129,9 @@ elif [[ -n "$BOOTED_SNAP" ]]; then
     echo -e "${GREEN}Detected: booted from snapshot #$BOOTED_SNAP${NC}"
     SNAP_NUM="$BOOTED_SNAP"
 else
-    echo -e "${BOLD}Available snapshots:${NC}"
+    echo -e "Available snapshots:${NC}"
     echo
-    printf "  ${BOLD}%-6s %-20s %-8s %s${NC}\n" "#" "Date" "Type" "Description"
+    printf "  %-6s %-20s %-8s %s${NC}\n" "#" "Date" "Type" "Description"
     echo "  ────── ──────────────────── ──────── ─────────────────────────"
     for num in $(ls "$TMP_MNT/@snapshots/" | grep -E '^[0-9]+$' | sort -rn); do
         dir="$TMP_MNT/@snapshots/$num/"
@@ -171,8 +185,8 @@ if [[ -n "$SNAP_DESC" ]]; then
 echo -e "${YELLOW}│${NC} Desc:      ${CYAN}$SNAP_DESC${NC}"
 fi
 echo -e "${YELLOW}│${NC}"
-echo -e "${YELLOW}│${NC} ${BOLD}@${NC} → ${RED}$BACKUP_NAME${NC}"
-echo -e "${YELLOW}│${NC} ${BOLD}snapshot #$SNAP_NUM${NC} → ${GREEN}new @${NC}"
+echo -e "${YELLOW}│${NC} @${NC} → ${RED}$BACKUP_NAME${NC}"
+echo -e "${YELLOW}│${NC} snapshot #$SNAP_NUM${NC} → ${GREEN}new @${NC}"
 echo -e "${YELLOW}└─────────────────────────────────────┘${NC}"
 echo
 
