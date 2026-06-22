@@ -41,20 +41,32 @@ if [[ ! -d "$TMP_MNT/@snapshots" ]]; then
     exit 1
 fi
 
-if [[ "${1:-}" == "--cleanup" ]]; then
-    echo -e "${BOLD}Old @ backups on $ROOT_DEV:${NC}"
-    echo
-    found=0
+list_old() {
+    local found=0
     for d in "$TMP_MNT"/@_old_*; do
         if [[ -d "$d" ]]; then
             name=$(basename "$d")
-            ts=${name#@_old_}
-            echo -e "  ${RED}$name${NC}  ($(btrfs subvolume show "$d" 2>/dev/null | grep -oP '(?<=Gen.*:\s)\S+' | head -1 || echo "?"))"
+            echo -e "  ${RED}$name${NC}"
             found=1
         fi
     done
     if [[ $found -eq 0 ]]; then
         echo "  (none found)"
+    fi
+    return $found
+}
+
+if [[ "${1:-}" == "--list" ]]; then
+    echo -e "${BOLD}Old @ backups on $ROOT_DEV:${NC}"
+    echo
+    list_old
+    exit 0
+fi
+
+if [[ "${1:-}" == "--cleanup-all" ]]; then
+    echo -e "${BOLD}Old @ backups on $ROOT_DEV:${NC}"
+    echo
+    if ! list_old; then
         exit 0
     fi
     echo
@@ -68,6 +80,29 @@ if [[ "${1:-}" == "--cleanup" ]]; then
             fi
         done
         echo -e "${GREEN}Cleanup done.${NC}"
+    fi
+    exit 0
+fi
+
+if [[ "${1:-}" == "--cleanup" ]]; then
+    if [[ -z "${2:-}" ]]; then
+        echo -e "${RED}Specify which backup to delete: sudo rollback --cleanup @_old_2026-06-22_22:03${NC}"
+        echo
+        echo -e "${BOLD}Available:${NC}"
+        echo
+        list_old
+        exit 1
+    fi
+    target="$TMP_MNT/$2"
+    if [[ ! -d "$target" ]]; then
+        echo -e "${RED}$2 not found${NC}"
+        exit 1
+    fi
+    read -rp "Delete $2? [y/N] " del_confirm
+    if [[ "$del_confirm" == "y" || "$del_confirm" == "Y" ]]; then
+        echo -e "${GREEN}Deleting $2...${NC}"
+        btrfs subvolume delete "$target"
+        echo -e "${GREEN}Done.${NC}"
     fi
     exit 0
 fi
