@@ -84,9 +84,9 @@ else
     echo
     printf "  ${BOLD}%-6s %-20s %-8s %s${NC}\n" "#" "Date" "Type" "Description"
     echo "  ────── ──────────────────── ──────── ─────────────────────────"
-    for dir in "$TMP_MNT/@snapshots"/*/; do
-        num=$(basename "$dir")
-        if [[ ! "$num" =~ ^[0-9]+$ ]]; then
+    for num in $(ls "$TMP_MNT/@snapshots/" | grep -E '^[0-9]+$' | sort -rn); do
+        dir="$TMP_MNT/@snapshots/$num/"
+        if [[ ! -d "$dir" ]]; then
             continue
         fi
         info_xml="$dir/info.xml"
