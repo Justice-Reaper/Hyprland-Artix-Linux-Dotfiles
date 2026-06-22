@@ -60,14 +60,15 @@ list_old() {
     for d in "$TMP_MNT"/@_old_*; do
         if [[ -d "$d" ]]; then
             name=$(basename "$d")
-            echo -e "  ${RED}$name${NC}"
+            echo -e "${RED}$name${NC}"
             found=1
         fi
     done
     if [[ $found -eq 0 ]]; then
-        echo "  (none found)"
+        echo "(none found)"
+        return 1
     fi
-    return $found
+    return 0
 }
 
 if [[ "${1:-}" == "--list" ]]; then
@@ -90,6 +91,9 @@ if [[ "${1:-}" == "--cleanup-all" ]]; then
             if [[ -d "$d" ]]; then
                 name=$(basename "$d")
                 echo -e "${GREEN}Deleting $name...${NC}"
+                btrfs subvolume list "$TMP_MNT" | awk '{print $NF}' | grep "^${name}/" | sort -r | while read -r sub; do
+                    btrfs subvolume delete "$TMP_MNT/$sub"
+                done || true
                 btrfs subvolume delete "$d"
             fi
         done
@@ -115,6 +119,9 @@ if [[ "${1:-}" == "--cleanup" ]]; then
     read -rp "Delete $2? [y/N] " del_confirm
     if [[ "$del_confirm" == "y" || "$del_confirm" == "Y" ]]; then
         echo -e "${GREEN}Deleting $2...${NC}"
+        btrfs subvolume list "$TMP_MNT" | awk '{print $NF}' | grep "^${2}/" | sort -r | while read -r sub; do
+            btrfs subvolume delete "$TMP_MNT/$sub"
+        done || true
         btrfs subvolume delete "$target"
         echo -e "${GREEN}Done.${NC}"
     fi
