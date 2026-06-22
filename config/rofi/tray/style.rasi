@@ -12,7 +12,6 @@
     font:                       "Hack Nerd Font 10";
 }
 
-
 /*****----- Global Settings -----*****/
 * {
     padding:                    0;
@@ -26,38 +25,24 @@
 /*****----- Configuration -----*****/
 configuration {
     show-icons:                 true;
-    display-drun:               " ";
-    normalize-match:            true;
-    icon-theme:                 "Papirus";        
-    sort:                       true;
-    sorting-method:             "fzf";
-    matching:                   "fuzzy";
-
-
-    /*---------- Drun Settings ----------*/
-    drun-display-format: "{name}";
-
-    drun {
-        parse-user: true;
-        parse-system: false;
-        fallback-icon: "application-x-addon";
-    }
+    icon-theme:                 "Papirus";
 
     /*---------- Keybindings ----------*/
-    kb-move-front: "KP_Home";
-    kb-row-first: "";
-    kb-move-end: "KP_End";
-    kb-row-last: "";
-    kb-move-word-back: "Alt+Left";
-    kb-move-word-forward: "Alt+Right";
-    kb-remove-word-back: "Alt+BackSpace";
-    kb-remove-word-forward: "Alt+Delete";
-    kb-custom-1: "Alt+Return";
+    kb-move-front:              "KP_Home";
+    kb-row-first:               "";
+    kb-move-end:                "KP_End";
+    kb-row-last:                "";
+    kb-move-word-back:          "Alt+Left";
+    kb-move-word-forward:       "Alt+Right";
+    kb-remove-word-back:        "Alt+BackSpace";
+    kb-remove-word-forward:     "Alt+Delete";
 }
 
 /*****----- Main Window -----*****/
 window {
     transparency:                "real";
+    location:                    center;
+    anchor:                      center;
     width:                       330px;
     background-color:            @black;
 }
@@ -96,7 +81,7 @@ listview {
 
 scrollbar {
     margin:                      0px 0px 0px 5px;
-    handle-width:                5px ;
+    handle-width:                5px;
     handle-color:                @selected;
     background-color:            @gray;
 }

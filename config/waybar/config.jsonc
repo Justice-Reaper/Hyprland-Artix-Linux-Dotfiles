@@ -1,0 +1,156 @@
+{
+  "reload_style_on_change": true,
+  "position": "top",
+  "mod": "dock",
+  "margin-top": 0,
+  "height": 32,
+  "margin-left": 0,
+  "margin-right": 0,
+  "margin-bottom": 0,
+
+
+"group/left1": {
+    "orientation": "inherit",
+    "modules": [
+      "custom/launcher",
+      "custom/manager",
+      "group/network"
+      ]
+  },
+  "modules-left": ["group/left1"],
+  "modules-center": ["hyprland/workspaces"],
+  "modules-right": [
+    "group/audio",
+    "group/display",
+    "custom/battery",
+    "clock",
+    "custom/power"
+
+  ],
+  "hyprland/workspaces": {
+    "on-click": "activate",
+    "format": "{icon}",
+    "format-icons": {
+      "default": "󵀨",
+      "active": "󵀨",
+      "empty": "󵀦"
+    },
+    "persistent-workspaces": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": [],
+      "5": []
+    }
+  },
+  "custom/launcher": {
+    "format": "󵀣",
+    "on-click": "/home/justice-reaper/.config/rofi/launcher/launcher.sh",
+    "tooltip": false
+  },
+  "custom/power": {
+    "format": "󵀛",
+    "on-click": "/home/justice-reaper/.config/rofi/power-menu/power-menu.sh",
+    "tooltip": false
+  },
+  "custom/manager": {
+    "format": "󰀿",
+    "on-click": "/home/justice-reaper/.config/rofi/manager/manager.sh",
+    "tooltip": false
+  },
+  "custom/internet": {
+    "exec": "/home/justice-reaper/.config/waybar/scripts/internet-status.sh",
+    "return-type": "json",
+    "signal": 14,
+    "interval": 30,
+    "on-click": "/home/justice-reaper/.config/waybar/scripts/copy-local-ip.sh"
+  },
+  "custom/vpn": {
+    "exec": "/home/justice-reaper/.config/waybar/scripts/vpn-status.sh",
+    "return-type": "json",
+    "signal": 15,
+    "interval": 30,
+    "on-click": "/home/justice-reaper/.config/waybar/scripts/copy-vpn-ip.sh"
+  },
+  "custom/scope": {
+    "exec": "/home/justice-reaper/.config/waybar/scripts/scope-status.sh",
+    "return-type": "json",
+    "signal": 16,
+    "interval": 60,
+    "on-click": "/home/justice-reaper/.config/rofi/scope-manager/scope-manager.sh"
+  },
+  "custom/nightlight": {
+    "exec": "/home/justice-reaper/.config/waybar/scripts/color-temperature-control.sh temperature",
+    "return-type": "json",
+    "signal": 12,
+    "on-click": "/home/justice-reaper/.config/waybar/scripts/color-temperature-control.sh toggle",
+    "on-scroll-up": "/home/justice-reaper/.config/waybar/scripts/color-temperature-control.sh increase",
+    "on-scroll-down": "/home/justice-reaper/.config/waybar/scripts/color-temperature-control.sh decrease"
+  },
+  "custom/battery": {
+    "exec": "/home/justice-reaper/.config/waybar/scripts/battery-status.sh",
+    "return-type": "json",
+    "signal": 11,
+    "interval": 60
+  },
+  "clock": {
+    "format": "󵀎 {:%H:%M - %d/%m/%Y}",
+    "tooltip": false,
+    "calendar": {
+      "mode": "month",
+      "weeks-pos": "right",
+      "mode-mon-col": 3,
+      "on-click-right": "mode",
+      "format": {
+        "month": "<span color='#F1CF8A'><b>{}</b></span>",
+        "weekdays": "<span color='#70A5EB'><b>{}</b></span>",
+        "today": "<span color='#E05F65'><b>{}</b></span>"
+      }
+    }
+  },
+  "wireplumber#input": {
+    "format": "󰍬 {volume}%",
+    "tooltip": false,
+    "format-muted": "󰍭 Muted",
+    "node-type": "Audio/Source",
+    "max-volume": 100,
+    "scroll-step": 5,
+    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+  },
+  "wireplumber#output": {
+    "format": "󵀟 {volume}%",
+    "tooltip": false,
+    "format-muted": "󵀠 Muted",
+    "max-volume": 100,
+    "scroll-step": 2,
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+  },
+  "backlight": {
+    "device": "amdgpu_bl2",
+    "format": "󵀍 {percent}%",
+    "tooltip": false,
+    "scroll-step": 5
+  },
+  "group/network": {
+    "orientation": "inherit",
+    "modules": [
+      "custom/internet",
+      "custom/vpn",
+      "custom/scope"
+    ]
+  },
+  "group/audio": {
+    "orientation": "inherit",
+    "modules": [
+      "wireplumber#input",
+      "wireplumber#output"
+    ]
+  },
+  "group/display": {
+    "orientation": "inherit",
+    "modules": [
+      "backlight",
+      "custom/nightlight"
+    ]
+  }
+}

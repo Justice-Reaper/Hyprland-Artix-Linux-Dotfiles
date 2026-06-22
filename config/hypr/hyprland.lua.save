@@ -23,6 +23,16 @@ hl.monitor({
 })
 
 
+---------------------
+---- MY PROGRAMS ----
+---------------------
+
+-- Set programs that you use
+local terminal    = "kitty"
+local fileManager = "dolphin"
+local menu        = "/home/justice-reaper/.config/rofi/launcher/launcher.sh"
+
+
 -------------------
 ---- AUTOSTART ----
 -------------------
@@ -33,13 +43,12 @@ hl.monitor({
 -- Or execute your favorite apps at launch like this:
 --
 -- hl.on("hyprland.start", function () 
---   hl.exec_cmd("kitty")
+--   hl.exec_cmd(terminal)
 --   hl.exec_cmd("nm-applet")
 --   hl.exec_cmd("waybar & hyprpaper & firefox")
 -- end)
 
 hl.on("hyprland.start", function()
-    hl.exec_cmd("hyprland-minimizer watch")
     hl.exec_cmd("waybar")
     hl.exec_cmd("hyprpaper")
     hl.exec_cmd("wl-gammarelay-rs")
@@ -93,7 +102,7 @@ hl.config({
         border_size = 2,
 
         col = {
-            active_border   = "rgba(70A5EBbb)",
+            active_border   = { colors = {"rgba(33ccffee)", "rgba(00ff99ee)"}, angle = 45 },
             inactive_border = "rgba(28344aaa)",
         },
 
@@ -128,7 +137,7 @@ hl.config({
             vibrancy  = 0.1696,
         },
     },
- 
+
     animations = {
         enabled = true,
     },
@@ -190,7 +199,6 @@ end
 hl.config({
     dwindle = {
         preserve_split = true, -- You probably want this
-        force_split = 2, -- New windows always split to the right/bottom
     },
 })
 
@@ -213,17 +221,10 @@ hl.config({
 ----------------
 
 hl.config({
-    render = {
-        -- Expands edge pixels instead of stretching the whole texture when a window hasn't redrawn yet during resize
-        expand_undersized_textures = false,
-    },
-})
-
-hl.config({
     misc = {
         force_default_wallpaper = 0,    -- Set to 0 or 1 to disable the anime mascot wallpapers
         disable_hyprland_logo   = true, -- If true disables the random hyprland logo / anime girl background. :(
-        focus_on_activate       = true, -- Auto-focus a window when it requests activation (e.g. clicking a notification to jump to Discord)
+        focus_on_activate       = true,
     },
 })
 
@@ -273,17 +274,18 @@ local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
 
 -- Launch terminal
-hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd("kitty"))
+hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(terminal))
 
 -- Take a screenshot
-hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("flameshot gui"))
+hl.bind(mainMod .. " + C", hl.dsp.exec_cmd('flameshot gui'))
 
 hl.bind(mainMod .. " + W", hl.dsp.window.close(), { repeating = true })
-hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("nemo"))
+hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("hyprctl dispatch 'hl.dsp.exit()'"))
+hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("/home/justice-reaper/.config/waybar/scripts/launch-tool.sh pavucontrol"))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("/home/justice-reaper/.config/waybar/scripts/launch-tool.sh blueman-manager"))
 hl.bind(mainMod .. " + I", hl.dsp.exec_cmd("/home/justice-reaper/.config/waybar/scripts/launch-tool.sh nm-connection-editor"))
-hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("/home/justice-reaper/.config/rofi/launcher/launcher.sh"))
+hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("/home/justice-reaper/.config/rofi/power-menu/power-menu.sh"))
 hl.bind(mainMod .. " + L", hl.dsp.layout("togglesplit"))    -- dwindle only
 
@@ -320,7 +322,7 @@ hl.bind(mainMod .. " + F", function()
     end
 end)
 
-hl.bind(mainMod .. " + S", hl.dsp.window.fullscreen())
+hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.fullscreen())
 
 hl.bind(mainMod .. " + SHIFT + F", function()
     local w = hl.get_active_window()
@@ -363,7 +365,7 @@ for i = 1, 10 do
     hl.bind(mainMod .. " + SHIFT + " .. key,     hl.dsp.window.move({ workspace = i, follow=false}))
 end
 
-hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("hyprland-minimizer")) -- Minimize focused window to the system tray
+hl.bind(mainMod .. " + S", hl.dsp.exec_cmd("/home/justice-reaper/.config/waybar/scripts/scratchpad-send.sh"))
 
 -- Scroll through existing workspaces with mainMod + scroll
 hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
@@ -444,36 +446,12 @@ hl.window_rule({
 hl.window_rule({
      match = { class = "Rofi" },
      float = true,
-     pin = true,
-})
-
-hl.window_rule({
-     match = { class = "org.pulseaudio.pavucontrol" },
-     float = true,
-     size = "800 600",
-     pin = true,
-})
-
-hl.window_rule({
-     match = { class = "blueman-manager" },
-     float = true,
-     size = "800 600",
-     pin = true,
-})
-
-hl.window_rule({
-     match = { class = "nm-connection-editor" },
-     float = true,
-     size = "800 600",
-     pin = true,
 })
 
 hl.window_rule({
      match = { class = "flameshot" },
      float = true,
-     move = "0 0",
-     pin = true,
+     fullscreen = 1,
 })
-
 
 

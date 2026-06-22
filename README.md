@@ -514,6 +514,44 @@ nano /etc/dinit.d/config/zramen.conf
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
+### Configure grub-btrfs-overlayfs for clean snapshot boot
+
+grub-btrfs-overlayfs is a mkinitcpio hook included with grub-btrfs. It mounts a temporary RAM layer (overlayfs) on top of read-only snapshots, so services like random-seed and hwclock can write without errors. Without this hook, dinit detects the failed services and shows a "boot failure?" screen when booting from a snapshot.
+
+Add `grub-btrfs-overlayfs` at the end of HOOKS in `/etc/mkinitcpio.conf`
+
+```bash
+sed -i 's/fsck)/fsck grub-btrfs-overlayfs)/' /etc/mkinitcpio.conf
+```
+
+Verify it looks correct
+
+```bash
+grep "^HOOKS" /etc/mkinitcpio.conf
+```
+
+Expected output
+
+```
+HOOKS=(base udev autodetect microcode modconf kms keyboard keymap consolefont block filesystems fsck grub-btrfs-overlayfs)
+```
+
+Regenerate the initramfs and update GRUB
+
+```bash
+mkinitcpio -P
+grub-mkconfig -o /boot/grub/grub.cfg
+```
+
+Only snapshots created after this step will have the hook in their initramfs. Older snapshots will still show the dinit error because their initramfs is frozen without the hook.
+
+### Install the rollback script
+
+```bash
+sudo cp bin/rollback /usr/local/bin/rollback
+sudo chmod +x /usr/local/bin/rollback
+```
+
 ### Configure plocate for bind mounts
 
 Find and change this value
@@ -810,11 +848,41 @@ find /usr/share/applications -name "*.desktop" | /home/justice-reaper/.config/ro
 
 ## 3. How to recover the system when everything breaks
 
-### If GRUB works
+### Automated rollback (from a running system)
 
-Reboot → in GRUB select `Artix Linux snapshots` → choose the snapshot you want to restore → it boots in read-only mode → verify it works
+If the system boots but something is broken, run the rollback script directly
 
-### If GRUB doesn't work (live USB)
+```bash
+sudo rollback
+```
+
+It lists all snapshots, asks which one to restore, backs up the current `@` as `@_broken_TIMESTAMP`, creates a writable snapshot as the new `@`, and offers to reboot.
+
+To rollback to a specific snapshot without the interactive menu
+
+```bash
+sudo rollback 750
+```
+
+After rebooting and verifying everything works, clean up old backups
+
+```bash
+sudo rollback --cleanup
+```
+
+### Automated rollback (from a GRUB snapshot)
+
+If the system doesn't boot at all but GRUB works
+
+1. Reboot → in GRUB select `Artix Linux snapshots` → choose a snapshot
+2. It boots with overlayfs (temporary RAM layer on top of the read-only snapshot)
+3. Run the rollback script from inside the snapshot
+
+```bash
+sudo rollback
+```
+
+### Manual rollback (live USB, if GRUB is also broken)
 
 Boot from the Artix USB
 

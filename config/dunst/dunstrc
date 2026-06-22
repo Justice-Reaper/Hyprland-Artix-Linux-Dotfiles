@@ -28,8 +28,8 @@
     width = 300
 
     # The height of a single notification, excluding the frame.
-    # dynamic height from 0 to 300
-    height = (0, 300)
+    # dynamic height from 0 to 200
+    height = (0, 200)
     # constant height of 300
     # height = 300
     # NOTE: Dunst from version 1.11 and older don't support dynamic height
@@ -47,7 +47,7 @@
     scale = 0
 
     # Maximum number of notification (0 means no limit)
-    notification_limit = 8
+    notification_limit = 4
 
     ### Progress bar ###
 
@@ -150,7 +150,7 @@
 
     ### Text ###
 
-    font = JetBrains Mono Nerd Font Medium 10
+    font = Inter 10
 
     # The spacing between lines.  If the height is smaller than the
     # font height, it will get raised to the font height.
@@ -244,7 +244,7 @@
     max_icon_size = 32
 
     # Paths to default icons (only necessary when not using recursive icon lookup)
-    icon_path = "/usr/share/icons/Papirus/32x32/status/:/usr/share/icons/Papirus/32x32/devices/:/usr/share/icons/Papirus/32x32/apps/:/usr/share/icons/Papirus/32x32/places/:/usr/share/icons/Papirus/32x32/actions/:/usr/share/icons/Papirus/32x32/emblems/:/usr/share/icons/Papirus/32x32/emotes/:/usr/share/icons/Papirus/32x32/mimetypes/"
+    icon_path = "/home/justice-reaper/.icons/oomox-tokyo-night-dark/32x32/status/:/home/justice-reaper/.icons/oomox-tokyo-night-dark/32x32/devices/:/home/justice-reaper/.icons/oomox-tokyo-night-dark/32x32/apps/:/home/justice-reaper/.icons/oomox-tokyo-night-dark/32x32/places/:/home/justice-reaper/.icons/oomox-tokyo-night-dark/32x32/actions/:/home/justice-reaper/.icons/oomox-tokyo-night-dark/32x32/emblems/:/home/justice-reaper/.icons/oomox-tokyo-night-dark/32x32/emotes/:/home/justice-reaper/.icons/oomox-tokyo-night-dark/32x32/mimetypes/"
 
     ### History ###
 

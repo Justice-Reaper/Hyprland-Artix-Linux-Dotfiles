@@ -1,83 +1,53 @@
 #!/bin/bash
+# Pure reader for the system tray in rofi. All the D-Bus work (enumerating items,
+# resolving names/icons, activating) lives in hyprland-minimizer; this script only
+# reads its output and renders the rofi menu.
 
 dir="/home/justice-reaper/.config/rofi/tray"
-cache="/home/justice-reaper/.config/rofi/filters/desktop-cache.txt"
 
-if [ ! -f "$cache" ]; then
-    /home/justice-reaper/.config/rofi/filters/desktop-cache.sh
+if [ ! "${ROFI_RETV+set}" = "set" ]; then
+    rofi -show tray -modi "tray:$0" -x11 -normal-window -theme "${dir}/style.rasi"
+    exit 0
 fi
 
-find_desktop() {
-    local id="${1,,}" line=""
+state="${ROFI_DATA:-list}"
 
-    line=$(grep -m1 "^${id}|" "$cache")
+show_list() {
+    echo -en "\0data\x1flist\n"
+    echo -en "\0prompt\x1fTray\n"
+    echo -en "\0no-custom\x1ftrue\n"
 
-    if [ -z "$line" ]; then
-        local prefix="${id%%[^[:alnum:]]*}"
-        if [ -n "$prefix" ]; then
-            line=$(grep -m1 "^${prefix}" "$cache")
-        fi
-    fi
-
-    echo "$line"
+    hyprland-minimizer list-tray | while IFS='|' read -r name icon bus path pid; do
+        echo -en "${name}\0icon\x1f${icon}\x1finfo\x1f${bus}|${path}|${pid}\n"
+    done
 }
 
-items_raw=$(gdbus call --session \
-    --dest=org.kde.StatusNotifierWatcher \
-    --object-path=/StatusNotifierWatcher \
-    --method=org.freedesktop.DBus.Properties.Get \
-    "org.kde.StatusNotifierWatcher" "RegisteredStatusNotifierItems" 2>/dev/null)
+show_actions() {
+    echo -en "\0data\x1f${ROFI_INFO}\n"
+    echo -en "\0prompt\x1fAction\n"
+    echo -en "\0no-custom\x1ftrue\n"
+    echo -en "Open\0icon\x1fgo-next\x1finfo\x1fopen\n"
+    echo -en "Close\0icon\x1fwindow-close\x1finfo\x1fclose\n"
+}
 
-mapfile -t items < <(echo "$items_raw" | grep -oP "'[^']+'" | tr -d "'")
-
-if [ ${#items[@]} -eq 0 ]; then exit 0; fi
-
-buses=()
-paths=()
-display=""
-
-for item in "${items[@]}"; do
-    bus="${item%%/*}"
-    path="/${item#*/}"
-
-    props=$(gdbus call --session --dest="$bus" --object-path="$path" \
-        --method=org.freedesktop.DBus.Properties.GetAll \
-        "org.kde.StatusNotifierItem" 2>/dev/null)
-
-    title=$(echo "$props" | grep -oP "'Title': <'[^']*'>" | grep -oP "(?<=<')[^']*")
-    id=$(echo "$props" | grep -oP "'Id': <'[^']*'>" | grep -oP "(?<=<')[^']*")
-
-    if [ -z "$title" ]; then title="$id"; fi
-
-    info=$(find_desktop "$id")
-    if [ -n "$info" ]; then
-        name=$(echo "$info" | cut -d'|' -f2)
-        icon=$(echo "$info" | cut -d'|' -f3)
-    else
-        name="${title^}"
-        icon="${id,,}"
-    fi
-
-    buses+=("$bus")
-    paths+=("$path")
-    display+="${name}\0icon\x1f${icon}\n"
-done
-
-index=$(echo -en "$display" | rofi -dmenu -format i -x11 -normal-window -theme "${dir}/style.rasi" -p "Tray")
-code=$?
-
-if [ -z "$index" ] || [ "$index" = "-1" ]; then exit 0; fi
-
-bus="${buses[$index]}"
-path="${paths[$index]}"
-
-case $code in
-    0)
-        gdbus call --session --dest="$bus" --object-path="$path" \
-            --method=org.kde.StatusNotifierItem.Activate 0 0 > /dev/null 2>&1
+case "$state" in
+    list)
+        case "${ROFI_RETV}" in
+            0) show_list ;;
+            1) show_actions ;;
+        esac
         ;;
-    10)
-        gdbus call --session --dest="$bus" --object-path="$path" \
-            --method=org.kde.StatusNotifierItem.SecondaryActivate 0 0 > /dev/null 2>&1
+    *)
+        IFS='|' read -r bus path pid <<< "$state"
+        case "$ROFI_INFO" in
+            open)
+                hyprland-minimizer tray-activate "$bus" "$path"
+                show_list
+                ;;
+            close)
+                hyprland-minimizer tray-close "$bus" "$path" "$pid"
+                show_list
+                ;;
+        esac
         ;;
 esac
