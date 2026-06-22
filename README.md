@@ -876,7 +876,7 @@ If the system boots but something is broken, run the rollback script directly
 sudo rollback
 ```
 
-It lists all snapshots, asks which one to restore, backs up the current `@` as `@_broken_TIMESTAMP`, creates a writable snapshot as the new `@`, and offers to reboot.
+It lists all snapshots, asks which one to restore, backs up the current `@` as `@_backup_TIMESTAMP`, creates a writable snapshot as the new `@`, and offers to reboot.
 
 To rollback to a specific snapshot without the interactive menu
 
@@ -931,7 +931,7 @@ for dir in /mnt/@snapshots/*/; do echo "=== $(basename $dir) ==="; grep -o '<des
 Move the broken system and replace with the good snapshot (change NUMBER to the one you choose)
 
 ```bash
-mv /mnt/@ /mnt/@broken
+mv /mnt/@ /mnt/@_old
 btrfs subvolume snapshot /mnt/@snapshots/NUMBER/snapshot /mnt/@
 ```
 
@@ -956,6 +956,6 @@ Once the system works, delete the broken subvolume
 
 ```bash
 sudo mount /dev/nvme0n1p2 /mnt
-sudo btrfs subvolume delete /mnt/@broken
+sudo btrfs subvolume delete /mnt/@_old
 sudo umount /mnt
 ```
