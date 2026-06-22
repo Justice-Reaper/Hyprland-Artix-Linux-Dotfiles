@@ -1,0 +1,3 @@
+type    = scripted
+command = /usr/local/lib/dinit/root-ro-overlay.sh
+restart = false

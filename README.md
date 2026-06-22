@@ -516,24 +516,44 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 ### Configure grub-btrfs-overlayfs for clean snapshot boot
 
-grub-btrfs-overlayfs is a mkinitcpio hook included with grub-btrfs. It mounts a temporary RAM layer (overlayfs) on top of read-only snapshots, so services like random-seed and hwclock can write without errors. Without this hook, dinit detects the failed services and shows a "boot failure?" screen when booting from a snapshot.
+When booting a read-only snapshot from GRUB, dinit services `root-ro` and `early-root-rw.target` try to remount `/` which fails on modern kernels (6.12+) with `overlay: No changes allowed in reconfigure`. This causes all dependent services to fail with exit code 32.
 
-Add `grub-btrfs-overlayfs` at the end of HOOKS in `/etc/mkinitcpio.conf`
+The fix has two parts: (1) the `grub-btrfs-overlayfs` mkinitcpio hook mounts a temporary RAM layer on top of the read-only snapshot, and (2) dinit service overrides detect when root is overlayfs and skip the unnecessary remount.
+
+Add the `overlay` module and `grub-btrfs-overlayfs` hook to `/etc/mkinitcpio.conf`
 
 ```bash
+sed -i 's/^MODULES=()/MODULES=(overlay)/' /etc/mkinitcpio.conf
 sed -i 's/fsck)/fsck grub-btrfs-overlayfs)/' /etc/mkinitcpio.conf
 ```
 
 Verify it looks correct
 
 ```bash
-grep "^HOOKS" /etc/mkinitcpio.conf
+grep "^MODULES\|^HOOKS" /etc/mkinitcpio.conf
 ```
 
 Expected output
 
 ```
+MODULES=(overlay)
 HOOKS=(base udev autodetect microcode modconf kms keyboard keymap consolefont block filesystems fsck grub-btrfs-overlayfs)
+```
+
+Install the dinit overlayfs wrapper scripts
+
+```bash
+sudo mkdir -p /usr/local/lib/dinit
+sudo cp dinit-overlayfs/root-ro-overlay.sh /usr/local/lib/dinit/
+sudo cp dinit-overlayfs/early-root-rw-overlay.sh /usr/local/lib/dinit/
+sudo chmod +x /usr/local/lib/dinit/root-ro-overlay.sh /usr/local/lib/dinit/early-root-rw-overlay.sh
+```
+
+Install the dinit service overrides
+
+```bash
+sudo cp dinit-overlayfs/root-ro /etc/dinit.d/
+sudo cp dinit-overlayfs/early-root-rw.target /etc/dinit.d/
 ```
 
 Regenerate the initramfs and update GRUB
@@ -543,7 +563,7 @@ mkinitcpio -P
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
-Only snapshots created after this step will have the hook in their initramfs. Older snapshots will still show the dinit error because their initramfs is frozen without the hook.
+The dinit overrides in `/etc/dinit.d/` and wrapper scripts in `/usr/local/lib/dinit/` are not managed by pacman, so they survive system updates. Only snapshots created after this step will have the hook in their initramfs.
 
 ### Install the rollback script
 

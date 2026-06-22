@@ -1,0 +1,5 @@
+type       = scripted
+command    = /usr/local/lib/dinit/early-root-rw-overlay.sh
+restart    = false
+options    = starts-rwfs
+depends-on = fsck-root
