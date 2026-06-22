@@ -1,0 +1,6 @@
+#!/bin/sh
+if grep -qE "^\S+ / overlay " /proc/mounts; then
+    echo "==> Skipped (booted from snapshot, root is overlayfs)"
+    exit 0
+fi
+exec /usr/share/libalpm/scripts/snap-pac "$@"

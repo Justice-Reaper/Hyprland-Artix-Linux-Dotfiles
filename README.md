@@ -855,7 +855,9 @@ sudo cp rules/* /etc/udev/rules.d/
 ### Copy the pacman hooks
 
 ```bash
-sudo cp -r hooks /etc/pacman.d
+sudo cp hooks/*.hook /etc/pacman.d/hooks/
+sudo cp hooks/snap-pac-wrapper /usr/local/lib/snap-pac-wrapper
+sudo chmod +x /usr/local/lib/snap-pac-wrapper
 ```
 
 ### Configure the rofi launcher filter

@@ -1,0 +1,14 @@
+[Trigger]
+Operation = Upgrade
+Operation = Install
+Operation = Remove
+Type = Package
+Target = *
+
+[Action]
+Description = Performing snapper pre snapshots for the following configurations...
+Depends = snap-pac
+When = PreTransaction
+Exec = /usr/local/lib/snap-pac-wrapper pre
+NeedsTargets
+AbortOnFail
