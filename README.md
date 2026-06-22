@@ -876,7 +876,7 @@ If the system boots but something is broken, run the rollback script directly
 sudo rollback
 ```
 
-It lists all snapshots, asks which one to restore, backs up the current `@` as `@_backup_TIMESTAMP`, creates a writable snapshot as the new `@`, and offers to reboot.
+It lists all snapshots, asks which one to restore, backs up the current `@` as `@_old_TIMESTAMP`, creates a writable snapshot as the new `@`, and offers to reboot.
 
 To rollback to a specific snapshot without the interactive menu
 
