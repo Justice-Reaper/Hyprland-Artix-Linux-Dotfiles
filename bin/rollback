@@ -45,10 +45,10 @@ if [[ "${1:-}" == "--cleanup" ]]; then
     echo -e "${BOLD}Old @ backups on $ROOT_DEV:${NC}"
     echo
     found=0
-    for d in "$TMP_MNT"/@_backup_*; do
+    for d in "$TMP_MNT"/@_old_*; do
         if [[ -d "$d" ]]; then
             name=$(basename "$d")
-            ts=${name#@_backup_}
+            ts=${name#@_old_}
             echo -e "  ${RED}$name${NC}  ($(btrfs subvolume show "$d" 2>/dev/null | grep -oP '(?<=Gen.*:\s)\S+' | head -1 || echo "?"))"
             found=1
         fi
@@ -60,7 +60,7 @@ if [[ "${1:-}" == "--cleanup" ]]; then
     echo
     read -rp "Delete ALL old @ backups? [y/N] " del_confirm
     if [[ "$del_confirm" == "y" || "$del_confirm" == "Y" ]]; then
-        for d in "$TMP_MNT"/@_backup_*; do
+        for d in "$TMP_MNT"/@_old_*; do
             if [[ -d "$d" ]]; then
                 name=$(basename "$d")
                 echo -e "${GREEN}Deleting $name...${NC}"
@@ -120,7 +120,7 @@ if [[ -f "$INFO_XML" ]]; then
     SNAP_DESC=$(grep -oP '(?<=<description>).*(?=</description>)' "$INFO_XML" 2>/dev/null || true)
 fi
 
-BACKUP_NAME="@_backup_$(date +%Y-%m-%d_%H:%M)"
+BACKUP_NAME="@_old_$(date +%Y-%m-%d_%H:%M)"
 
 echo
 echo -e "${YELLOW}┌─────────────────────────────────────┐${NC}"
