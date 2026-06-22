@@ -281,8 +281,8 @@ nano /etc/snapper/configs/root
 ```
 TIMELINE_CREATE="no"
 NUMBER_CLEANUP="yes"
-NUMBER_LIMIT="30"
-NUMBER_LIMIT_IMPORTANT="15"
+NUMBER_LIMIT="60"
+NUMBER_LIMIT_IMPORTANT="20"
 ```
 
 ### Install and configure GRUB
