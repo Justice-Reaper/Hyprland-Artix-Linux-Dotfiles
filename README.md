@@ -889,7 +889,9 @@ sudo rollback 750
 After rebooting and verifying everything works, clean up old backups
 
 ```bash
-sudo rollback --cleanup
+sudo rollback --list                              # list old @ backups
+sudo rollback --cleanup @_old_2026-06-22_22:03    # delete a specific one
+sudo rollback --cleanup-all                       # delete all old @ backups
 ```
 
 ### Automated rollback (from a GRUB snapshot)
