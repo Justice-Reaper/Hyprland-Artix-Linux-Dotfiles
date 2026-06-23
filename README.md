@@ -790,6 +790,19 @@ nwg-look
 
 If there are any issues, you can recreate the theme by following the steps in oomox-user-preset/RECREATE-OOMOX-THEME.md
 
+### Regenerate the waybar icon font
+
+The waybar icon font lives in `fonts/WaybarIconsFont.ttf` and is built from SVGs by the generator in `generate-waybar-icons-font`
+
+```bash
+cd generate-waybar-icons-font
+fontforge -lang=py -script build-waybar-icons-font.py
+```
+
+This reads the SVGs in `generate-waybar-icons-font/icons`, writes the font to `fonts/WaybarIconsFont.ttf` and the codepoint map to `generate-waybar-icons-font/icon-chars.sh`
+
+See `generate-waybar-icons-font/README.md` for how to add or change icons
+
 ### Add custom tools
 
 ```bash
