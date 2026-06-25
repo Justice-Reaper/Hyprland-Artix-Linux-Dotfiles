@@ -661,6 +661,15 @@ sudo cp burpsuite-professional/burpsuitepro.desktop /usr/share/applications
 cp burpsuite-professional/burpsuitepro.desktop /home/justice-reaper/.local/share/applications
 ```
 
+### Install jython
+
+Download the latest stable version of Jython Standalone https://repo1.maven.org/maven2/org/python/jython-standalone/
+
+```bash
+sudo mkdir /opt/jython
+sudo cp /home/justice-reaper/Downloads/jython-standalone-2.7.4.jar /opt/jython
+```
+
 ### Apply Tokyo Night Dark theme for user justice-reaper
 
 Configure the theme for GTK3
