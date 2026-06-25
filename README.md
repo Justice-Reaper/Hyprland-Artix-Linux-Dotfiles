@@ -366,8 +366,8 @@ This creates a snapshot marked as "important" only once per day on the first boo
 
 | Type | When created | Limit | Who does it |
 |---|---|---|---|
-| Normal (pre/post) | When installing/removing with pacman | 30 | snap-pac |
-| Important | On PC boot | 15 | cronie (@reboot) |
+| Normal (pre/post) | When installing/removing with pacman | 60 | snap-pac |
+| Important | On PC boot | 20 | cronie (@reboot) |
 
 Save with `Ctrl+O` → Enter → `Ctrl+X`
 
