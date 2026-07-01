@@ -11,7 +11,7 @@ charging_icons=("󵀋" "󵀀" "󵀁" "󵀂" "󵀃" "󵀄" "󵀅" "󵀆" "󵀇" "
 discharge_icons=("󵀉" "󵀀" "󵀁" "󵀂" "󵀃" "󵀄" "󵀅" "󵀆" "󵀇" "󵀈" "󵀌")
 
 frame=0
-# estado de notificación en memoria (antes en ~/.config/bin/battery-state)
+# estado de notificación en memoria
 state=""
 
 get_index() {
@@ -64,12 +64,12 @@ notify() {
 render() {
     status=$(cat "$bat/status" 2>/dev/null)
     capacity=$(cat "$bat/capacity" 2>/dev/null || echo 0)
-    local ac_online idx class
+    local idx class
     ac_online=$(cat "$ac/online" 2>/dev/null || echo 0)
 
     notify "$status" "$capacity" "$ac_online"
 
-    if [ "$status" = "Charging" ]; then
+    if [ "$ac_online" = "1" ] && [ "$capacity" -lt 100 ]; then
         idx=$((frame % 11))
         echo "{\"text\": \"${charging_icons[$idx]} $capacity%\", \"class\": \"charging\"}"
     elif [ "$status" = "Full" ]; then
@@ -100,10 +100,10 @@ trap cleanup EXIT INT TERM
 
 while true; do
     render
-    if [ "$status" = "Charging" ]; then
-        # animacion: siguiente frame cada 0.75s mientras carga
+    if [ "$ac_online" = "1" ] && [ "$capacity" -lt 100 ]; then
+        # animacion: siguiente frame cada 0.5s mientras carga
         frame=$(( (frame + 1) % 11 ))
-        sleep 0.75
+        sleep 0.5
     else
         # el resto del tiempo: bloqueado hasta el siguiente evento de bateria
         frame=0
