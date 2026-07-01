@@ -287,6 +287,18 @@ NUMBER_LIMIT_IMPORTANT="20"
 
 ### Install and configure GRUB
 
+Disable AMD Panel Self Refresh (PSR) to avoid random compositor freezes on Rembrandt/RDNA2 eDP panels
+
+Find and change this value
+
+```bash
+nano /etc/default/grub
+```
+
+```bash
+GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet amdgpu.dcdebugmask=0x10"
+```
+
 ```bash
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=grub
 grub-mkconfig -o /boot/grub/grub.cfg

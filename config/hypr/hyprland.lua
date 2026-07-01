@@ -283,10 +283,10 @@ hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd("kitty"))
 hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("flameshot gui"))
 
 hl.bind(mainMod .. " + W", hl.dsp.window.close(), { repeating = true })
-hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("nemo"))
-hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("/home/justice-reaper/.config/waybar/scripts/launch-tool.sh pavucontrol"))
-hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("/home/justice-reaper/.config/waybar/scripts/launch-tool.sh blueman-manager"))
-hl.bind(mainMod .. " + I", hl.dsp.exec_cmd("/home/justice-reaper/.config/waybar/scripts/launch-tool.sh nm-connection-editor"))
+hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("nemo"))
+hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("pavucontrol"))
+hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("blueman-manager"))
+hl.bind(mainMod .. " + I", hl.dsp.exec_cmd("nm-connection-editor"))
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("/home/justice-reaper/.config/rofi/launcher/launcher.sh"))
 hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("/home/justice-reaper/.config/rofi/power-menu/power-menu.sh"))
 hl.bind(mainMod .. " + L", hl.dsp.layout("togglesplit"))    -- dwindle only
@@ -367,7 +367,8 @@ for i = 1, 10 do
     hl.bind(mainMod .. " + SHIFT + " .. key,     hl.dsp.window.move({ workspace = i, follow=false}))
 end
 
-hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("hyprland-minimizer")) -- Minimize focused window to the system tray
+-- Minimize focused window to the system tray
+hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("hyprland-minimizer"))
 
 -- Scroll through existing workspaces with mainMod + scroll
 hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
@@ -377,23 +378,24 @@ hl.bind(mainMod .. " + mouse_up",   hl.dsp.focus({ workspace = "e-1" }))
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
--- Laptop multimedia keys for volume and LCD brightness
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"), { locked = true, repeating = true })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),      { locked = true, repeating = true })
-hl.bind("XF86AudioMute",        hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),     { locked = true, repeating = true })
-hl.bind("XF86AudioMicMute",     hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),   { locked = true, repeating = true })
-hl.bind("SUPER + F7", hl.dsp.exec_cmd("v=$(pactl get-source-volume @DEFAULT_SOURCE@ | grep -oP '\\d+%' | head -1 | tr -d '%'); [ \"$v\" -lt 100 ] && pactl set-source-volume @DEFAULT_SOURCE@ +5%"), { locked = true, repeating = true })
-hl.bind("SUPER + F6", hl.dsp.exec_cmd("pactl set-source-volume @DEFAULT_SOURCE@ -5%"),  { locked = true, repeating = true })
-hl.bind("SUPER + F5", hl.dsp.exec_cmd("pactl set-source-mute @DEFAULT_SOURCE@ toggle"), { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessUp",  hl.dsp.exec_cmd("bash -c 'brightnessctl set 5%+ && brightnessctl get > ~/.config/bin/brightness'"),  { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessDown",hl.dsp.exec_cmd("bash -c 'brightnessctl set 5%- && brightnessctl get > ~/.config/bin/brightness'"), { locked = true, repeating = true })
+-- Brightness
+hl.bind("SUPER + F3", hl.dsp.exec_cmd("bash -c 'brightnessctl set 5%+ && brightnessctl get > ~/.config/bin/brightness'"), { locked = true, repeating = true })
+hl.bind("SUPER + F2", hl.dsp.exec_cmd("bash -c 'brightnessctl set 5%- && brightnessctl get > ~/.config/bin/brightness'"), { locked = true, repeating = true })
 
--- Requires playerctl
-hl.bind("XF86AudioNext",  hl.dsp.exec_cmd("playerctl next"),       { locked = true })
-hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
-hl.bind("XF86AudioPlay",  hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
-hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = true })
+-- Volume
+hl.bind("SUPER + F7", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"), { locked = true, repeating = true })
+hl.bind("SUPER + F6", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),      { locked = true, repeating = true })
+hl.bind("SUPER + F5", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),     { locked = true, repeating = true })
 
+-- Microphone
+hl.bind("SUPER + SHIFT + F7", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SOURCE@ 5%+"), { locked = true, repeating = true })
+hl.bind("SUPER + SHIFT + F6", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-"),      { locked = true, repeating = true })
+hl.bind("SUPER + SHIFT + F5", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),     { locked = true, repeating = true })
+
+-- Nightlight
+hl.bind("SUPER + F8",  hl.dsp.exec_cmd("/home/justice-reaper/.config/waybar/scripts/nightlight.sh toggle"),   { locked = true })
+hl.bind("SUPER + F9",  hl.dsp.exec_cmd("/home/justice-reaper/.config/waybar/scripts/nightlight.sh decrease"), { locked = true, repeating = true })
+hl.bind("SUPER + F10", hl.dsp.exec_cmd("/home/justice-reaper/.config/waybar/scripts/nightlight.sh increase"), { locked = true, repeating = true })
 
 --------------------------------
 ---- WINDOWS AND WORKSPACES ----
@@ -478,7 +480,6 @@ hl.window_rule({
      move        = {0, 0},
      pin = true,
 })
-
 
 hl.window_rule({
      match = { class = "flameshot", title = "flameshot" },
