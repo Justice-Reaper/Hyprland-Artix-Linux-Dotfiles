@@ -1,3 +1,0 @@
-#!/bin/bash
-
-nmcli -f NAME,UUID,DBUS-PATH,TYPE,DEVICE connection show

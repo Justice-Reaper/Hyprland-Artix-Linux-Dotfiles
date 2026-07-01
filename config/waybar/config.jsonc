@@ -95,8 +95,7 @@
   "custom/battery": {
     "exec": "/home/justice-reaper/.config/waybar/scripts/battery-status.sh",
     "return-type": "json",
-    "tooltip": false,
-    "signal": 11
+    "tooltip": false
   },
   "clock": {
     "format": "󵀎 {:%H:%M - %d/%m/%Y}",
