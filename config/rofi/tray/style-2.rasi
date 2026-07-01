@@ -25,6 +25,7 @@
 
 /*****----- Configuration -----*****/
 configuration {
+    show-icons:                 false;
     normalize-match:            true;
     sort:                       true;
     sorting-method:             "fzf";
@@ -42,40 +43,24 @@ configuration {
 }
 
 /*****----- Main Window -----*****/
+/* width is injected per-call from tray.sh so it fits the content */
 window {
     transparency:                "real";
-    width:                       300px;
+    location:                    center;
+    anchor:                      center;
     background-color:            @black;
 }
 
 /*****----- Main Box -----*****/
 mainbox {
     padding:                     20px;
-    children:                    [ "inputbar", "listview" ];
-}
-
-/*****----- Inputbar -----*****/
-inputbar {
-    spacing:                     10px;
-    margin:                      0px 0px 15px 0px;
-    padding:                     10px 0px;
-    text-color:                  @white;
-    children:                    [ "prompt", "entry" ];
-}
-
-prompt {
-    text-color:                  inherit;
-}
-
-entry {
-    placeholder:                 "Search...";
-    text-color:                  inherit;
+    children:                    [ "listview" ];
 }
 
 /*****----- Listview -----*****/
+/* lines is injected per-call from tray.sh so the height fits the content */
 listview {
-    lines:                       9;
-    scrollbar:                   true;    
+    scrollbar:                   true;
     spacing:                     10px;
     text-color:                  @white;
 }

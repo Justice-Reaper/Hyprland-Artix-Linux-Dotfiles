@@ -13,4 +13,4 @@ if [ -n "$ip_address_ethernet" ]; then
     ip_address=$ip_address_ethernet
 fi
 
-printf '%s' "$ip_address" | wl-copy
+echo -n "$ip_address" | wl-copy

@@ -13,7 +13,7 @@
 /* --- Global-Settings ---*/
 
 * {
-  font-family: 'Waybar Icons Font', 'Hack Nerd Font';
+  font-family: 'IconsFont', 'Hack Nerd Font';
   font-size: 14px;
   font-weight: bold;
   min-height: 0px;
@@ -103,8 +103,6 @@ tooltip {
 #audio,
 #display,
 #clock,
-#custom-launcher,
-#custom-power,
 #custom-manager,
 #custom-battery {
   min-width: 20px;
@@ -141,6 +139,10 @@ tooltip {
 }
 
 #custom-manager {
+  color: @white;
+}
+
+#custom-tray {
   color: @purple;
 }
 
@@ -166,10 +168,6 @@ tooltip {
 
 #custom-nightlight {
   color: @yellow;
-}
-
-#custom-nightlight.off {
-  color: @disabled;
 }
 
 #clock {

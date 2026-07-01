@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Print every WaybarIconsFont icon in the terminal.
+"""Print every Icons Font icon in the terminal.
 
 The terminal renders them via fontconfig fallback, so the font has to be
 installed (fc-cache included) for them to show.

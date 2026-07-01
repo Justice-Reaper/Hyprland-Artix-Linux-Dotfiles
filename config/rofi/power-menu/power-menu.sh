@@ -1,11 +1,11 @@
 #!/bin/bash
 
 dir="/home/justice-reaper/.config/rofi/power-menu"
-shutdown='Shutdown'
-reboot='Reboot'
-lock='Lock'
-suspend='Suspend'
-logout='Logout'
+lock='󵀒'
+logout='󵀓'
+suspend='󵀟'
+reboot='󵀛'
+shutdown='󵀚'
 
 rofi_cmd() {
     rofi -dmenu \
@@ -15,25 +15,25 @@ rofi_cmd() {
 }
 
 run_rofi() {
-    echo -e "$lock\n$suspend\n$logout\n$reboot\n$shutdown" | rofi_cmd
+    echo -e "$shutdown\n$logout\n$lock\n$suspend\n$reboot" | rofi_cmd
 }
 
 chosen="$(run_rofi)"
 
-case ${chosen} in
-    $shutdown)
-        loginctl poweroff
-        ;;
-    $reboot)
-        loginctl reboot
-        ;;
-    $lock)
+case "${chosen}" in
+    "$lock")
         swaylock
         ;;
-    $suspend)
+    "$logout")
+        hyprctl dispatch 'hl.dsp.exit()'
+        ;;
+    "$suspend")
         loginctl suspend
         ;;
-    $logout)
-        hyprctl dispatch 'hl.dsp.exit()'
+    "$reboot")
+        loginctl reboot
+        ;;
+    "$shutdown")
+        loginctl poweroff
         ;;
 esac

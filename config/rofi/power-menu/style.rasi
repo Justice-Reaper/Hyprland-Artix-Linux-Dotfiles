@@ -1,81 +1,66 @@
-/*****----- Colors -----*****/
-* {
-    selected:       #70A5EB;
-    black:          #101419;
-    white:          #DEE1E6;
-    green:          #76B97F;
-    red:            #E05F65;
-    gray:           #28344A;
-}
-
-/*****----- Fonts -----*****/
-* {
-    font:             "Hack Nerd Font 10";
-}
-
-/*****----- Global Settings -----*****/
-* {
-    padding:          0;
-    margin:           0;
-    border:           0;
-    spacing:          0;
-    background-color: transparent;
-    border-color:     transparent;
-}
-
-/*****----- Configuration -----*****/
 configuration {
-
-    /*---------- Keybindings ----------*/
-    kb-move-front:              "KP_Home";
-    kb-row-first:               "";
-    kb-move-end:                "KP_End";
-    kb-row-last:                "";
-    kb-move-word-back:          "Alt+Left";
-    kb-move-word-forward:       "Alt+Right";
-    kb-remove-word-back:        "Alt+BackSpace";
-    kb-remove-word-forward:     "Alt+Delete";
+    show-icons:                     false;
+    font:                           "WaybarIconsFont 30";
+    location:                       0;
+    anchor:                         center;
+    fixed-num-lines:                true;
+    ml-row-up:                      "";
+    ml-row-down:                    "";
+    ml-row-left:                    "ScrollDown";
+    ml-row-right:                   "ScrollUp";
 }
 
-/*****----- Main Window -----*****/
+* {
+    bg:                             #101419;
+    border-clr:                     #44475a;
+    icon-inactive:                  #28344a;
+    icon-active:                    #70A5EB;
+    background-color:               transparent;
+    text-color:                     @icon-inactive;
+}
+
 window {
-    transparency:                "real";
-    location:                    north east;
-    anchor:                      north east;
-    width:                       175px;
-    x-offset:                    -15px;
-    y-offset:                    57px;
-    background-color:            @black;
+    background-color:               @bg;
+    border:                         0px;
+    border-radius:                  0px;
+    width:                          450px;
 }
 
-/*****----- Main Box -----*****/
+inputbar {
+    enabled:                        false;
+}
+
 mainbox {
-    padding:                     15px;
-    children:                    [ "listview" ];
+    children:                       [ listview ];
+    padding:                        22px;
 }
 
-/*****----- Listview -----*****/
 listview {
-    lines:                       5;
-    spacing:                     3px;
-    text-color:                  @white;
+    columns:                        5;
+    lines:                          1;
+    flow:                           horizontal;
+    fixed-height:                   true;
+    fixed-columns:                  true;
+    spacing:                        0;
+    scrollbar:                      false;
+    cycle:                          true;
 }
 
-/*****----- Elements -----*****/
 element {
-    padding:                     10px;
-    border-radius:               10px;
-    cursor:                      pointer;
-    text-color:                  inherit;
-}
-
-element selected.normal {
-    background-color:            @selected;
-    text-color:                  @black;
+    padding:                        8px;
 }
 
 element-text {
-    cursor:                      inherit;
-    text-color:                  inherit;
-    vertical-align:              0.5;
+    text-color:                     inherit;
+    horizontal-align:               0.5;
+    vertical-align:                 0.5;
+    cursor:                         pointer;
+}
+
+element normal.normal {
+    text-color:                     @icon-inactive;
+}
+
+element selected.normal {
+    text-color:                     @icon-active;
 }

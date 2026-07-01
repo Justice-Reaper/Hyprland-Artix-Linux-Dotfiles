@@ -39,14 +39,18 @@ hl.monitor({
 -- end)
 
 hl.on("hyprland.start", function()
-    hl.exec_cmd("hyprland-minimizer watch")
-    hl.exec_cmd("waybar")
-    hl.exec_cmd("hyprpaper")
-    hl.exec_cmd("wl-gammarelay-rs")
-    hl.exec_cmd("wl-clip-persist --clipboard regular")
-    hl.exec_cmd("/home/justice-reaper/.config/waybar/scripts/network-monitor.sh")
-    hl.exec_cmd("/home/justice-reaper/.config/rofi/polkit-agent/rofi-polkit-agent -theme /home/justice-reaper/.config/rofi/polkit-agent/style.rasi")
-    hl.exec_cmd("/home/justice-reaper/.config/touchpad-control/touchpad-toggle.sh")
+    hl.exec_cmd("setpriv --ambient-caps -all dunst")
+    hl.exec_cmd("setpriv --ambient-caps -all hyprland-minimizer watch")
+    hl.exec_cmd("setpriv --ambient-caps -all hyprpaper")
+    hl.exec_cmd("setpriv --ambient-caps -all wl-gammarelay-rs")
+    hl.exec_cmd("setpriv --ambient-caps -all wl-clip-persist --clipboard regular")
+    hl.exec_cmd("setpriv --ambient-caps -all /home/justice-reaper/.config/waybar/scripts/network-monitor.sh")
+    hl.exec_cmd("setpriv --ambient-caps -all /home/justice-reaper/.config/waybar/scripts/battery-monitor.sh")
+    hl.exec_cmd("setpriv --ambient-caps -all /home/justice-reaper/.config/waybar/scripts/nightlight.sh restore")
+    hl.exec_cmd("bash -c 'sleep 0.5 && if [ -f ~/.config/bin/brightness ]; then setpriv --ambient-caps -all brightnessctl set $(cat ~/.config/bin/brightness); fi'")
+    hl.exec_cmd("setpriv --ambient-caps -all /home/justice-reaper/.config/rofi/polkit-agent/rofi-polkit-agent -theme /home/justice-reaper/.config/rofi/polkit-agent/style.rasi")
+    hl.exec_cmd("setpriv --ambient-caps -all /home/justice-reaper/.config/touchpad-control/touchpad-toggle.sh")
+    hl.exec_cmd("bash -c 'sleep 0.5 && exec setpriv --ambient-caps -all waybar'")
 end)
 
 -------------------------------
@@ -381,8 +385,8 @@ hl.bind("XF86AudioMicMute",     hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_S
 hl.bind("SUPER + F7", hl.dsp.exec_cmd("v=$(pactl get-source-volume @DEFAULT_SOURCE@ | grep -oP '\\d+%' | head -1 | tr -d '%'); [ \"$v\" -lt 100 ] && pactl set-source-volume @DEFAULT_SOURCE@ +5%"), { locked = true, repeating = true })
 hl.bind("SUPER + F6", hl.dsp.exec_cmd("pactl set-source-volume @DEFAULT_SOURCE@ -5%"),  { locked = true, repeating = true })
 hl.bind("SUPER + F5", hl.dsp.exec_cmd("pactl set-source-mute @DEFAULT_SOURCE@ toggle"), { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessUp",  hl.dsp.exec_cmd("brightnessctl set 5%+"),  { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessDown",hl.dsp.exec_cmd("brightnessctl set 5%-"), { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessUp",  hl.dsp.exec_cmd("bash -c 'brightnessctl set 5%+ && brightnessctl get > ~/.config/bin/brightness'"),  { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessDown",hl.dsp.exec_cmd("bash -c 'brightnessctl set 5%- && brightnessctl get > ~/.config/bin/brightness'"), { locked = true, repeating = true })
 
 -- Requires playerctl
 hl.bind("XF86AudioNext",  hl.dsp.exec_cmd("playerctl next"),       { locked = true })
@@ -471,9 +475,12 @@ hl.window_rule({
 hl.window_rule({
      match = { class = "flameshot" },
      float = true,
-     move = "0 0",
+     move        = {0, 0},
      pin = true,
 })
 
 
-
+hl.window_rule({
+     match = { class = "flameshot", title = "flameshot" },
+     move        = {0, 0},
+})

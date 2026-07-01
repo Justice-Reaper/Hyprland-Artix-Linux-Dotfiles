@@ -1,12 +1,12 @@
 #!/bin/bash
 exec 2>/dev/null
 
-ICON_ON=$(printf '\U000F5021')
-ICON_OFF=$(printf '\U000F5022')
+ICON_ON="󵀤"
+ICON_OFF="󵀣"
 
 if ip link show tun0 &>/dev/null; then
     ip_address=$(ip -4 -o addr show tun0 | awk '{print $4}' | cut -d'/' -f1)
-    printf '{"text": "%s %s", "class": "connected", "tooltip": "VPN: %s"}\n' "$ICON_ON" "$ip_address" "$ip_address"
+    echo "{\"text\": \"$ICON_ON $ip_address\", \"class\": \"connected\", \"tooltip\": \"VPN: $ip_address\"}"
 else
-    printf '{"text": "%s Disconnected", "class": "disconnected", "tooltip": "VPN: Disconnected"}\n' "$ICON_OFF"
+    echo "{\"text\": \"$ICON_OFF Disconnected\", \"class\": \"disconnected\", \"tooltip\": \"VPN: Disconnected\"}"
 fi

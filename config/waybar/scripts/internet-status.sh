@@ -1,9 +1,9 @@
 #!/bin/bash
 exec 2>/dev/null
 
-ICON_WIFI=$(printf '\U000F5025')
-ICON_ETH=$(printf '\U000F5024')
-ICON_OFF=$(printf '\U000F501A')
+ICON_WIFI="󵀧"
+ICON_ETH="󵀦"
+ICON_OFF="󵀥"
 
 default_interface=$(ip route show default | awk 'NR==1{print $5}')
 
@@ -21,4 +21,4 @@ if [ -z "$ip_address" ]; then
     class="disconnected"
 fi
 
-printf '{"text": "%s %s", "class": "%s", "tooltip": "%s: %s"}\n' "$icon" "$ip_address" "$class" "${default_interface:-none}" "$ip_address"
+echo "{\"text\": \"$icon $ip_address\", \"class\": \"$class\", \"tooltip\": \"${default_interface:-none}: $ip_address\"}"

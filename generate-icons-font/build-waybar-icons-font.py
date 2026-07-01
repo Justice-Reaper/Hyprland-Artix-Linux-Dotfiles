@@ -1,5 +1,5 @@
 #!/usr/bin/env fontforge -lang=py -script
-# Builds WaybarIconsFont.ttf from scratch, using only the SVGs found in the
+# Builds Icons Font.ttf from scratch, using only the SVGs found in the
 # ./icons folder next to this script. Icons are assigned sequential codepoints starting at U+F5000
 # in alphabetical order (folder/file), with no gaps and nothing inherited
 # from any previous font.
@@ -29,7 +29,7 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 SVG_DIR = os.path.join(HERE, "icons")
 # the generated font lives in the repo's fonts/ folder, one level up
-OUT = os.path.join(HERE, "..", "fonts", "WaybarIconsFont.ttf")
+OUT = os.path.join(HERE, "..", "fonts", "Icons Font.ttf")
 MAP_OUT = os.path.join(HERE, "icon-chars.sh")
 
 EM = 2048
@@ -112,9 +112,9 @@ font.encoding = "UnicodeFull"
 font.ascent = 1638
 font.descent = 410
 font.em = EM
-font.fontname = "WaybarIconsFont"
-font.familyname = "Waybar Icons Font"
-font.fullname = "Waybar Icons Font Regular"
+font.fontname = "Icons Font"
+font.familyname = "Icons Font"
+font.fullname = "Icons Font Regular"
 font.weight = "Regular"
 
 font.os2_typoascent_add = False

@@ -12,28 +12,24 @@
 "group/left1": {
     "orientation": "inherit",
     "modules": [
-      "custom/launcher",
-      "custom/manager",
       "group/network"
       ]
   },
-  "modules-left": ["group/left1"],
+  "modules-left": ["custom/manager", "group/left1"],
   "modules-center": ["hyprland/workspaces"],
   "modules-right": [
-    "group/audio",
     "group/display",
+    "group/audio",
     "custom/battery",
-    "clock",
-    "custom/power"
-
+    "clock"
   ],
   "hyprland/workspaces": {
     "on-click": "activate",
     "format": "{icon}",
     "format-icons": {
-      "default": "󵀨",
-      "active": "󵀨",
-      "empty": "󵀦"
+      "default": "󵀩",
+      "active": "󵀪",
+      "empty": "󵀨"
     },
     "persistent-workspaces": {
       "1": [],
@@ -53,14 +49,20 @@
     "on-click": "/home/justice-reaper/.config/rofi/power-menu/power-menu.sh",
     "tooltip": false
   },
+  "custom/tray": {
+    "format": "󵀠",
+    "on-click": "/home/justice-reaper/.config/rofi/tray/tray.sh",
+    "tooltip": false
+  },
   "custom/manager": {
-    "format": "󰀿",
+    "format": "󵀑",
     "on-click": "/home/justice-reaper/.config/rofi/manager/manager.sh",
     "tooltip": false
   },
   "custom/internet": {
     "exec": "/home/justice-reaper/.config/waybar/scripts/internet-status.sh",
     "return-type": "json",
+    "tooltip": false,
     "signal": 14,
     "interval": 30,
     "on-click": "/home/justice-reaper/.config/waybar/scripts/copy-local-ip.sh"
@@ -68,6 +70,7 @@
   "custom/vpn": {
     "exec": "/home/justice-reaper/.config/waybar/scripts/vpn-status.sh",
     "return-type": "json",
+    "tooltip": false,
     "signal": 15,
     "interval": 30,
     "on-click": "/home/justice-reaper/.config/waybar/scripts/copy-vpn-ip.sh"
@@ -75,23 +78,25 @@
   "custom/scope": {
     "exec": "/home/justice-reaper/.config/waybar/scripts/scope-status.sh",
     "return-type": "json",
+    "tooltip": false,
     "signal": 16,
     "interval": 60,
     "on-click": "/home/justice-reaper/.config/rofi/scope-manager/scope-manager.sh"
   },
   "custom/nightlight": {
-    "exec": "/home/justice-reaper/.config/waybar/scripts/color-temperature-control.sh temperature",
+    "exec": "/home/justice-reaper/.config/waybar/scripts/nightlight.sh temperature",
     "return-type": "json",
+    "tooltip": false,
     "signal": 12,
-    "on-click": "/home/justice-reaper/.config/waybar/scripts/color-temperature-control.sh toggle",
-    "on-scroll-up": "/home/justice-reaper/.config/waybar/scripts/color-temperature-control.sh increase",
-    "on-scroll-down": "/home/justice-reaper/.config/waybar/scripts/color-temperature-control.sh decrease"
+    "on-click": "/home/justice-reaper/.config/waybar/scripts/nightlight.sh toggle",
+    "on-scroll-up": "/home/justice-reaper/.config/waybar/scripts/nightlight.sh increase",
+    "on-scroll-down": "/home/justice-reaper/.config/waybar/scripts/nightlight.sh decrease"
   },
   "custom/battery": {
     "exec": "/home/justice-reaper/.config/waybar/scripts/battery-status.sh",
     "return-type": "json",
-    "signal": 11,
-    "interval": 60
+    "tooltip": false,
+    "signal": 11
   },
   "clock": {
     "format": "󵀎 {:%H:%M - %d/%m/%Y}",
@@ -109,27 +114,28 @@
     }
   },
   "wireplumber#input": {
-    "format": "󰍬 {volume}%",
+    "format": "󵀕 {volume}%",
     "tooltip": false,
-    "format-muted": "󰍭 Muted",
+    "format-muted": "󵀔 Muted",
     "node-type": "Audio/Source",
     "max-volume": 100,
     "scroll-step": 5,
-    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
   },
   "wireplumber#output": {
-    "format": "󵀟 {volume}%",
+    "format": "󵀡 {volume}%",
     "tooltip": false,
-    "format-muted": "󵀠 Muted",
+    "format-muted": "󵀢 Muted",
     "max-volume": 100,
-    "scroll-step": 2,
+    "scroll-step": 5,
     "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
   },
   "backlight": {
     "device": "amdgpu_bl2",
     "format": "󵀍 {percent}%",
     "tooltip": false,
-    "scroll-step": 5
+    "on-scroll-up": "brightnessctl set 5%+ && brightnessctl get > ~/.config/bin/brightness",
+    "on-scroll-down": "brightnessctl set 5%- && brightnessctl get > ~/.config/bin/brightness"
   },
   "group/network": {
     "orientation": "inherit",
@@ -149,8 +155,8 @@
   "group/display": {
     "orientation": "inherit",
     "modules": [
-      "backlight",
-      "custom/nightlight"
+      "custom/nightlight",
+      "backlight"
     ]
   }
 }

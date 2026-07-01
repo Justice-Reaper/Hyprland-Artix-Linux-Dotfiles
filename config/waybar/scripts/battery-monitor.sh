@@ -1,7 +1,7 @@
 #!/bin/bash
 
 bat=/sys/class/power_supply/BAT0
-frame_file=/tmp/battery-charge-frame
+frame_file=/home/justice-reaper/.config/bin/battery-charge-frame
 
 cleanup() {
     kill $(jobs -p) 2>/dev/null
@@ -24,7 +24,7 @@ while true; do
     status=$(cat "$bat/status" 2>/dev/null)
     if [ "$status" = "Charging" ]; then
         frame=$(cat "$frame_file" 2>/dev/null || echo 0)
-        echo $(( (frame + 1) % 6 )) > "$frame_file"
+        echo $(( (frame + 1) % 11 )) > "$frame_file"
         pkill -SIGRTMIN+11 waybar
         sleep 0.75
     else

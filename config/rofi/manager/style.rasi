@@ -43,8 +43,8 @@ window {
     location:                    north west;
     anchor:                      north west;
     width:                       175px;
-    x-offset:                    15px;
-    y-offset:                    57px;
+    x-offset:                    12px;
+    y-offset:                    47px;
     background-color:            @black;
 }
 
@@ -56,7 +56,7 @@ mainbox {
 
 /*****----- Listview -----*****/
 listview {
-    lines:                       4;
+    lines:                       6;
     spacing:                     3px;
     text-color:                  @white;
 }

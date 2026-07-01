@@ -1,6 +1,6 @@
-# generate-waybar-icons-font — WaybarIconsFont
+# generate-icons-font — Icons Font
 
-Self-contained generator for `WaybarIconsFont.ttf`, the waybar icon font
+Self-contained generator for `Icons Font.ttf`, the waybar icon font
 Part of the Hyprland-Dotfiles repo
 
 Everything needed to rebuild the font is in this folder, so it works straight after cloning the repo
@@ -20,7 +20,7 @@ Everything needed to rebuild the font is in this folder, so it works straight af
 fontforge -lang=py -script build-waybar-icons-font.py
 ```
 
-Writes the font to `../fonts/WaybarIconsFont.ttf` and the codepoint map to `icon-chars.sh` in this folder
+Writes the font to `../fonts/Icons Font.ttf` and the codepoint map to `icon-chars.sh` in this folder
 
 Print the icons in the terminal (needs the font installed)
 

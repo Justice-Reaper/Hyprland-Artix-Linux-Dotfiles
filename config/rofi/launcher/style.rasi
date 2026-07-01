@@ -28,7 +28,7 @@ configuration {
     show-icons:                 true;
     display-drun:               " ";
     normalize-match:            true;
-    icon-theme:                 "Papirus";        
+    icon-theme:                 "oomox-tokyo-night-dark";
     sort:                       true;
     sorting-method:             "fzf";
     matching:                   "fuzzy";

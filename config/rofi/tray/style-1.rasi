@@ -12,6 +12,7 @@
     font:                       "Hack Nerd Font 10";
 }
 
+
 /*****----- Global Settings -----*****/
 * {
     padding:                    0;
@@ -25,50 +26,35 @@
 /*****----- Configuration -----*****/
 configuration {
     show-icons:                 true;
-    icon-theme:                 "Papirus";
+    normalize-match:            true;
+    icon-theme:                 "oomox-tokyo-night-dark";
+    fallback-icon:              "application-x-addon";
+    sort:                       true;
+    sorting-method:             "fzf";
+    matching:                   "fuzzy";
 
     /*---------- Keybindings ----------*/
-    kb-move-front:              "KP_Home";
-    kb-row-first:               "";
-    kb-move-end:                "KP_End";
-    kb-row-last:                "";
-    kb-move-word-back:          "Alt+Left";
-    kb-move-word-forward:       "Alt+Right";
-    kb-remove-word-back:        "Alt+BackSpace";
-    kb-remove-word-forward:     "Alt+Delete";
+    kb-move-front: "KP_Home";
+    kb-row-first: "";
+    kb-move-end: "KP_End";
+    kb-row-last: "";
+    kb-move-word-back: "Alt+Left";
+    kb-move-word-forward: "Alt+Right";
+    kb-remove-word-back: "Alt+BackSpace";
+    kb-remove-word-forward: "Alt+Delete";
 }
 
 /*****----- Main Window -----*****/
 window {
     transparency:                "real";
-    location:                    center;
-    anchor:                      center;
-    width:                       330px;
+    width:                       300px;
     background-color:            @black;
 }
 
 /*****----- Main Box -----*****/
 mainbox {
     padding:                     20px;
-    children:                    [ "inputbar", "listview" ];
-}
-
-/*****----- Inputbar -----*****/
-inputbar {
-    spacing:                     10px;
-    margin:                      0px 0px 15px 0px;
-    padding:                     10px 0px;
-    text-color:                  @white;
-    children:                    [ "prompt", "entry" ];
-}
-
-prompt {
-    text-color:                  inherit;
-}
-
-entry {
-    placeholder:                 "Search...";
-    text-color:                  inherit;
+    children:                    [ "listview" ];
 }
 
 /*****----- Listview -----*****/
@@ -81,7 +67,7 @@ listview {
 
 scrollbar {
     margin:                      0px 0px 0px 5px;
-    handle-width:                5px;
+    handle-width:                5px ;
     handle-color:                @selected;
     background-color:            @gray;
 }

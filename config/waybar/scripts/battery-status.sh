@@ -1,13 +1,16 @@
 #!/bin/bash
 
 bat=/sys/class/power_supply/BAT0
-frame_file=/tmp/battery-charge-frame
+ac=/sys/class/power_supply/ACAD
 cfg=/home/justice-reaper/.config
+frame_file=$cfg/bin/battery-charge-frame
 state_file=$cfg/bin/battery-state
-icons=$cfg/dunst/icons
+icons=$cfg/waybar/icons
 
-charging_icons=($(printf '\U000F500B') $(printf '\U000F5000') $(printf '\U000F5001') $(printf '\U000F5002') $(printf '\U000F5003') $(printf '\U000F5004') $(printf '\U000F5005') $(printf '\U000F5006') $(printf '\U000F5007') $(printf '\U000F5008') $(printf '\U000F500C'))
-discharge_icons=($(printf '\U000F500B') $(printf '\U000F5000') $(printf '\U000F5001') $(printf '\U000F5002') $(printf '\U000F5003') $(printf '\U000F5004') $(printf '\U000F5005') $(printf '\U000F5006') $(printf '\U000F5007') $(printf '\U000F5008') $(printf '\U000F500C'))
+# charging animation frames: empty -> full (cycled while charging)
+charging_icons=("󵀋" "󵀀" "󵀁" "󵀂" "󵀃" "󵀄" "󵀅" "󵀆" "󵀇" "󵀈" "󵀌")
+# discharging level icons, indexed by get_index (0 = <10% ... 10 = 100%)
+discharge_icons=("󵀉" "󵀀" "󵀁" "󵀂" "󵀃" "󵀄" "󵀅" "󵀆" "󵀇" "󵀈" "󵀌")
 
 get_index() {
     local cap=$1
@@ -27,29 +30,42 @@ get_index() {
 
 status=$(cat "$bat/status" 2>/dev/null)
 capacity=$(cat "$bat/capacity" 2>/dev/null || echo 0)
+ac_online=$(cat "$ac/online" 2>/dev/null || echo 0)
 
 state=$(cat "$state_file" 2>/dev/null)
 
-if [ "$status" = "Discharging" ] && [ "$capacity" -le 10 ] && [ "$state" != "warning" ]; then
-    echo 'warning' > "$state_file"
-    notify-send "Low Battery" "${capacity}% of battery remaining" -u critical -c battery-critical -i "$icons/battery-warning.png" -r 9991
-elif [ "$status" = "Discharging" ] && [ "$capacity" -gt 10 ] && [ "$capacity" -lt 100 ] && [ "$state" != "discharging" ]; then
-    echo 'discharging' > "$state_file"
-elif [ "$status" = "Charging" ] && [ "$capacity" -le 99 ] && [ "$state" != "charging" ]; then
-    echo 'charging' > "$state_file"
-    notify-send "Charging" "${capacity}% of battery charged" -u normal -c battery-normal -i "$icons/battery-charging.png" -r 9991
-elif [ "$capacity" -eq 100 ] && [ "$state" != "fully_charged" ]; then
-    echo 'fully_charged' > "$state_file"
-    notify-send "Battery Charged" "Battery is fully charged" -u normal -c battery-normal -i "$icons/battery-fully-charged.png" -r 9991
+if [ "$ac_online" = "0" ]; then
+    # Sin corriente: solo avisamos de batería baja
+    if [ "$capacity" -le 10 ] && [ "$state" != "warning" ]; then
+        echo 'warning' > "$state_file"
+        notify-send "Low Battery" "${capacity}% of battery remaining" -u critical -c battery-critical -i "$icons/battery-warning.png" -r 9991
+    elif [ "$capacity" -gt 10 ]; then
+        echo 'discharging' > "$state_file"
+    fi
+else
+    # Con corriente conectada
+    if [ "$state" = "discharging" ] || [ "$state" = "warning" ]; then
+        # Acabamos de enchufar el cargador: avisamos siempre, entra corriente
+        # aunque estemos al 100% y no se cargue nada
+        notify-send "Charging" "${capacity}% of battery charged" -u normal -c battery-normal -i "$icons/battery-charging.png" -r 9991
+        if [ "$capacity" -eq 100 ]; then
+            echo 'fully_charged' > "$state_file"
+        else
+            echo 'charging' > "$state_file"
+        fi
+    elif [ "$state" = "charging" ] && [ "$capacity" -eq 100 ]; then
+        # Estaba cargando y ha llegado al 100%
+        echo 'fully_charged' > "$state_file"
+        notify-send "Battery Charged" "Battery is fully charged" -u normal -c battery-normal -i "$icons/battery-fully-charged.png" -r 9991
+    fi
 fi
 
 if [ "$status" = "Charging" ]; then
     frame=$(cat "$frame_file" 2>/dev/null || echo 0)
     idx=$((frame % 11))
-    class="charging"
-    printf '{"text": "%s %d%%", "class": "%s", "tooltip": "Charging: %d%%"}\n' "${charging_icons[$idx]}" "$capacity" "$class" "$capacity"
+    echo "{\"text\": \"${charging_icons[$idx]} $capacity%\", \"class\": \"charging\"}"
 elif [ "$status" = "Full" ]; then
-    printf '{"text": "%s 100%%", "class": "full", "tooltip": "Battery Full"}\n' "$(printf '\U000F500C')"
+    echo "{\"text\": \"󵀊 100%\", \"class\": \"full\"}"
 else
     idx=$(get_index "$capacity")
     if [ "$capacity" -le 10 ]; then
@@ -59,5 +75,5 @@ else
     else
         class="discharging"
     fi
-    printf '{"text": "%s %d%%", "class": "%s", "tooltip": "Discharging: %d%%"}\n' "${discharge_icons[$idx]}" "$capacity" "$class" "$capacity"
+    echo "{\"text\": \"${discharge_icons[$idx]} $capacity%\", \"class\": \"$class\"}"
 fi

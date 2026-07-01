@@ -2,19 +2,25 @@
 
 dir="/home/justice-reaper/.config/rofi/manager"
 
-chosen=$(echo -e "WiFi\nAudio\nBluetooth\nTray" | rofi -dmenu -x11 -normal-window -theme "${dir}/style.rasi")
+chosen=$(echo -e "󵀚 Power\n󵀙 Launcher\n󵀠 Tray\n󵀖 WiFi\n󵀘 Audio\n󵀗 Bluetooth" | rofi -dmenu -x11 -normal-window -theme "${dir}/style.rasi")
 
-case ${chosen} in
-    WiFi)
+case "${chosen}" in
+    "󵀙 Launcher")
+        /home/justice-reaper/.config/rofi/launcher/launcher.sh
+        ;;
+    "󵀠 Tray")
+        /home/justice-reaper/.config/rofi/tray/tray.sh
+        ;;
+    "󵀖 WiFi")
         nm-connection-editor &
         ;;
-    Audio)
+    "󵀘 Audio")
         pavucontrol &
         ;;
-    Bluetooth)
+    "󵀗 Bluetooth")
         blueman-manager &
         ;;
-    Tray)
-        /home/justice-reaper/.config/rofi/tray/tray.sh
+    "󵀚 Power")
+        /home/justice-reaper/.config/rofi/power-menu/power-menu.sh
         ;;
 esac
