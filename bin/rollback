@@ -1,0 +1,225 @@
+#!/bin/bash
+set -euo pipefail
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+CYAN='\033[0;36m'
+NC='\033[0m'
+
+if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
+    echo "Usage:"
+    echo "  sudo rollback                                     Interactive snapshot selection"
+    echo "  sudo rollback <snapshot id>                       Rollback to a specific snapshot"
+    echo "  sudo rollback --list                              List old @ backups"
+    echo "  sudo rollback --cleanup <backup name>             Delete a specific old @ backup"
+    echo "  sudo rollback --cleanup-all                       Delete all old @ backups"
+    echo
+    echo "Examples:"
+    echo "  sudo rollback                                     Interactive snapshot selection"
+    echo "  sudo rollback 820                                 Rollback to snapshot #820"
+    echo "  sudo rollback --cleanup @_old_2026-06-22_22:03    Delete specific backup"
+    exit 0
+fi
+
+if [[ $EUID -ne 0 ]]; then
+    echo -e "${RED}Execute as root: sudo $0 [snapshot_number]${NC}"
+    exit 1
+fi
+
+ROOT_DEV=$(findmnt -n -o SOURCE / | sed 's/\[.*\]//')
+if [[ -z "$ROOT_DEV" || "$ROOT_DEV" == "rootfs" ]]; then
+    ROOT_DEV=$(findmnt -n -o SOURCE /home | sed 's/\[.*\]//')
+fi
+if [[ -z "$ROOT_DEV" ]]; then
+    echo -e "${RED}Could not detect root btrfs device${NC}"
+    exit 1
+fi
+
+TMP_MNT=$(mktemp -d)
+cleanup() {
+    umount "$TMP_MNT" 2>/dev/null || true
+    rmdir "$TMP_MNT" 2>/dev/null || true
+}
+trap cleanup EXIT
+
+mount -o subvolid=5 "$ROOT_DEV" "$TMP_MNT"
+
+if [[ ! -d "$TMP_MNT/@" ]]; then
+    echo -e "${RED}Subvolume @ not found on $ROOT_DEV${NC}"
+    exit 1
+fi
+
+if [[ ! -d "$TMP_MNT/@snapshots" ]]; then
+    echo -e "${RED}Subvolume @snapshots not found on $ROOT_DEV${NC}"
+    exit 1
+fi
+
+list_old() {
+    local found=0
+    for d in "$TMP_MNT"/@_old_*; do
+        if [[ -d "$d" ]]; then
+            name=$(basename "$d")
+            echo -e "${RED}$name${NC}"
+            found=1
+        fi
+    done
+    if [[ $found -eq 0 ]]; then
+        echo "(none found)"
+        return 1
+    fi
+    return 0
+}
+
+if [[ "${1:-}" == "--list" ]]; then
+    echo -e "Old @ backups on $ROOT_DEV:${NC}"
+    echo
+    list_old
+    exit 0
+fi
+
+if [[ "${1:-}" == "--cleanup-all" ]]; then
+    echo -e "Old @ backups on $ROOT_DEV:${NC}"
+    echo
+    if ! list_old; then
+        exit 0
+    fi
+    echo
+    read -rp "Delete ALL old @ backups? [y/N] " del_confirm
+    if [[ "$del_confirm" == "y" || "$del_confirm" == "Y" ]]; then
+        for d in "$TMP_MNT"/@_old_*; do
+            if [[ -d "$d" ]]; then
+                name=$(basename "$d")
+                echo -e "${GREEN}Deleting $name...${NC}"
+                btrfs subvolume list "$TMP_MNT" | awk '{print $NF}' | grep "^${name}/" | sort -r | while read -r sub; do
+                    btrfs subvolume delete "$TMP_MNT/$sub"
+                done || true
+                btrfs subvolume delete "$d"
+            fi
+        done
+        echo -e "${GREEN}Cleanup done.${NC}"
+    fi
+    exit 0
+fi
+
+if [[ "${1:-}" == "--cleanup" ]]; then
+    if [[ -z "${2:-}" ]]; then
+        echo -e "${RED}Specify which backup to delete: sudo rollback --cleanup @_old_2026-06-22_22:03${NC}"
+        echo
+        echo -e "Available:${NC}"
+        echo
+        list_old
+        exit 1
+    fi
+    target="$TMP_MNT/$2"
+    if [[ ! -d "$target" ]]; then
+        echo -e "${RED}$2 not found${NC}"
+        exit 1
+    fi
+    read -rp "Delete $2? [y/N] " del_confirm
+    if [[ "$del_confirm" == "y" || "$del_confirm" == "Y" ]]; then
+        echo -e "${GREEN}Deleting $2...${NC}"
+        btrfs subvolume list "$TMP_MNT" | awk '{print $NF}' | grep "^${2}/" | sort -r | while read -r sub; do
+            btrfs subvolume delete "$TMP_MNT/$sub"
+        done || true
+        btrfs subvolume delete "$target"
+        echo -e "${GREEN}Done.${NC}"
+    fi
+    exit 0
+fi
+
+BOOTED_SNAP=$(grep -oP 'subvol=@snapshots/\K[0-9]+' /proc/cmdline 2>/dev/null || true)
+
+if [[ $# -ge 1 ]]; then
+    SNAP_NUM="$1"
+elif [[ -n "$BOOTED_SNAP" ]]; then
+    echo -e "${GREEN}Detected: booted from snapshot #$BOOTED_SNAP${NC}"
+    SNAP_NUM="$BOOTED_SNAP"
+else
+    echo -e "Available snapshots:${NC}"
+    echo
+    printf "  %-6s %-20s %-8s %s${NC}\n" "#" "Date" "Type" "Description"
+    echo "  ────── ──────────────────── ──────── ─────────────────────────"
+    for num in $(ls "$TMP_MNT/@snapshots/" | grep -E '^[0-9]+$' | sort -rn); do
+        dir="$TMP_MNT/@snapshots/$num/"
+        if [[ ! -d "$dir" ]]; then
+            continue
+        fi
+        info_xml="$dir/info.xml"
+        snap_date=""
+        snap_type=""
+        snap_desc=""
+        if [[ -f "$info_xml" ]]; then
+            snap_date=$(grep -oP '(?<=<date>).*(?=</date>)' "$info_xml" 2>/dev/null || true)
+            snap_type=$(grep -oP '(?<=<type>).*(?=</type>)' "$info_xml" 2>/dev/null || true)
+            snap_desc=$(grep -oP '(?<=<description>).*(?=</description>)' "$info_xml" 2>/dev/null || true)
+        fi
+        if [[ -z "$snap_date" ]]; then
+            snap_date=$(stat -c "%y" "$dir/snapshot" 2>/dev/null | cut -d. -f1 || true)
+        fi
+        printf "  %-6s %-20s %-8s %s\n" "$num" "$snap_date" "$snap_type" "$snap_desc"
+    done
+    echo
+    read -rp "Snapshot number to rollback to: " SNAP_NUM
+fi
+
+SNAP_PATH="$TMP_MNT/@snapshots/$SNAP_NUM/snapshot"
+if [[ ! -d "$SNAP_PATH" ]]; then
+    echo -e "${RED}Snapshot $SNAP_NUM not found${NC}"
+    exit 1
+fi
+
+SNAP_DATE=""
+SNAP_DESC=""
+INFO_XML="$TMP_MNT/@snapshots/$SNAP_NUM/info.xml"
+if [[ -f "$INFO_XML" ]]; then
+    SNAP_DATE=$(grep -oP '(?<=<date>).*(?=</date>)' "$INFO_XML" 2>/dev/null || true)
+    SNAP_DESC=$(grep -oP '(?<=<description>).*(?=</description>)' "$INFO_XML" 2>/dev/null || true)
+fi
+if [[ -z "$SNAP_DATE" ]]; then
+    SNAP_DATE=$(stat -c "%y" "$SNAP_PATH" 2>/dev/null | cut -d. -f1)
+fi
+
+BACKUP_NAME="@_old_$(date +%Y-%m-%d_%H:%M)"
+
+echo
+echo -e "${YELLOW}┌─────────────────────────────────────┐${NC}"
+echo -e "${YELLOW}│         BTRFS ROLLBACK PLAN          │${NC}"
+echo -e "${YELLOW}├─────────────────────────────────────┤${NC}"
+echo -e "${YELLOW}│${NC} Device:    ${CYAN}$ROOT_DEV${NC}"
+echo -e "${YELLOW}│${NC} Snapshot:  ${CYAN}#$SNAP_NUM${NC} ($SNAP_DATE)"
+if [[ -n "$SNAP_DESC" ]]; then
+echo -e "${YELLOW}│${NC} Desc:      ${CYAN}$SNAP_DESC${NC}"
+fi
+echo -e "${YELLOW}│${NC}"
+echo -e "${YELLOW}│${NC} @${NC} → ${RED}$BACKUP_NAME${NC}"
+echo -e "${YELLOW}│${NC} snapshot #$SNAP_NUM${NC} → ${GREEN}new @${NC}"
+echo -e "${YELLOW}└─────────────────────────────────────┘${NC}"
+echo
+
+read -rp "Continue with rollback? [y/N] " confirm
+if [[ "$confirm" != "y" && "$confirm" != "Y" ]]; then
+    echo "Cancelled."
+    exit 0
+fi
+
+echo
+echo -e "${GREEN}[1/2]${NC} Moving current @ to $BACKUP_NAME..."
+mv "$TMP_MNT/@" "$TMP_MNT/$BACKUP_NAME"
+
+echo -e "${GREEN}[2/2]${NC} Creating writable snapshot from #$SNAP_NUM as new @..."
+btrfs subvolume snapshot "$SNAP_PATH" "$TMP_MNT/@"
+
+echo
+echo -e "${GREEN}Rollback complete!${NC}"
+echo
+echo "After reboot, verify everything works and then clean up:"
+echo -e "  ${CYAN}sudo $0 --list${NC}                              # list old @ backups"
+echo -e "  ${CYAN}sudo $0 --cleanup $BACKUP_NAME${NC}    # delete this one"
+echo -e "  ${CYAN}sudo $0 --cleanup-all${NC}                       # delete all"
+echo
+
+read -rp "Reboot now? [y/N] " reboot_confirm
+if [[ "$reboot_confirm" == "y" || "$reboot_confirm" == "Y" ]]; then
+    reboot
+fi
