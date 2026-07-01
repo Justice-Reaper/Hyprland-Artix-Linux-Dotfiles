@@ -288,6 +288,7 @@ hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("blueman-manager"))
 hl.bind(mainMod .. " + I", hl.dsp.exec_cmd("nm-connection-editor"))
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("/home/justice-reaper/.config/rofi/launcher/launcher.sh"))
 hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("/home/justice-reaper/.config/rofi/power-menu/power-menu.sh"))
+hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("/home/justice-reaper/.config/rofi/tray/tray.sh"))
 hl.bind(mainMod .. " + L", hl.dsp.layout("togglesplit"))    -- dwindle only
 
 _float_saved = {}
@@ -367,7 +368,7 @@ for i = 1, 10 do
 end
 
 -- Minimize focused window to the system tray
-hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("hyprland-minimizer"))
+hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("hyprland-minimizer"))
 
 -- Scroll through existing workspaces with mainMod + scroll
 hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
