@@ -882,7 +882,7 @@ By default the SDDM login screen does not match the Hyprland session. The `sddm/
 - **Brightness** — applies the value saved in `/home/justice-reaper/.config/bin/brightness` with `brightnessctl`
 - **Nightlight** — if `/home/justice-reaper/.config/bin/nightlight-status` is `On`, sets the kelvin saved in `/home/justice-reaper/.config/bin/nightlight` directly with `redshift` (`redshift -P -O`, one-shot, no conversion needed); if `Off`, the screen stays neutral
 
-`sddm/theme.conf` wires it together: it selects the theme, sets the greeter cursor theme, and points the X11 `DisplayCommand` at the script
+`sddm/theme.conf` wires it together: it selects the theme and points the X11 `DisplayCommand` at the script
 
 Install the dependencies
 
