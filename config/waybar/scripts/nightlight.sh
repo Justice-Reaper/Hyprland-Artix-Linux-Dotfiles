@@ -36,9 +36,6 @@ to_percent() {
     echo $(( (neutral - $1) * 100 / (neutral - 1000) ))
 }
 
-# Evita avalanchas de llamadas DBus/señales cuando se pulsa el toggle (o se
-# hace scroll) muy rápido: si ya hay una invocación en curso, se ignora la
-# extra en lugar de encolarla y saturar a wl-gammarelay-rs y a waybar
 case $1 in
     toggle|increase|decrease)
         exec 9>"${XDG_RUNTIME_DIR:-/tmp}/waybar-nightlight.lock"
@@ -50,9 +47,6 @@ esac
 
 case $1 in
     toggle)
-        # Actualizamos el icono ANTES de tocar el gamma: escribir el estado y
-        # avisar a waybar es instantáneo, mientras que set_kelvin (busctl +
-        # aplicar el gamma) tarda unos ms; así el icono no da el "tirón"
         if [ "$(get_status)" = "On" ]; then
             echo Off > "$status_file"
             pkill -SIGRTMIN+12 waybar
@@ -88,8 +82,6 @@ case $1 in
         ;;
     temperature)
         if [ "$(get_status)" = "On" ]; then
-            # Leemos el kelvin del fichero (instantáneo) en vez de por busctl
-            # (round-trip DBus), para que el refresco del icono no arrastre
             kelvin=$(get_temp)
             echo "{\"text\": \"$ICON_ON $(to_percent "$kelvin")%\", \"class\": \"on\"}"
         else

@@ -273,15 +273,16 @@ hl.device({
 
 local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 
--- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
+_float_saved = {}
 
--- Launch terminal
+hl.on("window.close", function(ev)
+    _float_saved[tostring(ev.address)] = nil
+end)
+
 hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd("kitty"))
-
--- Take a screenshot
 hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("flameshot gui"))
-
 hl.bind(mainMod .. " + W", hl.dsp.window.close(), { repeating = true })
+hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("hyprland-minimizer"))
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("nemo"))
 hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("pavucontrol"))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("blueman-manager"))
@@ -289,14 +290,11 @@ hl.bind(mainMod .. " + I", hl.dsp.exec_cmd("nm-connection-editor"))
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("/home/justice-reaper/.config/rofi/launcher/launcher.sh"))
 hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("/home/justice-reaper/.config/rofi/power-menu/power-menu.sh"))
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("/home/justice-reaper/.config/rofi/tray/tray.sh"))
-hl.bind(mainMod .. " + L", hl.dsp.layout("togglesplit"))    -- dwindle only
-
-_float_saved = {}
-
-hl.on("window.close", function(ev)
-    _float_saved[tostring(ev.address)] = nil
-end)
-
+hl.bind(mainMod .. " + S", hl.dsp.exec_cmd("/home/justice-reaper/.config/rofi/scope-manager/scope-manager.sh"))
+hl.bind(mainMod .. " + SHIFT + I", hl.dsp.exec_cmd("/home/justice-reaper/.config/waybar/scripts/copy-local-ip.sh"))
+hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd("/home/justice-reaper/.config/waybar/scripts/copy-vpn-ip.sh"))
+hl.bind(mainMod .. " + L", hl.dsp.layout("togglesplit"))
+hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.fullscreen())
 hl.bind(mainMod .. " + F", function()
     local w = hl.get_active_window()
     if w == nil then return end
@@ -323,9 +321,6 @@ hl.bind(mainMod .. " + F", function()
         hl.dispatch(hl.dsp.window.move({ x = px, y = py, relative = false }))
     end
 end)
-
-hl.bind(mainMod .. " + S", hl.dsp.window.fullscreen())
-
 hl.bind(mainMod .. " + SHIFT + F", function()
     local w = hl.get_active_window()
     if w == nil then return end
@@ -335,67 +330,42 @@ hl.bind(mainMod .. " + SHIFT + F", function()
         hl.dispatch(hl.dsp.focus({ window = "floating" }))
     end
 end)
-
--- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. " + up",    hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + down",  hl.dsp.focus({ direction = "down" }))
-
 hl.bind(mainMod .. " + ALT + left",  hl.dsp.window.swap({ direction = "left" }))
 hl.bind(mainMod .. " + ALT + right", hl.dsp.window.swap({ direction = "right" }))
 hl.bind(mainMod .. " + ALT + up",    hl.dsp.window.swap({ direction = "up" }))
 hl.bind(mainMod .. " + ALT + down",  hl.dsp.window.swap({ direction = "down" }))
-
--- Move floating windows with keyboard
 hl.bind(mainMod .. " + CTRL + right", hl.dsp.window.move({ x = 40,  y = 0,   relative = true }), { repeating = true })
 hl.bind(mainMod .. " + CTRL + left",  hl.dsp.window.move({ x = -40, y = 0,   relative = true }), { repeating = true })
 hl.bind(mainMod .. " + CTRL + down",  hl.dsp.window.move({ x = 0,   y = 40,  relative = true }), { repeating = true })
 hl.bind(mainMod .. " + CTRL + up",    hl.dsp.window.move({ x = 0,   y = -40, relative = true }), { repeating = true })
-
--- Resize
 hl.bind(mainMod .. " + CTRL + ALT + right", hl.dsp.window.resize({ x = 40,  y = 0,   relative = true }), { repeating = true })
 hl.bind(mainMod .. " + CTRL + ALT + left",  hl.dsp.window.resize({ x = -40, y = 0,   relative = true }), { repeating = true })
 hl.bind(mainMod .. " + CTRL + ALT + down",  hl.dsp.window.resize({ x = 0,   y = 40,  relative = true }), { repeating = true })
 hl.bind(mainMod .. " + CTRL + ALT + up",    hl.dsp.window.resize({ x = 0,   y = -40, relative = true }), { repeating = true })
-
--- Switch workspaces with mainMod + [0-9]
--- Move active window to a workspace with mainMod + SHIFT + [0-9]
 for i = 1, 10 do
     local key = i % 10 -- 10 maps to key 0
     hl.bind(mainMod .. " + " .. key,             hl.dsp.focus({ workspace = i}))
     hl.bind(mainMod .. " + SHIFT + " .. key,     hl.dsp.window.move({ workspace = i, follow=false}))
 end
-
--- Minimize focused window to the system tray
-hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("hyprland-minimizer"))
-
--- Scroll through existing workspaces with mainMod + scroll
 hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
 hl.bind(mainMod .. " + mouse_up",   hl.dsp.focus({ workspace = "e-1" }))
-
--- Move/resize windows with mainMod + LMB/RMB and dragging
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
-
--- Brightness
-hl.bind("SUPER + F3", hl.dsp.exec_cmd("bash -c 'brightnessctl set 5%+ && brightnessctl get > ~/.config/bin/brightness'"), { locked = true, repeating = true })
-hl.bind("SUPER + F2", hl.dsp.exec_cmd("bash -c 'brightnessctl set 5%- && brightnessctl get > ~/.config/bin/brightness'"), { locked = true, repeating = true })
-
--- Volume
-hl.bind("SUPER + F7", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"), { locked = true, repeating = true })
-hl.bind("SUPER + F6", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),      { locked = true, repeating = true })
-hl.bind("SUPER + F5", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),     { locked = true, repeating = true })
-
--- Microphone
-hl.bind("SUPER + SHIFT + F7", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SOURCE@ 5%+"), { locked = true, repeating = true })
-hl.bind("SUPER + SHIFT + F6", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-"),      { locked = true, repeating = true })
-hl.bind("SUPER + SHIFT + F5", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),     { locked = true, repeating = true })
-
--- Nightlight
-hl.bind("SUPER + F8",  hl.dsp.exec_cmd("/home/justice-reaper/.config/waybar/scripts/nightlight.sh toggle"),   { locked = true })
-hl.bind("SUPER + F9",  hl.dsp.exec_cmd("/home/justice-reaper/.config/waybar/scripts/nightlight.sh decrease"), { locked = true, repeating = true })
-hl.bind("SUPER + F10", hl.dsp.exec_cmd("/home/justice-reaper/.config/waybar/scripts/nightlight.sh increase"), { locked = true, repeating = true })
+hl.bind(mainMod .. " + F3", hl.dsp.exec_cmd("bash -c 'brightnessctl set 5%+ && brightnessctl get > ~/.config/bin/brightness'"), { locked = true, repeating = true })
+hl.bind(mainMod .. " + F2", hl.dsp.exec_cmd("bash -c 'brightnessctl set 5%- && brightnessctl get > ~/.config/bin/brightness'"), { locked = true, repeating = true })
+hl.bind(mainMod .. " + F7", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"), { locked = true, repeating = true })
+hl.bind(mainMod .. " + F6", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),      { locked = true, repeating = true })
+hl.bind(mainMod .. " + F5", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),     { locked = true, repeating = true })
+hl.bind(mainMod .. " + SHIFT + F7", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SOURCE@ 5%+"), { locked = true, repeating = true })
+hl.bind(mainMod .. " + SHIFT + F6", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-"),      { locked = true, repeating = true })
+hl.bind(mainMod .. " + SHIFT + F5", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),     { locked = true, repeating = true })
+hl.bind(mainMod .. " + F8",  hl.dsp.exec_cmd("/home/justice-reaper/.config/waybar/scripts/nightlight.sh toggle"),   { locked = true })
+hl.bind(mainMod .. " + F9",  hl.dsp.exec_cmd("/home/justice-reaper/.config/waybar/scripts/nightlight.sh decrease"), { locked = true, repeating = true })
+hl.bind(mainMod .. " + F10", hl.dsp.exec_cmd("/home/justice-reaper/.config/waybar/scripts/nightlight.sh increase"), { locked = true, repeating = true })
 
 --------------------------------
 ---- WINDOWS AND WORKSPACES ----

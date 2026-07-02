@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 set -ueo pipefail
 root="$(readlink -f "$(dirname "$0")")"
 

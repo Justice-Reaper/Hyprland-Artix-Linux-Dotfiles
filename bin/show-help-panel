@@ -3,71 +3,66 @@
 blue='\033[1;34m'
 reset='\033[0m'
 
-echo -e "\n\n${blue}Bspwm Shortcuts${reset}"
+echo -e "\n\n${blue}Hyprland Shortcuts${reset}"
 
-echo -e "\nWindows + Enter + (1,2,3,4,5,6,7,8,9,0)                           → Switch between workspace"
+echo -e "\nSuper + Return                                   →  Open terminal"
+echo -e "Super + W                                        →  Close the current window"
+echo -e "Super + C                                        →  Take a screenshot with Flameshot"
+echo -e "Super + M                                        →  Minimize window to the system tray"
 
-echo -e "\nWindows + Shift + R                                               →  Reload bspwm configuration"
+echo -e "\nSuper + N                                        →  Open Nemo file manager"
+echo -e "Super + A                                        →  Open PavuControl (audio settings)"
+echo -e "Super + B                                        →  Open Blueman Manager (bluetooth)"
+echo -e "Super + I                                        →  Open Network Connection Editor"
 
-echo -e "\nWindows + Shift + Q                                               →  Log out of bspwm"
+echo -e "\nSuper + F                                        →  Toggle floating mode on the current window"
+echo -e "Super + Shift + S                                →  Toggle fullscreen mode on the current window"
+echo -e "Super + L                                        →  Toggle split layout"
+echo -e "Super + Shift + F                                →  Switch focus between floating and tiled windows"
 
-echo -e "\nCtrl + Windows + Alt + (⬆⬅⬇➡)                                     →  Activate preselectors (requires an open window)"
-echo -e "Ctrl + Windows + Alt + (1,2,3,4,5,6,7,8,9,0)                      →  Control preselector ratio (requires an open window)"
-echo -e "Preselectors activated + Ctrl + Windows + Alt + Spacebar          →  Cancel preselection"
+echo -e "\nSuper + (↑←↓→)                                   →  Navigate between windows"
+echo -e "Super + Alt + (↑←↓→)                             →  Swap windows"
+echo -e "Super + Ctrl + (↑←↓→)                            →  Move floating windows"
+echo -e "Super + Ctrl + Alt + (↑←↓→)                      →  Resize windows"
 
+echo -e "\nSuper + (1,2,3,4,5,6,7,8,9,0)                    →  Switch workspace"
+echo -e "Super + Shift + (1,2,3,4,5,6,7,8,9,0)            →  Move window to another workspace"
+echo -e "Super + Mouse scroll                             →  Scroll through workspaces"
 
-echo -e "\n\n${blue}Sxhkd Shortcuts${reset}"
-
-echo -e "\nWindows + Esc          →  Reload sxhkd configuration"
-
-
-echo -e "\n\n${blue}Polybar Shortcuts${reset}"
-
-echo -e "\nWindows + Shift + F1            →  Copy local machine IP addres"
-echo -e "Windows + Shift + F2            →  Copy VPN IP addres"
-echo -e "Windows + Shift + F3            →  Copy target IP addres"
-
-echo -e "\nWindows + F2                    →  Turn down the brightness"
-echo -e "Windows + F3                    →  Turn up the brightness"
-
-echo -e "\nWindows + F5                    →  Mute and unmute the sound"
-echo -e "Windows + F6                    →  Turn down the volume"
-echo -e "Windows + F7                    →  Turn up the volume"
-
-echo -e "\nWindows + F8                    →  Turn on/off the color temperature"
-echo -e "Windows/FN + F9                 →  Turn down the color temperature"
-echo -e "Windows + F10                   →  Turn up the color temperature"
-
-echo -e "\nWindows + Shift + D             →  Open Rofi launcher"
-echo -e "Windows + Shift + P             →  Open Rofi power menu"
-echo -e "Windows + Shift + S             →  Open Rofi scope manager"
+echo -e "\nSuper + Left click drag                          →  Move window"
+echo -e "Super + Right click drag                         →  Resize window"
 
 
-echo -e "\n\n${blue}Window Shortcuts${reset}"
+echo -e "\n\n${blue}Waybar Shortcuts${reset}"
 
-echo -e "\nWindows + Alt + (⬆⬅⬇➡)                           →  Expand window"
-echo -e "\nWindows + Alt + Shift + (⬆⬅⬇➡)                   →  Contract window"
+echo -e "\nSuper + D                                        →  Open Rofi launcher"
+echo -e "Super + P                                        →  Open Rofi power menu"
+echo -e "Super + T                                        →  Open Rofi tray menu"
+echo -e "Super + S                                        →  Open Rofi scope manager"
 
-echo -e "\nWindows + W                                      →  Close the current window"
+echo -e "\nSuper + Shift + I                                →  Copy internet IP address"
+echo -e "Super + Shift + V                                →  Copy VPN IP address"
 
-echo -e "\nWindows + S                                      →  Create floating window"
-echo -e "Windows + Right click                            →  Resize floating window"
-echo -e "Windows + Left click                             →  Move floating window"
+echo -e "\nSuper + F2                                       →  Decrease brightness"
+echo -e "Super + F3                                       →  Increase brightness"
 
-echo -e "\nWindows + T                                      →  Change the current window to terminal mode (normal). This is useful when the window is in fullscreen or floating mode"
-echo -e "Windows + M                                      →  Change the current window to full mode (does not occupy the polybar). Press the same keys to return to terminal mode (normal)"
-echo -e "Windows + F                                      →  Change the current window to fullscreen mode (occupies the whole screen, including the polybar)"
+echo -e "\nSuper + F5                                       →  Mute/unmute sound"
+echo -e "Super + F6                                       →  Decrease volume"
+echo -e "Super + F7                                       →  Increase volume"
 
-echo -e "\nWindows + (⬆⬅⬇➡)                                 →  Navigate through windows in the current workspace"
-echo -e "Windows + Shift + (1,2,3,4,5,6,7,8,9,0)          →  Move window to another workspace"
+echo -e "\nSuper + Shift + F5                               →  Mute/unmute microphone"
+echo -e "Super + Shift + F6                               →  Decrease microphone volume"
+echo -e "Super + Shift + F7                               →  Increase microphone volume"
+
+echo -e "\nSuper + F8                                       →  Toggle nightlight"
+echo -e "Super + F9                                       →  Decrease nightlight temperature"
+echo -e "Super + F10                                      →  Increase nightlight temperature"
 
 
 echo -e "\n\n${blue}Kitty Shortcuts${reset}"
 
-echo -e "\nWindows + Enter                                 →  Open terminal"
-
 echo -e "\nCtrl + Shift + T                                →  Create tab"
-echo -e "Ctrl + Shift + (⬆⬅⬇➡)                           →  Navigate through tab"
+echo -e "Ctrl + Shift + (↑←↓→)                           →  Navigate through tab"
 echo -e "Ctrl + Shift + Alt + T                          →  Rename tab"
 
 echo -e "\nCtrl + Shift + +                                →  Increase font size"
@@ -75,9 +70,8 @@ echo -e "Ctrl + Shift + -                                →  Decrease font size
 echo -e "Ctrl + Shift + Backspace                        →  Reset font size to default"
 
 echo -e "\nCtrl + Shift + Enter                            →  Open subterminal"
-echo -e "Ctrl + (⬆⬅⬇➡)                                   →  Navigate through subterminal"
+echo -e "Ctrl + (↑←↓→)                                   →  Navigate through subterminal"
 echo -e "Ctrl + Shift + R                                →  Activate resize mode on a subterminal"
-echo -e "Ctrl + Shift + Z                                →  Zoom in on a subterminal"
 echo -e "Ctrl + Shift + Z                                →  Zoom in on a subterminal"
 echo -e "Kitty resize mode activated + W                 →  Increase width on a subterminal"
 echo -e "Kitty resize mode activated + N                 →  Decrease width on a subterminal"
@@ -99,7 +93,7 @@ echo -e "\n\n${blue}Zsh Shortcuts${reset}"
 
 echo -e "\nAlt + .                  →  Insert the argument from the previous command"
 
-echo -e "\nAlt + (⬆⬅⬇➡)             →  Move between word"
+echo -e "\nAlt + (↑←↓→)             →  Move between word"
 echo -e "Home                     →  Move to the beginning of the line"
 echo -e "End                      →  Move to the end of the line"
 
@@ -124,9 +118,15 @@ echo -e "Ctrl + R                 →  Use fzf to run commands from the zsh hist
 echo -e "\nEsc + Esc                →  Add sudo at the beginning of the line and if there is no text, add sudo followed by the last executed command"
 
 
-echo -e "\n\n${blue}Rofi Shortcuts${reset}"
+echo -e "\n\n${blue}Zsh Functions${reset}"
 
-echo -e "\nAlt + (⬆⬅⬇➡)             →  Move between word"
+echo -e "\nclearHistory             →  Clear the zsh history"
+echo -e "removeHistory            →  Remove the zsh history"
+
+
+echo -e "\n\n${blue}Rofi Launcher & Scope Shortcuts${reset}"
+
+echo -e "\nAlt + (↑←↓→)             →  Move between word"
 echo -e "Home                     →  Move to the beginning of the line"
 echo -e "End                      →  Move to the end of the line"
 
@@ -141,18 +141,6 @@ echo -e "\nDel                      →  Delete the character to the right of th
 echo -e "Backspace                →  Delete the character to the left of the cursor"
 
 echo -e "\nEsc                      →  Exit Rofi"
-
-
-echo -e "\n\n${blue}Application Shortcuts${reset}"
-
-echo -e "\nWindows + Shift + F            →  Open Browser"
-echo -e "Windows + Shift + A            →  Open Postman"
-echo -e "Windows + Shift + O            →  Open Obsidian"
-echo -e "Windows + Shift + E            →  Open Pycharm"
-echo -e "Windows + Shift + B            →  Open Proxy"
-echo -e "Windows + Shift + V            →  Open VSCode"
-echo -e "Windows + Shift + G            →  Open Thunar file manager"
-echo -e "PrtSc                          →  Take a screenshot with Flameshot"
 
 
 echo -e "\n\n${blue}Commands${reset}"
@@ -177,22 +165,14 @@ echo -e "nmcli-restart-networking               →  Restarts networking"
 echo -e "\nadd-asset-to-scope                     →  Adds assets to the scope"
 echo -e "remove-asset-from-scope                →  Removes assets from the scope"
 
-echo -e "\nclearHistory                           →  Clear the zsh history"
-echo -e "removeHistory                          →  Remove the zsh history"
-
-echo -e "\nenable-touchpad                        →  Enable the laptop's touchpad"
-echo -e "disable-touchpad                       →  Disable the laptop's touchpad"
-
-echo -e "\nset-wallpaper                          →  Set a wallpaper"
-
 echo -e "\nextract-ports                          →  Extract ports from a file in nmap -oG format and copy them to the clipboard"
 
 echo -e "\nmkt                                    →  Create a folder and several work directories inside it"
 
 echo -e "\nxcopy                                  →  Copies file content directly to system clipboard"
 
-echo -e "\nkali-optimus                           →  Automates repository repair, GPG fixes, full system upgrade and cleanup"
-
 echo -e "\nswitch-java-version                    →  Switches the active Java version in the environment"
+
+echo -e "\nrollback                               →  Rolls back the system to a previous Btrfs snapshot"
 
 echo -e "\nshow-help-panel                        →  Displays all commands and shortcuts of the desktop environment"

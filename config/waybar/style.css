@@ -10,16 +10,13 @@
 @define-color orange #F7A36A;
 @define-color rose #E784A7;
 
-/* --- Global-Settings ---*/
-
 * {
-  font-family: 'IconsFont', 'Hack Nerd Font';
+  font-family: 'Icons Font', 'Hack Nerd Font';
   font-size: 14px;
   font-weight: bold;
   min-height: 0px;
   }
 
-  /* --- Waybar ---*/
   window#waybar {
   background-color: @background;
 }
@@ -33,25 +30,19 @@ window#waybar > box {
 
 
 
-/* --- Tooltip ---*/
 tooltip {
   opacity: 1;
  }
 
- /* --- Sub-Groups ---*/
-
 #left1{
   color: @foreground;
 }
-
- /* --- Modules ---*/
 
 .modules-right {
   color: @foreground;
  }
 
 
-/* --- Workspaces --- */
 #workspaces {
   background-color: transparent;
   margin: 0px;
@@ -97,8 +88,6 @@ tooltip {
 }
 
 
-/* --- General Modules --- */
-
 #network,
 #audio,
 #display,
@@ -107,14 +96,10 @@ tooltip {
 #custom-battery {
   min-width: 20px;
   margin: 3px 4px;
-  /* top-biased padding: GTK trunca el centrado de la caja de línea y el
-     contenido queda 1px alto; esto lo compensa sin cambiar la altura */
   padding: 3px 12px 1px;
   border-radius: 24px;
   background-color: alpha(@foreground, 0.12);
 }
-
-/* --- Grouped Module Overrides --- */
 
 #network,
 #audio,
@@ -131,8 +116,6 @@ tooltip {
   padding: 3px 0px 1px;
   min-width: 0;
 }
-
-/* --- Module Colors --- */
 
 #custom-launcher {
   color: @foreground;
@@ -212,8 +195,6 @@ tooltip label {
     color: @foreground;
     font-weight: normal;
 }
-
-/* --- Animations --- */
 
 @keyframes blink2 {
   to {

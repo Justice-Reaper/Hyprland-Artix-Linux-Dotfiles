@@ -5,13 +5,10 @@ ac=/sys/class/power_supply/ACAD
 cfg=/home/justice-reaper/.config
 icons=$cfg/waybar/icons
 
-# charging animation frames: empty -> full (cycled while charging)
 charging_icons=("󵀋" "󵀀" "󵀁" "󵀂" "󵀃" "󵀄" "󵀅" "󵀆" "󵀇" "󵀈" "󵀌")
-# discharging level icons, indexed by get_index (0 = <10% ... 10 = 100%)
 discharge_icons=("󵀉" "󵀀" "󵀁" "󵀂" "󵀃" "󵀄" "󵀅" "󵀆" "󵀇" "󵀈" "󵀌")
 
 frame=0
-# estado de notificación en memoria
 state=""
 
 get_index() {
@@ -32,9 +29,7 @@ get_index() {
 
 notify() {
     local status=$1 capacity=$2 ac_online=$3
-    # $state es global y persiste entre iteraciones (mismo proceso)
     if [ "$ac_online" = "0" ]; then
-        # Sin corriente: solo avisamos de bateria baja
         if [ "$capacity" -le 10 ] && [ "$state" != "warning" ]; then
             state="warning"
             notify-send "Low Battery" "${capacity}% of battery remaining" -u critical -c battery-critical -i "$icons/battery-warning.png" -r 9991
@@ -42,10 +37,7 @@ notify() {
             state="discharging"
         fi
     else
-        # Con corriente conectada
         if [ "$state" = "discharging" ] || [ "$state" = "warning" ]; then
-            # Acabamos de enchufar el cargador: avisamos siempre, entra corriente
-            # aunque estemos al 100% y no se cargue nada
             notify-send "Charging" "${capacity}% of battery charged" -u normal -c battery-normal -i "$icons/battery-charging.png" -r 9991
             if [ "$capacity" -eq 100 ]; then
                 state="fully_charged"
@@ -53,14 +45,12 @@ notify() {
                 state="charging"
             fi
         elif [ "$state" = "charging" ] && [ "$capacity" -eq 100 ]; then
-            # Estaba cargando y ha llegado al 100%
             state="fully_charged"
             notify-send "Battery Charged" "Battery is fully charged" -u normal -c battery-normal -i "$icons/battery-fully-charged.png" -r 9991
         fi
     fi
 }
 
-# render: fija $status/$capacity globales e imprime la linea JSON de waybar
 render() {
     status=$(cat "$bat/status" 2>/dev/null)
     capacity=$(cat "$bat/capacity" 2>/dev/null || echo 0)
@@ -87,7 +77,6 @@ render() {
     fi
 }
 
-# upower despierta el bucle en cada cambio (%, enchufar/desenchufar)
 trap : USR1
 main=$$
 ( upower --monitor 2>/dev/null | while read -r _; do kill -USR1 "$main" 2>/dev/null; done ) &
@@ -101,11 +90,9 @@ trap cleanup EXIT INT TERM
 while true; do
     render
     if [ "$ac_online" = "1" ] && [ "$capacity" -lt 100 ]; then
-        # animacion: siguiente frame cada 0.5s mientras carga
         frame=$(( (frame + 1) % 11 ))
         sleep 0.5
     else
-        # el resto del tiempo: bloqueado hasta el siguiente evento de bateria
         frame=0
         wait
     fi

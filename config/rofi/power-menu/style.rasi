@@ -1,6 +1,6 @@
 configuration {
     show-icons:                     false;
-    font:                           "WaybarIconsFont 30";
+    font:                           "Icons Font 30";
     location:                       0;
     anchor:                         center;
     fixed-num-lines:                true;

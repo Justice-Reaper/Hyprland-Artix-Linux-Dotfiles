@@ -1,18 +1,10 @@
 #!/bin/bash
-# Tray menu in rofi. The D-Bus work (listing items, reading their menus and
-# triggering entries) lives in hyprland-minimizer; this script just renders each
-# level with its own "rofi -dmenu" call. Because every level is a separate rofi
-# invocation, the tray list can show app icons while the menus stay icon-free
-# (the icon column is dropped only for the menu levels).
 
 dir="/home/justice-reaper/.config/rofi/tray"
 common=(-dmenu -i -no-custom -format i -x11 -normal-window)
-list_theme="${dir}/style-1.rasi"   # tray list: scope style with app icons
-menu_theme="${dir}/style-2.rasi"   # menus: scope style, no icons, size injected below
+list_theme="${dir}/style-1.rasi"
+menu_theme="${dir}/style-2.rasi"
 
-# run_menu <bus> <path> <pid>
-# Walks an item's menu, one level at a time. Returns 0 to go back to the tray
-# list, 1 when an action was triggered or the user cancelled (close rofi).
 run_menu() {
     local bus="$1" path="$2" pid="$3"
     local stack=(0)
@@ -38,11 +30,6 @@ run_menu() {
             fi
         done
 
-        # width = longest label * 14px, clamped to [min_width, max_width]. px is
-        # computed in bash because this rofi build does NOT render a clamped
-        # ch-based calc (calc(((Xch+60)max..)min..) stays stuck at the floor).
-        # height = number of entries, clamped to [min_lines, max_lines]; over the
-        # cap the scrollbar handles the overflow.
         local min_width=300 max_width=850 min_lines=1 max_lines=9
         local n="${#disps[@]}" maxlen=0 d
         for d in "${disps[@]}"; do
