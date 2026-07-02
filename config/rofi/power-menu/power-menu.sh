@@ -22,7 +22,7 @@ chosen="$(run_rofi)"
 
 case "${chosen}" in
     "$lock")
-        swaylock
+        /home/justice-reaper/.local/share/quickshell-lockscreen/lock.sh
         ;;
     "$logout")
         hyprctl dispatch 'hl.dsp.exit()'

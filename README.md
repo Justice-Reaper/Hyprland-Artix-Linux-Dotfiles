@@ -876,18 +876,18 @@ Follow these steps to install sddm as display manager and quickshell as lockscre
 
 ### Make the SDDM login screen match your session (cursor, brightness, nightlight)
 
-By default the SDDM login screen does not match the Hyprland session. The `sddm/sddm-xsetup` script runs as the X11 `DisplayCommand` (before the greeter paints) and mirrors the session by reading the same state files it saves in `~/.config/bin`
+By default the SDDM login screen does not match the Hyprland session. The `sddm/sddm-xsetup` script runs as the X11 `DisplayCommand` (before the greeter paints) and mirrors the session by reading the same state files it saves in `/home/justice-reaper/.config/bin`
 
 - **Cursor** — the Qt6 greeter otherwise falls back to the Adwaita cursor (a black X / wrong pointer) because `xcb-util-cursor` ignores `XCURSOR_THEME`; the script sets `Xcursor.theme` through `xrdb` (the only channel the Qt6 greeter reads) and also loads the root-window cursor with `xsetroot`, so the login screen uses `Windows-10-Alt-Light`
-- **Brightness** — applies the value saved in `~/.config/bin/brightness` with `brightnessctl`
-- **Nightlight** — if `~/.config/bin/nightlight-status` is `On`, applies the temperature saved in `~/.config/bin/nightlight` as an `xrandr` gamma; if `Off`, the screen stays neutral
+- **Brightness** — applies the value saved in `/home/justice-reaper/.config/bin/brightness` with `brightnessctl`
+- **Nightlight** — if `/home/justice-reaper/.config/bin/nightlight-status` is `On`, sets the kelvin saved in `/home/justice-reaper/.config/bin/nightlight` directly with `redshift` (`redshift -P -O`, one-shot, no conversion needed); if `Off`, the screen stays neutral
 
 `sddm/theme.conf` wires it together: it selects the theme, sets the greeter cursor theme, and points the X11 `DisplayCommand` at the script
 
 Install the dependencies
 
 ```bash
-sudo pacman -S xorg-xsetroot xorg-xrdb xorg-xrandr brightnessctl
+sudo pacman -S xorg-xsetroot xorg-xrdb redshift brightnessctl
 ```
 
 Install the setup script and the SDDM drop-in config (change `Current=` to `pixel-waterfall` if you prefer that theme)

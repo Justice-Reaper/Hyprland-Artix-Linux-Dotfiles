@@ -1,42 +1,20 @@
-#!/bin/sh
-# SDDM login-screen setup (X11). Runs as root once X is ready.
-# Mirrors the Hyprland session by reading the same state files it saves.
+#!/bin/bash
 
-BIN=/home/justice-reaper/.config/bin
+bin=/home/justice-reaper/.config/bin
 
-# --- Cursor ---
-# The Qt6 greeter loads its cursor via xcb-util-cursor, which reads the theme
-# from the X resource DB (Xcursor.*), NOT from XCURSOR_THEME. Set it before the
-# greeter starts so Qt.ArrowCursor resolves to our theme instead of the black X.
 printf 'Xcursor.theme: Windows-10-Alt-Light\nXcursor.size: 24\n' | xrdb -merge
-# Root-window cursor too (covers the moment before the greeter paints).
 xsetroot -xcf /usr/share/icons/Windows-10-Alt-Light/cursors/left_ptr 24
 
-# --- Brightness (raw brightnessctl value saved by the session) ---
-if [ -r "$BIN/brightness" ]; then
-    brightness=$(cat "$BIN/brightness")
+if [ -r "$bin/brightness" ]; then
+    brightness=$(cat "$bin/brightness")
     if [ -n "$brightness" ]; then
-        brightnessctl set "$brightness" >/dev/null 2>&1
+        brightnessctl set "$brightness"
     fi
 fi
 
-# --- Nightlight (color temperature) ---
-# Only applied when the saved status is On; otherwise the screen stays neutral.
-if [ "$(cat "$BIN/nightlight-status" 2>/dev/null)" = "On" ]; then
-    kelvin=$(cat "$BIN/nightlight" 2>/dev/null)
+if [ "$(cat "$bin/nightlight-status")" = "On" ]; then
+    kelvin=$(cat "$bin/nightlight")
     if [ -n "$kelvin" ]; then
-        # Kelvin -> RGB (Tanner Helland), normalized to a 0..1 xrandr gamma triple.
-        gamma=$(awk -v k="$kelvin" 'BEGIN{
-            t=k/100
-            if(t<=66){r=255}else{r=329.698727446*((t-60)^-0.1332047592)}
-            if(t<=66){g=99.4708025861*log(t)-161.1195681661}else{g=288.1221695283*((t-60)^-0.0755148492)}
-            if(t>=66){b=255}else if(t<=19){b=0}else{b=138.5177312231*log(t-10)-305.0447927307}
-            if(r<0)r=0; if(r>255)r=255
-            if(g<0)g=0; if(g>255)g=255
-            if(b<0)b=0; if(b>255)b=255
-            printf "%.2f:%.2f:%.2f", r/255, g/255, b/255
-        }')
-        xrandr --output eDP-1 --gamma "$gamma" 2>/dev/null ||
-        xrandr --output eDP --gamma "$gamma" 2>/dev/null
+        redshift -P -O "$kelvin" &>/dev/null
     fi
 fi
