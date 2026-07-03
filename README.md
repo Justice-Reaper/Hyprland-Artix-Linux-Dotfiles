@@ -609,6 +609,14 @@ sudo pkgfile --update
 
 ### Configure X11
 
+Get your touchpad id
+
+```bash
+grep -i touchpad /proc/bus/input/devices | sed -E 's/.*Name="(.*) [^ ]+".*/\1/'
+```
+
+Paste it into the `MatchProduct` line of `X11/98-touchpad.conf`, then copy the configs
+
 ```bash
 sudo cp -r X11/* /etc/X11/xorg.conf.d
 ```
