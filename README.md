@@ -226,19 +226,11 @@ passwd justice-reaper
 
 ### Configure sudo for the wheel group
 
-Find `# %wheel ALL=(ALL:ALL) ALL` and remove the `#`
+Change # %wheel ALL=(ALL:ALL) ALL to %wheel ALL=(ALL:ALL) ALL to let the wheel group use sudo
 
 ```bash
 nano /etc/sudoers
 ```
-
-It should look like this
-
-```
-%wheel ALL=(ALL:ALL) ALL
-```
-
-Save with `Ctrl+O` → Enter → `Ctrl+X`
 
 ### Configure snapper for btrfs snapshots
 
@@ -287,16 +279,10 @@ NUMBER_LIMIT_IMPORTANT="20"
 
 ### Install and configure GRUB
 
-Disable AMD Panel Self Refresh (PSR) to avoid random compositor freezes on Rembrandt/RDNA2 eDP panels
-
-Find and change this value
+Change GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet" to GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet amdgpu.dcdebugmask=0x10" to disable AMD Panel Self Refresh (PSR) and avoid random compositor freezes on Rembrandt/RDNA2 eDP panels
 
 ```bash
 nano /etc/default/grub
-```
-
-```bash
-GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet amdgpu.dcdebugmask=0x10"
 ```
 
 ```bash
@@ -513,6 +499,14 @@ dinitctl enable sddm
 dinitctl enable grub-btrfsd
 ```
 
+### Disable Bluetooth auto-enable at boot
+
+Change #AutoEnable=true to AutoEnable=false to keep Bluetooth off at boot
+
+```bash
+nano /etc/bluetooth/main.conf
+```
+
 ### Configure zram
 
 Change #ZRAM_SIZE=100 to ZRAM_SIZE=50 to set zram to 50% of RAM
@@ -587,14 +581,10 @@ sudo chmod +x /usr/local/bin/rollback
 
 ### Configure plocate for bind mounts
 
-Find and change this value
+Change PRUNE_BIND_MOUNTS = "yes" to PRUNE_BIND_MOUNTS = "no" to let plocate index bind mounts
 
 ```bash
 sudo nano /etc/updatedb.conf
-```
-
-```bash
-PRUNE_BIND_MOUNTS = "no"
 ```
 
 ```bash
