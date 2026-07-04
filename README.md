@@ -903,6 +903,15 @@ chsh -s /usr/bin/zsh
 sudo chsh -s /usr/bin/zsh root
 ```
 
+### Disable the Nvidia GPU (nouveau)
+
+The kernel loads nouveau automatically when it detects an Nvidia GPU, causing random hard freezes on hybrid laptops. Blacklisting it and removing the GPU from the PCI bus at boot prevents this
+
+```bash
+sudo cp modprobe/blacklist-nouveau.conf /etc/modprobe.d/
+sudo mkinitcpio -P
+```
+
 ### Copy udev rules
 
 ```bash
