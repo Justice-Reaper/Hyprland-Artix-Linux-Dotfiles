@@ -279,7 +279,7 @@ NUMBER_LIMIT_IMPORTANT="20"
 
 ### Install and configure GRUB
 
-Change GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet" to GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet amdgpu.dcdebugmask=0x210" to disable AMD Panel Self Refresh (PSR) and avoid random compositor freezes on Rembrandt/RDNA2 eDP panels
+Change GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet" to GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet amdgpu.dcdebugmask=0x10" to disable AMD Panel Self Refresh (PSR) and avoid random compositor freezes on Rembrandt/RDNA2 eDP panels
 
 ```bash
 nano /etc/default/grub
