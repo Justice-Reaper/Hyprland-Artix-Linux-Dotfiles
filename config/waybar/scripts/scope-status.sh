@@ -1,8 +1,8 @@
 #!/bin/bash
 exec 2>/dev/null
 
-ICON_ACTIVE="󵀝"
-ICON_EMPTY="󵀜"
+ICON_ACTIVE="<span color='#70A5EB'>󵀝</span>"
+ICON_EMPTY="<span color='#70A5EB'>󵀜</span>"
 
 scope="/home/justice-reaper/.config/bin/scope"
 assets=0

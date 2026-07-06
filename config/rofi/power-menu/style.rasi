@@ -1,66 +1,73 @@
-configuration {
-    show-icons:                     false;
-    font:                           "Icons Font 30";
-    location:                       0;
-    anchor:                         center;
-    fixed-num-lines:                true;
-    ml-row-up:                      "";
-    ml-row-down:                    "";
-    ml-row-left:                    "ScrollDown";
-    ml-row-right:                   "ScrollUp";
-}
-
+/*****----- Colors -----*****/
 * {
-    bg:                             #101419;
-    border-clr:                     #44475a;
-    icon-inactive:                  #28344a;
-    icon-active:                    #70A5EB;
-    background-color:               transparent;
-    text-color:                     @icon-inactive;
+    selected:         #70A5EB;
+    black:            #101419;
+    gray:             #28344a;
 }
 
+/*****----- Fonts -----*****/
+* {
+    font:                       "Icons Font 30";
+}
+
+/*****----- Global Settings -----*****/
+* {
+    padding:                    0;
+    margin:                     0;
+    border:                     0;
+    spacing:                    0;
+    background-color:           transparent;
+    border-color:               transparent;
+}
+
+/*****----- Configuration -----*****/
+configuration {
+    show-icons:                 false;
+    fixed-num-lines:            true;
+    ml-row-up:                  "";
+    ml-row-down:                "";
+    ml-row-left:                "ScrollDown";
+    ml-row-right:               "ScrollUp";
+}
+
+/*****----- Main Window -----*****/
 window {
-    background-color:               @bg;
-    border:                         0px;
-    border-radius:                  0px;
-    width:                          450px;
+    transparency:                "real";
+    width:                       450px;
+    background-color:            @black;
 }
 
-inputbar {
-    enabled:                        false;
-}
-
+/*****----- Main Box -----*****/
 mainbox {
-    children:                       [ listview ];
-    padding:                        22px;
+    padding:                     20px;
+    children:                    [ "listview" ];
 }
 
+/*****----- Listview -----*****/
 listview {
-    columns:                        5;
-    lines:                          1;
-    flow:                           horizontal;
-    fixed-height:                   true;
-    fixed-columns:                  true;
-    spacing:                        0;
-    scrollbar:                      false;
-    cycle:                          true;
+    columns:                     5;
+    lines:                       1;
+    flow:                        horizontal;
+    fixed-height:                true;
+    fixed-columns:               true;
+    scrollbar:                   false;
+    cycle:                       true;
+    text-color:                  @gray;
 }
 
+/*****----- Elements -----*****/
 element {
-    padding:                        8px;
-}
-
-element-text {
-    text-color:                     inherit;
-    horizontal-align:               0.5;
-    vertical-align:                 0.5;
-    cursor:                         pointer;
-}
-
-element normal.normal {
-    text-color:                     @icon-inactive;
+    text-color:                  @gray;
+    cursor:                      pointer;
 }
 
 element selected.normal {
-    text-color:                     @icon-active;
+    text-color:                  @selected;
+}
+
+element-text {
+    cursor:                      inherit;
+    text-color:                  inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.5;
 }

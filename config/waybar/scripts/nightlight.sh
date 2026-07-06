@@ -1,7 +1,7 @@
 #!/bin/bash
 
-ICON_ON="󵀐"
-ICON_OFF="󵀏"
+ICON_ON="<span color='#70A5EB'>󵀐</span>"
+ICON_OFF="<span color='#70A5EB'>󵀏</span>"
 
 temp_file="/home/justice-reaper/.config/bin/nightlight"
 status_file="/home/justice-reaper/.config/bin/nightlight-status"
@@ -49,11 +49,11 @@ case $1 in
     toggle)
         if [ "$(get_status)" = "On" ]; then
             echo Off > "$status_file"
-            pkill -SIGRTMIN+12 waybar
+            pkill -SIGRTMIN+1 waybar
             set_kelvin "$neutral"
         else
             echo On > "$status_file"
-            pkill -SIGRTMIN+12 waybar
+            pkill -SIGRTMIN+1 waybar
             set_kelvin "$(get_temp)"
         fi
         ;;
@@ -78,7 +78,7 @@ case $1 in
             fi
             echo "$kelvin" > "$temp_file"
         fi
-        pkill -SIGRTMIN+12 waybar
+        pkill -SIGRTMIN+1 waybar
         ;;
     temperature)
         if [ "$(get_status)" = "On" ]; then

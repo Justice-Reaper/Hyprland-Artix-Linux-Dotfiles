@@ -369,7 +369,7 @@
 
 [battery_normal]
     category = "battery-normal"
-    foreground = "#76B97F"
+    foreground = "#70A5EB"
 
 [battery_critical]
     category = "battery-critical"

@@ -1,9 +1,9 @@
 #!/bin/bash
 exec 2>/dev/null
 
-ICON_WIFI="󵀧"
-ICON_ETH="󵀦"
-ICON_OFF="󵀥"
+ICON_WIFI="<span color='#70A5EB'>󵀧</span>"
+ICON_ETH="<span color='#70A5EB'>󵀦</span>"
+ICON_OFF="<span color='#70A5EB'>󵀥</span>"
 
 default_interface=$(ip route show default | awk 'NR==1{print $5}')
 

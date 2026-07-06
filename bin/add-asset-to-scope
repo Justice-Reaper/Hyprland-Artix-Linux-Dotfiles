@@ -52,3 +52,6 @@ case "$1" in
         usage
         ;;
 esac
+
+# refresca el modulo de scope en waybar al instante (push, sin polling)
+pkill -SIGRTMIN+4 waybar

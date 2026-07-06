@@ -1,8 +1,8 @@
 #!/bin/bash
 exec 2>/dev/null
 
-ICON_ON="󵀤"
-ICON_OFF="󵀣"
+ICON_ON="<span color='#70A5EB'>󵀤</span>"
+ICON_OFF="<span color='#70A5EB'>󵀣</span>"
 
 if ip link show tun0 &>/dev/null; then
     ip_address=$(ip -4 -o addr show tun0 | awk '{print $4}' | cut -d'/' -f1)

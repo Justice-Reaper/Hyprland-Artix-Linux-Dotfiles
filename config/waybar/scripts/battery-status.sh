@@ -32,13 +32,13 @@ notify() {
     if [ "$ac_online" = "0" ]; then
         if [ "$capacity" -le 10 ] && [ "$state" != "warning" ]; then
             state="warning"
-            notify-send "Low Battery" "${capacity}% of battery remaining" -u critical -c battery-critical -i "$icons/battery-warning.png" -r 9991
+            notify-send "Low Battery" "${capacity}% of battery remaining" -u critical -c battery-critical -i "$icons/battery-warning.svg" -r 9991
         elif [ "$capacity" -gt 10 ]; then
             state="discharging"
         fi
     else
         if [ "$state" = "discharging" ] || [ "$state" = "warning" ]; then
-            notify-send "Charging" "${capacity}% of battery charged" -u normal -c battery-normal -i "$icons/battery-charging.png" -r 9991
+            notify-send "Charging" "${capacity}% of battery charged" -u normal -c battery-normal -i "$icons/battery-charging.svg" -r 9991
             if [ "$capacity" -eq 100 ]; then
                 state="fully_charged"
             else
@@ -46,7 +46,7 @@ notify() {
             fi
         elif [ "$state" = "charging" ] && [ "$capacity" -eq 100 ]; then
             state="fully_charged"
-            notify-send "Battery Charged" "Battery is fully charged" -u normal -c battery-normal -i "$icons/battery-fully-charged.png" -r 9991
+            notify-send "Battery Charged" "Battery is fully charged" -u normal -c battery-normal -i "$icons/battery-fully-charged.svg" -r 9991
         fi
     fi
 }
@@ -54,26 +54,19 @@ notify() {
 render() {
     status=$(cat "$bat/status" 2>/dev/null)
     capacity=$(cat "$bat/capacity" 2>/dev/null || echo 0)
-    local idx class
+    local idx
     ac_online=$(cat "$ac/online" 2>/dev/null || echo 0)
 
     notify "$status" "$capacity" "$ac_online"
 
     if [ "$ac_online" = "1" ] && [ "$capacity" -lt 100 ]; then
         idx=$((frame % 11))
-        echo "{\"text\": \"${charging_icons[$idx]} $capacity%\", \"class\": \"charging\"}"
+        echo "{\"text\": \"<span color='#70A5EB'>${charging_icons[$idx]}</span> $capacity%\"}"
     elif [ "$status" = "Full" ]; then
-        echo "{\"text\": \"󵀊 100%\", \"class\": \"full\"}"
+        echo "{\"text\": \"<span color='#70A5EB'>󵀊</span> 100%\"}"
     else
         idx=$(get_index "$capacity")
-        if [ "$capacity" -le 10 ]; then
-            class="critical"
-        elif [ "$capacity" -le 20 ]; then
-            class="warning"
-        else
-            class="discharging"
-        fi
-        echo "{\"text\": \"${discharge_icons[$idx]} $capacity%\", \"class\": \"$class\"}"
+        echo "{\"text\": \"<span color='#70A5EB'>${discharge_icons[$idx]}</span> $capacity%\"}"
     fi
 }
 

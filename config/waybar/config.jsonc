@@ -2,27 +2,19 @@
   "reload_style_on_change": true,
   "position": "top",
   "mod": "dock",
-  "margin-top": 0,
-  "height": 32,
-  "margin-left": 0,
-  "margin-right": 0,
-  "margin-bottom": 0,
+  "height": 35,
 
-
-"group/left1": {
-    "orientation": "inherit",
-    "modules": [
-      "group/network"
-      ]
-  },
-  "modules-left": ["custom/manager", "group/left1"],
+"modules-left": ["custom/manager", "custom/separator-left", "custom/internet", "custom/vpn", "custom/scope"],
   "modules-center": ["hyprland/workspaces"],
-  "modules-right": [
-    "group/display",
-    "group/audio",
-    "custom/battery",
-    "clock"
-  ],
+  "modules-right": ["custom/nightlight", "backlight", "custom/separator-right", "wireplumber#input", "wireplumber#output", "custom/separator-right", "custom/battery", "clock"],
+  "custom/separator-right": {
+    "format": "<span color='#70A5EB'>|</span>",
+    "tooltip": false
+  },
+  "custom/separator-left": {
+    "format": "<span color='#70A5EB'>|</span>",
+    "tooltip": false
+  },
   "hyprland/workspaces": {
     "on-click": "activate",
     "format": "{icon}",
@@ -30,13 +22,6 @@
       "default": "󵀩",
       "active": "󵀪",
       "empty": "󵀨"
-    },
-    "persistent-workspaces": {
-      "1": [],
-      "2": [],
-      "3": [],
-      "4": [],
-      "5": []
     }
   },
   "custom/launcher": {
@@ -55,7 +40,7 @@
     "tooltip": false
   },
   "custom/manager": {
-    "format": "󵀑",
+    "format": "<span color='#70A5EB'>󵀑</span>",
     "on-click": "/home/justice-reaper/.config/rofi/manager/manager.sh",
     "tooltip": false
   },
@@ -63,23 +48,21 @@
     "exec": "/home/justice-reaper/.config/waybar/scripts/internet-status.sh",
     "return-type": "json",
     "tooltip": false,
-    "signal": 14,
-    "interval": 30,
+    "signal": 2,
     "on-click": "/home/justice-reaper/.config/waybar/scripts/copy-local-ip.sh"
   },
   "custom/vpn": {
     "exec": "/home/justice-reaper/.config/waybar/scripts/vpn-status.sh",
     "return-type": "json",
     "tooltip": false,
-    "signal": 15,
-    "interval": 30,
+    "signal": 3,
     "on-click": "/home/justice-reaper/.config/waybar/scripts/copy-vpn-ip.sh"
   },
   "custom/scope": {
     "exec": "/home/justice-reaper/.config/waybar/scripts/scope-status.sh",
     "return-type": "json",
     "tooltip": false,
-    "signal": 16,
+    "signal": 4,
     "interval": 60,
     "on-click": "/home/justice-reaper/.config/rofi/scope-manager/scope-manager.sh"
   },
@@ -87,7 +70,7 @@
     "exec": "/home/justice-reaper/.config/waybar/scripts/nightlight.sh temperature",
     "return-type": "json",
     "tooltip": false,
-    "signal": 12,
+    "signal": 1,
     "on-click": "/home/justice-reaper/.config/waybar/scripts/nightlight.sh toggle",
     "on-scroll-up": "/home/justice-reaper/.config/waybar/scripts/nightlight.sh increase",
     "on-scroll-down": "/home/justice-reaper/.config/waybar/scripts/nightlight.sh decrease"
@@ -98,7 +81,7 @@
     "tooltip": false
   },
   "clock": {
-    "format": "󵀎 {:%H:%M - %d/%m/%Y}",
+    "format": "<span color='#70A5EB'>󵀎</span> {:%H:%M - %d/%m/%Y}",
     "tooltip": false,
     "calendar": {
       "mode": "month",
@@ -113,49 +96,27 @@
     }
   },
   "wireplumber#input": {
-    "format": "󵀕 {volume}%",
+    "format": "<span color='#70A5EB'>󵀕</span> {volume}%",
     "tooltip": false,
-    "format-muted": "󵀔 Muted",
+    "format-muted": "<span color='#70A5EB'>󵀔</span> Muted",
     "node-type": "Audio/Source",
     "max-volume": 100,
     "scroll-step": 5,
     "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
   },
   "wireplumber#output": {
-    "format": "󵀡 {volume}%",
+    "format": "<span color='#70A5EB'>󵀡</span> {volume}%",
     "tooltip": false,
-    "format-muted": "󵀢 Muted",
+    "format-muted": "<span color='#70A5EB'>󵀢</span> Muted",
     "max-volume": 100,
     "scroll-step": 5,
     "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
   },
   "backlight": {
     "device": "amdgpu_bl2",
-    "format": "󵀍 {percent}%",
+    "format": "<span color='#70A5EB'>󵀍</span> {percent}%",
     "tooltip": false,
     "on-scroll-up": "brightnessctl set 5%+ && brightnessctl get > ~/.config/bin/brightness",
     "on-scroll-down": "brightnessctl set 5%- && brightnessctl get > ~/.config/bin/brightness"
-  },
-  "group/network": {
-    "orientation": "inherit",
-    "modules": [
-      "custom/internet",
-      "custom/vpn",
-      "custom/scope"
-    ]
-  },
-  "group/audio": {
-    "orientation": "inherit",
-    "modules": [
-      "wireplumber#input",
-      "wireplumber#output"
-    ]
-  },
-  "group/display": {
-    "orientation": "inherit",
-    "modules": [
-      "custom/nightlight",
-      "backlight"
-    ]
   }
 }

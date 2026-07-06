@@ -1,214 +1,47 @@
-@define-color background #101419;
+/* --- Colors --- */
+@define-color background #0A0D12;
 @define-color foreground #DEE1E6;
 @define-color disabled #28344a;
-@define-color yellow #F1CF8A;
-@define-color white #DEE1E6;
-@define-color purple #C68AEE;
-@define-color green #76B97F;
 @define-color blue #70A5EB;
-@define-color red #E05F65;
-@define-color orange #F7A36A;
-@define-color rose #E784A7;
 
+/* --- Global --- */
 * {
   font-family: 'Icons Font', 'Hack Nerd Font';
   font-size: 14px;
-  font-weight: bold;
-  min-height: 0px;
-  }
-
-  window#waybar {
-  background-color: @background;
 }
 
-
-window#waybar > box {
-  background-color: @background;
-  padding: 2px;
+window#waybar {
+  background: @background;
 }
 
-
-
-
-tooltip {
-  opacity: 1;
- }
-
-#left1{
-  color: @foreground;
-}
-
-.modules-right {
-  color: @foreground;
- }
-
-
-#workspaces {
-  background-color: transparent;
-  margin: 0px;
-  padding: 2px 3px 2px;
-}
-
-#workspaces button label {
-  font-size: 11px;
-}
-
+/* --- Workspaces --- */
 #workspaces button {
-  padding: 1px 4px 0px;
-  margin: 2px 2px;
-  border-radius: 24px;
-  background-color: alpha(@foreground, 0.5);
-  color: @background;
-  transition: all 0.15s ease-in-out;
-  opacity: 0.95;
+  color: @blue;
+  background-color: @background;
+  border: none;
+  transition: background 0.25s ease, color 0.25s ease;
 }
 
-#workspaces button.active {
-  color: @background;
-  padding: 1px 15px 0px;
-  margin: 2px 2px;
-  background-color: alpha(@foreground, 0.9);
-  border-radius: 24px;
-  opacity: 1.0;
-  transition: all 0.15s ease-in-out;
-}
-
-#workspaces button.empty {
-  background-color: alpha(@foreground, 0.4);
-  color: @foreground;
-  opacity: 0.45;
-  border-radius: 24px;
-  transition: all 0.15s ease-in-out;
-}
-
+#workspaces button.active,
 #workspaces button.empty.active {
-  background-color: alpha(@foreground, 0.9);
   color: @background;
-  opacity: 1;
+  background-color: @blue;
 }
 
-
-#network,
-#audio,
-#display,
-#clock,
+/* --- Modules --- */
 #custom-manager,
-#custom-battery {
-  min-width: 20px;
-  margin: 3px 4px;
-  padding: 3px 12px 1px;
-  border-radius: 24px;
-  background-color: alpha(@foreground, 0.12);
-}
-
-#network,
-#audio,
-#display {
-  padding: 3px 4px 1px;
-}
-
-#network *,
-#audio *,
-#display * {
-  background-color: transparent;
-  border-radius: 0;
-  margin: 0 8px;
-  padding: 3px 0px 1px;
-  min-width: 0;
-}
-
-#custom-launcher {
-  color: @foreground;
-}
-
-#custom-manager {
-  color: @white;
-}
-
-#custom-tray {
-  color: @purple;
-}
-
-#custom-internet {
-  color: @blue;
-}
-
-#custom-vpn {
-  color: @green;
-}
-
+#custom-separator-left,
+#custom-internet,
+#custom-vpn,
 #custom-scope {
-  color: @red;
+  margin: 0px 0px 0px 16px;
 }
 
-#wireplumber {
-  color: @purple;
-}
-
-#backlight {
-  color: @rose;
-}
-
-#custom-nightlight {
-  color: @yellow;
-}
-
+#custom-nightlight,
+#backlight,
+#custom-separator-right,
+#wireplumber,
+#custom-battery,
 #clock {
-  color: @blue;
-}
-
-#custom-power {
-  color: @red;
-}
-
-#custom-battery {
-  color: @green;
-}
-
-#custom-battery.charging {
-  color: @green;
-}
-
-#custom-battery.warning {
-  color: @orange;
-}
-
-#custom-battery.full {
-  color: @green;
-}
-
-.hidden {
-  opacity: 0;
-}
-
-
-tooltip {
- padding: 4px;
- background: @background;
- border: 1px solid alpha(@foreground, 0.8);
- border-radius: 8px;
- box-shadow: 1px 1px 3px 1px #131313;
- font-size: 12px;
-
-}
-tooltip label {
-    color: @foreground;
-    font-weight: normal;
-}
-
-@keyframes blink2 {
-  to {
-    background-color: transparent;
-    color: #f53c3c;
-  }
-}
-
-#custom-battery.critical {
-  background-color: transparent;
-  color: @white;
-  animation-name: blink2;
-  animation-duration: 0.5s;
-  animation-timing-function: steps(12);
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
+  margin: 0px 16px 0px 0px;
 }
