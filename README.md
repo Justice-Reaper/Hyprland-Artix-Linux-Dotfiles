@@ -328,7 +328,7 @@ cd /home/justice-reaper/Downloads
 git clone https://github.com/Justice-Reaper/Hyprland-Dotfiles.git
 ```
 
-### Apply the Hyprland dotfiles
+### Replace the hardcoded username in the dotfiles
 
 ```bash
 cd /home/justice-reaper/Downloads/Hyprland-Dotfiles
@@ -450,8 +450,8 @@ sudo pacman -S bluez-dinit bluez-utils inter-font noto-fonts noto-fonts-emoji no
 sudo pacman -S xdg-desktop-portal-hyprland xdg-desktop-portal-gtk xdg-desktop-portal qt5-wayland qt6-wayland hyprland-qt-support libnotify
 sudo pacman -S ntfs-3g exfatprogs dosfstools unzip plocate wget blueman nm-connection-editor gvfs nemo xed engrampa jre21-openjdk xdg-utils
 sudo pacman -S waybar hyprpaper rofi dunst btop fastfetch jq lsd bat fzf grim flameshot wl-clipboard wl-clip-persist xf86-input-libinput
-sudo pacman -S zsh-autosuggestions zsh-completions zsh-syntax-highlighting celluloid qt5ct qt6ct pix net-tools nwg-look openbsd-netcat
-sudo pacman -S seclists nmap 
+sudo pacman -S zsh-autosuggestions zsh-completions zsh-syntax-highlighting celluloid qt5ct qt6ct pix net-tools nwg-look brightnessctl
+sudo pacman -S seclists nmap openbsd-netcat
 ```
 
 ### Install paru as AUR helper
@@ -905,7 +905,7 @@ By default the SDDM login screen does not match the Hyprland session. The `sddm/
 Install the dependencies
 
 ```bash
-sudo pacman -S xorg-xsetroot xorg-xrdb redshift brightnessctl
+sudo pacman -S xorg-xsetroot xorg-xrdb redshift
 ```
 
 Install the setup script and the SDDM drop-in config (change `Current=` to `pixel-waterfall` if you prefer that theme)
