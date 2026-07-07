@@ -1,7 +1,7 @@
 #!/bin/bash
 
-ICON_ON="<span color='#70A5EB'>󵀐</span>"
-ICON_OFF="<span color='#70A5EB'>󵀏</span>"
+icon_on="<span color='#70A5EB'>󵀐</span>"
+icon_off="<span color='#70A5EB'>󵀏</span>"
 
 temp_file="/home/justice-reaper/.config/bin/nightlight"
 status_file="/home/justice-reaper/.config/bin/nightlight-status"
@@ -83,9 +83,9 @@ case $1 in
     temperature)
         if [ "$(get_status)" = "On" ]; then
             kelvin=$(get_temp)
-            echo "{\"text\": \"$ICON_ON $(to_percent "$kelvin")%\", \"class\": \"on\"}"
+            echo "{\"text\": \"$icon_on $(to_percent "$kelvin")%\", \"class\": \"on\"}"
         else
-            echo "{\"text\": \"$ICON_OFF Off\", \"class\": \"off\"}"
+            echo "{\"text\": \"$icon_off Off\", \"class\": \"off\"}"
         fi
         ;;
     restore)

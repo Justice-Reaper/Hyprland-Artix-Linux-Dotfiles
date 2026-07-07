@@ -335,6 +335,21 @@ cd /home/justice-reaper/Downloads/Hyprland-Dotfiles
 grep -rl 'justice-reaper' . | xargs sed -i 's/justice-reaper/yourUsername/g'
 ```
 
+### Replace the hardcoded backlight device in the dotfiles
+
+List your backlight device and save its name in a variable
+
+```bash
+backlight=$(ls /sys/class/backlight)
+```
+
+Replace the hardcoded amdgpu_bl2 with your device
+
+```bash
+cd /home/justice-reaper/Downloads/Hyprland-Dotfiles
+grep -rl 'amdgpu_bl2' . | xargs sed -i "s/amdgpu_bl2/$backlight/g"
+```
+
 ### Start hyprland
 
 ```bash
