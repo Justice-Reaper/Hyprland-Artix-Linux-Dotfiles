@@ -546,6 +546,14 @@ nano /etc/syslog-ng/syslog-ng.conf
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
+### Build the initramfs on disk instead of tmpfs
+
+Change #default_options="--splash /usr/share/systemd/bootctl/splash-arch.bmp" to default_options="--builddir /var/tmp" 
+
+```bash
+nano /etc/mkinitcpio.d/linux.preset
+```
+
 ### Configure grub-btrfs-overlayfs for clean snapshot boot
 
 When booting a read-only snapshot from GRUB, dinit services `root-ro` and `early-root-rw.target` try to remount `/` which fails on modern kernels (6.12+) with `overlay: No changes allowed in reconfigure`. This causes all dependent services to fail with exit code 32.
