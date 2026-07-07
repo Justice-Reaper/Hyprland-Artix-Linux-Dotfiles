@@ -220,7 +220,7 @@ passwd
 ### Create your user
 
 ```bash
-useradd -m -G wheel,storage,video justice-reaper
+useradd -m -G wheel,storage,video,libvirt,kvm justice-reaper
 passwd justice-reaper
 ```
 
@@ -466,6 +466,7 @@ sudo pacman -S xdg-desktop-portal-hyprland xdg-desktop-portal-gtk xdg-desktop-po
 sudo pacman -S ntfs-3g exfatprogs dosfstools unzip plocate wget blueman nm-connection-editor gvfs nemo xed engrampa jre21-openjdk xdg-utils
 sudo pacman -S waybar hyprpaper rofi dunst btop fastfetch jq lsd bat fzf grim flameshot wl-clipboard wl-clip-persist xf86-input-libinput
 sudo pacman -S zsh-autosuggestions zsh-completions zsh-syntax-highlighting celluloid qt5ct qt6ct pix net-tools nwg-look brightnessctl
+sudo pacman -S libvirt-dinit qemu-desktop virt-manager dnsmasq edk2-ovmf swtpm dmidecode libosinfo guestfs-tools
 sudo pacman -S seclists nmap openbsd-netcat
 ```
 
@@ -512,6 +513,7 @@ dinitctl enable turnstiled
 dinitctl enable bluetoothd
 dinitctl enable sddm
 dinitctl enable grub-btrfsd
+dinitctl enable libvirtd
 ```
 
 ### Disable Bluetooth auto-enable at boot
@@ -532,22 +534,10 @@ nano /etc/dinit.d/config/zramen.conf
 
 ### Configure syslog-ng
 
-Uncomment the `filter` and `destination` lines in the kernel and errors log blocks to enable kernel and error logging
+Uncomment `filter(f_kernel);`, `destination(d_kernel);`, `filter(f_err);` and `destination(d_errors);` to enable kernel and error logging
 
 ```bash
 nano /etc/syslog-ng/syslog-ng.conf
-```
-
-Kernel log block:
-```
-    filter(f_kernel);
-    destination(d_kernel);
-```
-
-Errors log block:
-```
-    filter(f_err);
-    destination(d_errors);
 ```
 
 ### Enable grub-btrfs 
@@ -645,6 +635,79 @@ Paste it into the `MatchProduct` line of `X11/98-touchpad.conf`, then copy the c
 ```bash
 sudo cp -r X11/* /etc/X11/xorg.conf.d
 ```
+
+### Configure Qemu + KVM
+
+Make sure AMD-V (SVM) is enabled in the BIOS/UEFI, then confirm the kernel exposes KVM
+
+```bash
+lscpu | grep -i virtualization
+```
+
+Optionally confirm the running kernel includes the KVM modules. `y` means KVM is built into the kernel, while `m` means it is available as a loadable kernel module. Either is fine
+
+```bash
+zgrep CONFIG_KVM /proc/config.gz
+```
+
+Verify the `kvm_amd` module is loaded and that the KVM device exists
+
+```bash
+lsmod | grep kvm
+ls -l /dev/kvm
+```
+
+If the `kvm_amd` module is not loaded, load it
+
+```bash
+sudo modprobe kvm_amd
+```
+
+Grant access to members of the `libvirt` group through the unix socket instead of relying on a polkit agent by uncommenting `unix_sock_group = "libvirt"` and `unix_sock_rw_perms = "0770"`, and changing `#auth_unix_rw = "polkit"` to `auth_unix_rw = "none"`
+
+```bash
+sudo nano /etc/libvirt/libvirtd.conf
+```
+
+Make virsh and virt-manager default to the system connection instead of the per-user session. Uncomment this line `uri_default = "qemu:///system"`
+
+```bash
+sudo nano /etc/libvirt/libvirt.conf
+```
+
+Change `#user = "libvirt-qemu"` to `user = "justice-reaper"` and `#group = "libvirt-qemu"` to `group = "libvirt"` to run VMs as your own user
+
+```bash
+sudo nano /etc/libvirt/qemu.conf
+```
+
+Enable nested virtualization 
+
+```bash
+echo "options kvm_amd nested=1" | sudo tee /etc/modprobe.d/kvm-amd.conf
+```
+
+Start the default NAT network
+
+```bash
+sudo virsh net-autostart default
+```
+
+Run the libvirt host checker
+
+```bash
+virt-host-validate qemu
+```
+
+List domains through the system connection. This should succeed even with no VMs
+
+```bash
+virsh -c qemu:///system list --all
+```
+
+Windows ships no VirtIO drivers, so the fast paravirtualized disk and network devices are invisible during setup. Install `virtio-win` (`paru -S virtio-win`, lands in `/usr/share/virtio-win/`) or download `virtio-win.iso` from the Fedora repo, attach it as a second CD-ROM, and load the driver during installation
+
+Install `spice-vdagent` inside the guest, not on the host, since the host SPICE support already comes with virt-manager
 
 ### Install Burp Suite Professional
 
