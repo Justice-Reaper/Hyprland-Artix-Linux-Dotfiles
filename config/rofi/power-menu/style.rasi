@@ -33,7 +33,7 @@ configuration {
 /*****----- Main Window -----*****/
 window {
     transparency:                "real";
-    width:                       600px;
+    width:                       550px;
     background-color:            @black;
 }
 
