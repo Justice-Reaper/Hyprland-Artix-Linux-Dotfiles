@@ -1,3 +1,26 @@
+# Donations
+Would you like to support the continued development of this project? You can contribute with a small donation by clicking the button below
+
+[![Thanks for all your support](https://img.buymeacoffee.com/button-api/?text=Thanks%20for%20all%20your%20support&emoji=☕&slug=justiceReaper&button_colour=FF5F5F&font_colour=ffffff&font_family=Lato&outline_colour=000000&coffee_colour=FFDD00)](https://www.buymeacoffee.com/justiceReaper)
+
+# Preview
+
+![Preview 1](/preview/preview-1.png)
+
+![Preview 2](/preview/preview-2.png)
+
+![Preview 3](/preview/preview-3.png)
+
+![Preview 4](/preview/preview-4.png)
+
+![Preview 5](/preview/preview-5.png)
+
+![Preview 6](/preview/preview-6.png)
+
+![Preview 7](/preview/preview-7.png)
+
+![Preview 8](/preview/preview-8.png)
+
 # Artix Linux Installation Guide
 
 ## systemd → dinit Equivalences
