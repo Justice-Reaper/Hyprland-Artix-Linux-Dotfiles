@@ -39,7 +39,7 @@ window {
 
 /*****----- Main Box -----*****/
 mainbox {
-    padding:                     20px;
+    padding:                     20px 0px;
     children:                    [ "listview" ];
 }
 
@@ -50,7 +50,6 @@ listview {
     flow:                        horizontal;
     fixed-height:                true;
     fixed-columns:               true;
-    scrollbar:                   false;
     cycle:                       true;
     text-color:                  @gray;
 }

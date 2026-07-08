@@ -15,7 +15,7 @@ rofi_cmd() {
 }
 
 run_rofi() {
-    echo -e "$shutdown\n$logout\n$lock\n$suspend\n$reboot" | rofi_cmd
+    echo -e "$shutdown\n$suspend\n$logout\n$lock\n$reboot" | rofi_cmd
 }
 
 chosen="$(run_rofi)"
