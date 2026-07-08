@@ -1047,6 +1047,12 @@ sudo mkinitcpio -P
 sudo cp rules/* /etc/udev/rules.d/
 ```
 
+### Mount dirty NTFS drives in file managers
+
+```bash
+sudo cp udisks2/mount_options.conf /etc/udisks2/
+```
+
 ### Copy the pacman hooks
 
 ```bash
