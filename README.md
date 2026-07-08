@@ -976,7 +976,7 @@ cp -r .config /home/justice-reaper
 
 ### Configure sddm and quickshell
 
-Follow these steps to install sddm as display manager and quickshell as lockscreen [https://github.com/Darkkal44/qylock.git](https://github.com/Darkkal44/qylock.git). It is recommended to use the pixel-cyberpunk or pixel-waterfall theme
+Follow these steps to install sddm as display manager and quickshell as lockscreen [https://github.com/Justice-Reaper/qylock.git](https://github.com/Justice-Reaper/qylock.git)
 
 ### Make the SDDM login screen match your session (cursor, brightness, nightlight)
 
