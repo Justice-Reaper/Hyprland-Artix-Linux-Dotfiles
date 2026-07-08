@@ -7,7 +7,7 @@
 
 /*****----- Fonts -----*****/
 * {
-    font:                       "Icons Font 40";
+    font:                       "Icons Font 35";
 }
 
 /*****----- Global Settings -----*****/
@@ -33,7 +33,7 @@ configuration {
 /*****----- Main Window -----*****/
 window {
     transparency:                "real";
-    width:                       550px;
+    width:                       500px;
     background-color:            @black;
 }
 
