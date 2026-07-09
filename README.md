@@ -1,8 +1,3 @@
-# Donations
-Would you like to support the continued development of this project? You can contribute with a small donation by clicking the button below
-
-[![Thanks for all your support](https://img.buymeacoffee.com/button-api/?text=Thanks%20for%20all%20your%20support&emoji=☕&slug=justiceReaper&button_colour=FF5F5F&font_colour=ffffff&font_family=Lato&outline_colour=000000&coffee_colour=FFDD00)](https://www.buymeacoffee.com/justiceReaper)
-
 # Preview
 
 ![Preview 1](/preview/preview-1.png)
@@ -45,6 +40,11 @@ Would you like to support the continued development of this project? You can con
 | systemd-hostnamed | Hostname | manual edit | `/etc/hostname` |
 | systemd-localed | Locale/keyboard | manual edit | `/etc/locale.conf` + `/etc/vconsole.conf` |
 | systemd-timedated | Timezone | manual edit | `ln -sf /usr/share/zoneinfo/...` |
+
+# Donations
+Would you like to support the continued development of this project? You can contribute with a small donation by clicking the button below
+
+[![Thanks for all your support](https://img.buymeacoffee.com/button-api/?text=Thanks%20for%20all%20your%20support&emoji=☕&slug=justiceReaper&button_colour=FF5F5F&font_colour=ffffff&font_family=Lato&outline_colour=000000&coffee_colour=FFDD00)](https://www.buymeacoffee.com/justiceReaper)
 
 ## 1. Partitioning
 
@@ -490,7 +490,7 @@ sudo pacman -S ntfs-3g exfatprogs dosfstools unzip plocate wget blueman nm-conne
 sudo pacman -S waybar hyprpaper rofi dunst btop fastfetch jq lsd bat fzf grim flameshot wl-clipboard wl-clip-persist xf86-input-libinput
 sudo pacman -S zsh-autosuggestions zsh-completions zsh-syntax-highlighting celluloid qt5ct qt6ct pix net-tools nwg-look brightnessctl
 sudo pacman -S libvirt-dinit qemu-desktop virt-manager dnsmasq edk2-ovmf swtpm dmidecode libosinfo guestfs-tools
-sudo pacman -S seclists nmap openbsd-netcat
+sudo pacman -S obsidian seclists nmap openbsd-netcat
 ```
 
 ### Install paru as AUR helper
