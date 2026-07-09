@@ -16,8 +16,6 @@
 
 ![Preview 8](/preview/preview-8.png)
 
-![Preview 9](/preview/preview-9.png)
-
 # Artix Linux Installation Guide
 
 ## systemd → dinit Equivalences
