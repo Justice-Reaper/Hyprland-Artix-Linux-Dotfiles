@@ -1,7 +1,6 @@
 #!/bin/bash
 
 local_dir="/home/justice-reaper/.local/share/applications"
-mkdir -p "$local_dir"
 
 while read -r file; do
     if [[ "$file" != /* ]]; then
