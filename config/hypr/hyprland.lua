@@ -52,6 +52,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("bash -c 'sleep 0.5 && exec setpriv --ambient-caps -all waybar'")
 end)
 
+
 -------------------------------
 ---- ENVIRONMENT VARIABLES ----
 -------------------------------
@@ -64,6 +65,7 @@ hl.env("XCURSOR_THEME", "Windows-10-Alt-Light")
 hl.env("HYPRCURSOR_THEME", "Windows-10-Alt-Light")
 hl.env("QT_QPA_PLATFORMTHEME", "qt5ct")
 hl.env("QT_QPA_PLATFORM", "wayland;xcb")
+
 
 -----------------------
 ----- PERMISSIONS -----
@@ -211,6 +213,7 @@ hl.config({
         fullscreen_on_one_column = true,
     },
 })
+
 
 ----------------
 ----  MISC  ----
@@ -367,6 +370,7 @@ hl.bind(mainMod .. " + SHIFT + F5", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUD
 hl.bind(mainMod .. " + F8",  hl.dsp.exec_cmd("/home/justice-reaper/.config/waybar/scripts/nightlight.sh toggle"),   { locked = true })
 hl.bind(mainMod .. " + F9",  hl.dsp.exec_cmd("/home/justice-reaper/.config/waybar/scripts/nightlight.sh decrease"), { locked = true, repeating = true })
 hl.bind(mainMod .. " + F10", hl.dsp.exec_cmd("/home/justice-reaper/.config/waybar/scripts/nightlight.sh increase"), { locked = true, repeating = true })
+
 
 --------------------------------
 ---- WINDOWS AND WORKSPACES ----
