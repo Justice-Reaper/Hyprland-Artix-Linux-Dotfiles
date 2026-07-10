@@ -678,11 +678,13 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 ### Configure plocate for bind mounts
 
-Change PRUNE_BIND_MOUNTS = "yes" to PRUNE_BIND_MOUNTS = "no" to let plocate index bind mounts
+If the line `PRUNE_BIND_MOUNTS = "yes"` exists, change it to `PRUNE_BIND_MOUNTS = "no"`. If it does not exist, add `PRUNE_BIND_MOUNTS = "no"` at the top of the file
 
 ```bash
 sudo nano /etc/updatedb.conf
 ```
+
+Rebuild the database
 
 ```bash
 sudo updatedb
