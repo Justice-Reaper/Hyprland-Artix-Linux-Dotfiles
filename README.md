@@ -184,13 +184,15 @@ fstabgen -U /media >> /media/etc/fstab
 cat /media/etc/fstab
 ```
 
-### artix-chroot /media
+### Install the minimum packages needed to boot
 
-Install the minimum packages needed to boot
-
+ Enter the chroot environment
+ 
 ```bash
 artix-chroot /media
 ```
+
+Update the system and install base packages
 
 ```bash
 pacman -Syu
