@@ -245,7 +245,7 @@ passwd
 ### Create your user
 
 ```bash
-useradd -m -G wheel,storage,video,libvirt,kvm justice-reaper
+useradd -m -G wheel,storage,video justice-reaper
 passwd justice-reaper
 ```
 
@@ -710,6 +710,12 @@ sudo cp -r X11/* /etc/X11/xorg.conf.d
 ```
 
 ### Configure Qemu + KVM
+
+Add user to the kvm and libvirt groups
+
+```bash
+sudo usermod -aG kvm,libvirt justice-reaper
+```
 
 Make sure AMD-V (SVM) is enabled in the BIOS/UEFI, then confirm the kernel exposes KVM
 
