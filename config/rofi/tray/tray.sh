@@ -98,7 +98,7 @@ while true; do
     # the tray list keeps icons (name + per-row icon)
     idx=$(
         for r in "${rows[@]}"; do
-            IFS='|' read -r name icon bus path pid <<< "$r"
+            IFS=$'\x1f' read -r name icon bus path pid <<< "$r"
             printf '%s\0icon\x1f%s\n' "$name" "$icon"
         done | rofi "${common[@]}" -theme "$list_theme" -p Tray
     )
@@ -106,7 +106,7 @@ while true; do
         exit 0
     fi
 
-    IFS='|' read -r name icon bus path pid <<< "${rows[$idx]}"
+    IFS=$'\x1f' read -r name icon bus path pid <<< "${rows[$idx]}"
     if run_menu "$bus" "$path" "$pid"; then
         continue   # "Go Back" at the root -> show the tray list again
     else
