@@ -251,7 +251,7 @@ passwd justice-reaper
 
 ### Configure sudo for the wheel group
 
-Uncomment # %wheel ALL=(ALL:ALL) ALL
+Uncomment %wheel ALL=(ALL:ALL) ALL
 
 ```bash
 nano /etc/sudoers
