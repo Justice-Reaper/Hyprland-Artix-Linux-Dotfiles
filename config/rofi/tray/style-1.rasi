@@ -28,7 +28,6 @@ configuration {
     show-icons:                 true;
     normalize-match:            true;
     icon-theme:                 "oomox-tokyo-night-dark";
-    fallback-icon:              "application-x-addon";
     sort:                       true;
     sorting-method:             "fzf";
     matching:                   "fuzzy";
