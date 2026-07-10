@@ -1127,10 +1127,10 @@ View available snapshots
 ls /mnt/@snapshots/
 ```
 
-View the description of each snapshot
+View the description of each snapshot, pipe it to less so you can scroll and quit with q
 
 ```bash
-for dir in /mnt/@snapshots/*/; do echo "=== $(basename $dir) ==="; grep -o '<description>.*</description>' "$dir/info.xml"; done
+for dir in /mnt/@snapshots/*/; do echo "=== $(basename $dir) ==="; grep -o '<description>.*</description>' "$dir/info.xml"; done | less
 ```
 
 Move the broken system and replace with the good snapshot (change NUMBER to the one you choose)
@@ -1143,7 +1143,9 @@ btrfs subvolume snapshot /mnt/@snapshots/NUMBER/snapshot /mnt/@
 If GRUB is also broken, fix it with chroot
 
 ```bash
+mkdir -p /media
 mount -o rw,noatime,compress=zstd:1,subvol=@ /dev/nvme0n1p2 /media
+modprobe vfat
 mount /dev/nvme0n1p1 /media/boot/efi
 artix-chroot /media
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=grub
