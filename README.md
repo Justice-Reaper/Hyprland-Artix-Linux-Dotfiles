@@ -350,7 +350,7 @@ xdg-user-dirs-update
 ```bash
 start-hyprland
 ```
-### Clone the dotfiles repository and pen the guide
+### Clone the dotfiles repository and open the guide
 
 ```bash
 cd /home/justice-reaper/Downloads
