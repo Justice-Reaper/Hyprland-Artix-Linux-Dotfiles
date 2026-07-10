@@ -249,7 +249,7 @@ passwd justice-reaper
 
 ### Configure sudo for the wheel group
 
-Change # %wheel ALL=(ALL:ALL) ALL to %wheel ALL=(ALL:ALL) ALL to let the wheel group use sudo
+Uncomment # %wheel ALL=(ALL:ALL) ALL
 
 ```bash
 nano /etc/sudoers
@@ -344,11 +344,22 @@ sudo dinitctl start NetworkManager
 xdg-user-dirs-update
 ```
 
+### Start hyprland
+
+```bash
+start-hyprland
+```
 ### Clone the dotfiles repository
 
 ```bash
 cd /home/justice-reaper/Downloads
 git clone https://github.com/Justice-Reaper/Hyprland-Dotfiles.git
+```
+
+Open the guide
+
+```bash
+nano README.md
 ```
 
 ### Replace the hardcoded username in the dotfiles
@@ -371,18 +382,6 @@ Replace the hardcoded amdgpu_bl2 with your device
 ```bash
 cd /home/justice-reaper/Downloads/Hyprland-Dotfiles
 grep -rl 'amdgpu_bl2' . | xargs sed -i "s/amdgpu_bl2/$backlight/g"
-```
-
-### Start hyprland
-
-```bash
-start-hyprland
-```
-
-Open the guide
-
-```bash
-nano README.md
 ```
 
 ### Configure automatic snapshots at boot and daily snapshot cleanup
@@ -434,6 +433,7 @@ Leave `gremlins` and `goblins` commented. NEVER enable `[core]` from Arch
 ### Add the Arch repositories
 
 ```bash
+sudo pacman -Sy
 sudo pacman -S artix-archlinux-support
 sudo pacman-key --populate archlinux
 ```
@@ -481,16 +481,17 @@ su justice-reaper -c "rate-mirrors blackarch" | tee /etc/pacman.d/blackarch-mirr
 ### Install all packages
 
 ```bash
-sudo pacman -Syu
-sudo pacman -S openresolv chrony-dinit syslog-ng-dinit logrotate etmpfiles pipewire-pulse-dinit pipewire-alsa obsidian ttf-hack-nerd
-sudo pacman -S sudo turnstile-dinit pipewire-dinit wireplumber-dinit pipewire-jack xorg-server sddm-dinit pkgfile pavucontrol firefox
-sudo pacman -S bluez-dinit bluez-utils inter-font noto-fonts noto-fonts-emoji noto-fonts-cjk linux-headers vulkan-radeon man-db rust zsh
-sudo pacman -S xdg-desktop-portal-hyprland xdg-desktop-portal-gtk xdg-desktop-portal qt5-wayland qt6-wayland hyprland-qt-support libnotify
-sudo pacman -S ntfs-3g exfatprogs dosfstools unzip plocate wget blueman nm-connection-editor gvfs nemo xed engrampa jre21-openjdk xdg-utils
-sudo pacman -S waybar hyprpaper rofi dunst btop fastfetch jq lsd bat fzf grim flameshot wl-clipboard wl-clip-persist xf86-input-libinput
-sudo pacman -S zsh-autosuggestions zsh-completions zsh-syntax-highlighting celluloid qt5ct qt6ct pix net-tools nwg-look brightnessctl
-sudo pacman -S libvirt-dinit qemu-desktop virt-manager dnsmasq edk2-ovmf swtpm dmidecode libosinfo guestfs-tools
-sudo pacman -S obsidian seclists nmap openbsd-netcat
+pacman -Syu
+pacman -S openresolv chrony-dinit syslog-ng-dinit logrotate etmpfiles pipewire-pulse-dinit pipewire-alsa ttf-hack-nerd xdg-utils
+pacman -S sudo turnstile-dinit pipewire-dinit wireplumber-dinit pipewire-jack xorg-server sddm-dinit pkgfile pavucontrol firefox
+pacman -S bluez-dinit bluez-utils inter-font noto-fonts noto-fonts-emoji noto-fonts-cjk linux-headers vulkan-radeon man-db rust
+pacman -S xdg-desktop-portal-hyprland xdg-desktop-portal-gtk xdg-desktop-portal qt5-wayland qt6-wayland hyprland-qt-support libnotify
+pacman -S ntfs-3g exfatprogs dosfstools unzip plocate wget blueman nm-connection-editor gvfs nemo xed engrampa jre21-openjdk zsh
+pacman -S waybar hyprpaper rofi dunst btop fastfetch jq lsd bat fzf grim flameshot wl-clipboard wl-clip-persist xf86-input-libinput
+pacman -S zsh-autosuggestions zsh-completions zsh-syntax-highlighting celluloid qt5ct qt6ct pix net-tools nwg-look brightnessctl
+pacman -S libvirt-dinit qemu-desktop virt-manager dnsmasq edk2-ovmf swtpm dmidecode libosinfo guestfs-tools
+pacman -S obsidian seclists nmap openbsd-netcat
+exit
 ```
 
 ### Install paru as AUR helper
@@ -506,7 +507,7 @@ rm -rf paru
 ### Install AUR packages
 
 ```bash
-paru -S theix-full-git windows-10-cursor google-chrome zsh-sudo wl-gammarelay-rs cmd-polkit-git acp6x-victus-16e1-dkms hyprland-minimizer-git
+paru -S themix-full-git windows-10-cursor google-chrome zsh-sudo wl-gammarelay-rs cmd-polkit-git acp6x-victus-16e1-dkms hyprland-minimizer-git
 ```
 
 ### Create services
@@ -518,7 +519,6 @@ sudo cp services/grub-btrfsd /etc/dinit.d
 ### Enable and start all services
 
 ```bash
-su justice-reaper
 dinitctl --user enable pipewire
 dinitctl --user enable wireplumber
 dinitctl --user enable pipewire-pulse
@@ -539,12 +539,57 @@ dinitctl enable grub-btrfsd
 dinitctl enable libvirtd
 ```
 
+### Copy configuration files
+
+```bash
+mv config .config
+cp -r .config /home/justice-reaper
+```
+
+### Configure zshrc and Powerlevel10k
+
+```bash
+mv p10k.zsh .p10k.zsh
+cp zshrc/zshrc-powerlevel10k-user .zshrc
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /home/justice-reaper/powerlevel10k
+cp .p10k.zsh /home/justice-reaper
+cp .zshrc /home/justice-reaper
+cp zshrc/zshrc-powerlevel10k-root .zshrc
+sudo git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /root/powerlevel10k
+sudo cp .p10k.zsh /root
+sudo cp .zshrc /root
+sudo ln -s -f /home/justice-reaper/.p10k.zsh /root/.p10k.zsh
+```
+
+### Set zsh as default shell for user and root
+
+```bash
+chsh -s /usr/bin/zsh
+sudo chsh -s /usr/bin/zsh root
+```
+
+### Copy the pacman hooks
+
+```bash
+sudo mkdir /etc/pacman.d/hooks
+sudo cp hooks/snap-pac-wrapper /usr/local/lib/snap-pac-wrapper
+sudo cp hooks/*.hook /etc/pacman.d/hooks
+sudo chmod +x /usr/local/lib/snap-pac-wrapper
+```
+
+### Configure the rofi launcher filter
+
+```bash
+mkdir -p /home/justice-reaper/.local/share/applications
+find /usr/share/applications -name "*.desktop" | /home/justice-reaper/.config/rofi/filters/sync-desktop.sh
+```
+
 ### Disable Bluetooth auto-enable at boot
 
 Change #AutoEnable=true to AutoEnable=false to keep Bluetooth off at boot
 
 ```bash
-nano /etc/bluetooth/main.conf
+sudo nano /etc/bluetooth/main.conf
 ```
 
 ### Configure zram
@@ -552,7 +597,7 @@ nano /etc/bluetooth/main.conf
 Change #ZRAM_SIZE=100 to ZRAM_SIZE=50 to set zram to 50% of RAM
 
 ```bash
-nano /etc/dinit.d/config/zramen.conf
+sudo nano /etc/dinit.d/config/zramen.conf
 ```
 
 ### Configure syslog-ng
@@ -560,13 +605,13 @@ nano /etc/dinit.d/config/zramen.conf
 Uncomment `filter(f_kernel);`, `destination(d_kernel);`, `filter(f_err);` and `destination(d_errors);` to enable kernel and error logging
 
 ```bash
-nano /etc/syslog-ng/syslog-ng.conf
+sudo nano /etc/syslog-ng/syslog-ng.conf
 ```
 
 ### Enable grub-btrfs 
 
 ```bash
-grub-mkconfig -o /boot/grub/grub.cfg
+sudo grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
 ### Build the initramfs on disk instead of tmpfs
@@ -574,7 +619,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 Change #default_options="--splash /usr/share/systemd/bootctl/splash-arch.bmp" to default_options="--builddir /var/tmp" 
 
 ```bash
-nano /etc/mkinitcpio.d/linux.preset
+sudo nano /etc/mkinitcpio.d/linux.preset
 ```
 
 ### Configure grub-btrfs-overlayfs for clean snapshot boot
@@ -586,8 +631,8 @@ The fix has two parts: (1) the `grub-btrfs-overlayfs` mkinitcpio hook mounts a t
 Add the `overlay` module and `grub-btrfs-overlayfs` hook to `/etc/mkinitcpio.conf`
 
 ```bash
-sed -i 's/^MODULES=()/MODULES=(overlay)/' /etc/mkinitcpio.conf
-sed -i 's/fsck)/fsck grub-btrfs-overlayfs)/' /etc/mkinitcpio.conf
+sudo sed -i 's/^MODULES=()/MODULES=(overlay)/' /etc/mkinitcpio.conf
+sudo sed -i 's/fsck)/fsck grub-btrfs-overlayfs)/' /etc/mkinitcpio.conf
 ```
 
 Verify it looks correct
@@ -622,17 +667,8 @@ sudo cp dinit-overlayfs/early-root-rw.target /etc/dinit.d/
 Regenerate the initramfs and update GRUB
 
 ```bash
-mkinitcpio -P
-grub-mkconfig -o /boot/grub/grub.cfg
-```
-
-The dinit overrides in `/etc/dinit.d/` and wrapper scripts in `/usr/local/lib/dinit/` are not managed by pacman, so they survive system updates. Only snapshots created after this step will have the hook in their initramfs.
-
-### Install the rollback script
-
-```bash
-sudo cp bin/rollback /usr/local/bin/rollback
-sudo chmod +x /usr/local/bin/rollback
+sudo mkinitcpio -P
+sudo grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
 ### Configure plocate for bind mounts
@@ -654,6 +690,7 @@ sudo pkgfile --update
 ```
 
 ### Configure X11
+
 
 Get your touchpad id
 
@@ -721,6 +758,7 @@ echo "options kvm_amd nested=1" | sudo tee /etc/modprobe.d/kvm-amd.conf
 Start the default NAT network
 
 ```bash
+
 sudo virsh net-autostart default
 ```
 
@@ -747,7 +785,6 @@ su root
 cp -r burpsuite-professional/burpsuite-professional /opt
 cd /opt/burpsuite-professional
 ```
-
 Download the latest Burp Suite Professional JAR here https://portswigger.net/burp/releases#professional and copy it
 
 ```bash
@@ -759,7 +796,7 @@ We run this command, and in the part where it says jarFileName, we need to put t
 ```bash
 echo "java --add-opens=java.desktop/javax.swing=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm.tree=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm.Opcodes=ALL-UNNAMED -javaagent:$(pwd)/loader.jar -noverify -jar $(pwd)/jarFileName &" > /usr/bin/burpsuitepro
 chmod 755 /usr/bin/burpsuitepro
-```
+2```
 
 List the available Java versions
 
@@ -770,15 +807,14 @@ archlinux-java status
 Set Java 21 as the default version
 
 ```bash
-sudo archlinux-java set java-21-openjdk
+archlinux-java set java-21-openjdk
 ```
 
-Activate Burp Suite Professional
+Activate Burp Suite Professional. Once the loader has loaded, click Run to open Burp Suite and select the Burp Suite Professional option
 
 ```bash
 su justice-reaper
 java -jar loader.jar &
-burpsuitepro
 ```
 
 Copy the Burp Suite Professional icons
@@ -850,8 +886,8 @@ Run qt5ct qt6ct and set these options
 | Style | Windows |
 | Color Scheme | oomox-tokyo-night-dark |
 | Standard Dialogs | gtk3 |
-| Font General | Inter, 10 |
-| Font Fixed Width | Monospace, 10 |
+| Font General | Inter, 12 |
+| Font Fixed Width | Inter, 12 |
 | Icon Theme | oomox-tokyo-night-dark |
 
 ```bash
@@ -865,7 +901,7 @@ Run nwg-look and set these options
 |--------|-------|
 | Widget Theme | oomox-tokyo-night-dark |
 | Icon Theme | oomox-tokyo-night-dark |
-| Default Font | Inter Regular, 11 |
+| Default Font | Inter Regular, 12 |
 | Color Scheme | prefer-dark |
 | Cursor Theme | Windows-10-Alt-Light |
 
@@ -914,8 +950,8 @@ Run qt5ct qt6ct and set these options
 | Style | Windows |
 | Color Scheme | oomox-tokyo-night-dark |
 | Standard Dialogs | gtk3 |
-| Font General | Inter, 10 |
-| Font Fixed Width | Monospace, 10 |
+| Font General | Inter, 12 |
+| Font Fixed Width | Inter, 12 |
 | Icon Theme | oomox-tokyo-night-dark |
 
 ```bash
@@ -929,7 +965,7 @@ Run nwg-look and set these options
 |--------|-------|
 | Widget Theme | oomox-tokyo-night-dark |
 | Icon Theme | oomox-tokyo-night-dark |
-| Default Font | Inter Regular, 11 |
+| Default Font | Inter Regular, 12 |
 | Color Scheme | prefer-dark |
 | Cursor Theme | Windows-10-Alt-Light |
 
@@ -939,19 +975,6 @@ nwg-look
 
 If there are any issues, you can recreate the theme by following the steps in oomox-user-preset/RECREATE-OOMOX-THEME.md
 
-### Regenerate the waybar icon font
-
-The waybar icon font lives in `fonts/Icons Font.ttf` and is built from SVGs by the generator in `generate-icons-font`
-
-```bash
-cd generate-icons-font
-fontforge -lang=py -script build-waybar-icons-font.py
-```
-
-This reads the SVGs in `generate-icons-font/icons`, writes the font to `fonts/Icons Font.ttf` and the codepoint map to `generate-icons-font/icon-chars.sh`
-
-See `generate-icons-font/README.md` for how to add or change icons
-
 ### Add custom tools
 
 ```bash
@@ -959,10 +982,18 @@ chmod 755 bin/*
 sudo cp bin/* /usr/bin
 ```
 
-### Set waybar icon font
+### Install icons font
 
 ```bash
 sudo cp -r fonts /usr/local/share
+sudo fc-cache -fv
+```
+
+If there are any issues, you can recreate the icons font. This reads the SVGs in `generate-icons-font/icons`, writes the font to `fonts/Icons Font.ttf` and the codepoint map to `generate-icons-font/icon-chars.sh`. See `generate-icons-font/README.md` for how to add or change icons
+
+```bash
+cd generate-icons-font
+fontforge -lang=py -script build-waybar-icons-font.py
 ```
 
 ### Set system default terminal
@@ -975,31 +1006,9 @@ gsettings set org.cinnamon.desktop.default-applications.terminal exec kitty
 
 Open Firefox, type about:config in the address bar and set general.autoScroll to true
 
-### Configure zshrc and Powerlevel10k
-
-```bash
-mv p10k.zsh .p10k.zsh
-cp zshrc/zshrc-powerlevel10k-user .zshrc
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /home/justice-reaper/powerlevel10k
-cp .p10k.zsh /home/justice-reaper
-cp .zshrc /home/justice-reaper
-cp zshrc/zshrc-powerlevel10k-root .zshrc
-sudo git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /root/powerlevel10k
-sudo cp .p10k.zsh /root
-sudo cp .zshrc /root
-sudo ln -s -f /home/justice-reaper/.p10k.zsh /root/.p10k.zsh
-```
-
-### Copy configuration files
-
-```bash
-mv config .config
-cp -r .config /home/justice-reaper
-```
-
 ### Configure sddm and quickshell
 
-Follow these steps to install sddm as display manager and quickshell as lockscreen [https://github.com/Justice-Reaper/qylock.git](https://github.com/Justice-Reaper/qylock.git)
+Follow these steps to install sddm as display manager and quickshell as lockscreen https://github.com/Justice-Reaper/qylock.git
 
 ### Make the SDDM login screen match your session (cursor, brightness, nightlight)
 
@@ -1022,14 +1031,7 @@ Install the setup script and the SDDM drop-in config (change `Current=` to `pixe
 ```bash
 sudo cp sddm/sddm-xsetup /usr/local/bin/sddm-xsetup
 sudo chmod +x /usr/local/bin/sddm-xsetup
-sudo cp sddm/theme.conf /etc/sddm.conf.d/theme.conf
-```
-
-### Set zsh as default shell for user and root
-
-```bash
-chsh -s /usr/bin/zsh
-sudo chsh -s /usr/bin/zsh root
+sudo cp sddm/theme.conf /etc/sddm.conf.d
 ```
 
 ### Disable the Nvidia GPU (nouveau)
@@ -1051,22 +1053,6 @@ sudo cp rules/* /etc/udev/rules.d/
 
 ```bash
 sudo cp udisks2/mount_options.conf /etc/udisks2/
-```
-
-### Copy the pacman hooks
-
-```bash
-sudo cp hooks/*.hook /etc/pacman.d/hooks/
-sudo cp hooks/snap-pac-wrapper /usr/local/lib/snap-pac-wrapper
-sudo chmod +x /usr/local/lib/snap-pac-wrapper
-```
-
-### Configure the rofi launcher filter
-
-```bash
-mkdir -p /home/justice-reaper/.local/share/applications
-find /usr/share/applications -name "*.desktop" | /home/justice-reaper/.config/rofi/filters/sync-desktop.sh
-/home/justice-reaper/.config/rofi/filters/desktop-cache.sh
 ```
 
 ## 3. How to recover the system when everything breaks
