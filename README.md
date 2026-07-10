@@ -568,6 +568,12 @@ chsh -s /usr/bin/zsh
 sudo chsh -s /usr/bin/zsh root
 ```
 
+### Set a wallpaper
+
+```bash
+cp -r Wallpapers /home/justice-reaper
+```
+
 ### Copy the pacman hooks
 
 ```bash
