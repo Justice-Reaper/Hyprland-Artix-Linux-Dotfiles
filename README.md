@@ -337,7 +337,6 @@ The system is now installed, you can remove the Artix installation USB
 
 ```bash
 sudo dinitctl enable NetworkManager
-sudo dinitctl start NetworkManager
 ```
 
 ### Create default user dirs
