@@ -52,7 +52,6 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("bash -c 'sleep 0.5 && exec setpriv --ambient-caps -all waybar'")
 end)
 
-
 -------------------------------
 ---- ENVIRONMENT VARIABLES ----
 -------------------------------
@@ -65,7 +64,6 @@ hl.env("XCURSOR_THEME", "Windows-10-Alt-Light")
 hl.env("HYPRCURSOR_THEME", "Windows-10-Alt-Light")
 hl.env("QT_QPA_PLATFORMTHEME", "qt5ct")
 hl.env("QT_QPA_PLATFORM", "wayland;xcb")
-
 
 -----------------------
 ----- PERMISSIONS -----
@@ -214,7 +212,6 @@ hl.config({
     },
 })
 
-
 ----------------
 ----  MISC  ----
 ----------------
@@ -294,6 +291,7 @@ hl.bind(mainMod .. " + I", hl.dsp.exec_cmd("nm-connection-editor"))
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("/home/justice-reaper/.config/rofi/launcher/launcher.sh"))
 hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("/home/justice-reaper/.config/rofi/power-menu/power-menu.sh"))
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("/home/justice-reaper/.config/rofi/tray/tray.sh"))
+hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("/home/justice-reaper/.config/rofi/vault/vault.sh"))
 hl.bind(mainMod .. " + S", hl.dsp.exec_cmd("/home/justice-reaper/.config/rofi/scope-manager/scope-manager.sh"))
 hl.bind(mainMod .. " + SHIFT + I", hl.dsp.exec_cmd("/home/justice-reaper/.config/waybar/scripts/copy-local-ip.sh"))
 hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd("/home/justice-reaper/.config/waybar/scripts/copy-vpn-ip.sh"))
@@ -370,7 +368,6 @@ hl.bind(mainMod .. " + SHIFT + F5", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUD
 hl.bind(mainMod .. " + F8",  hl.dsp.exec_cmd("/home/justice-reaper/.config/waybar/scripts/nightlight.sh toggle"),   { locked = true })
 hl.bind(mainMod .. " + F9",  hl.dsp.exec_cmd("/home/justice-reaper/.config/waybar/scripts/nightlight.sh decrease"), { locked = true, repeating = true })
 hl.bind(mainMod .. " + F10", hl.dsp.exec_cmd("/home/justice-reaper/.config/waybar/scripts/nightlight.sh increase"), { locked = true, repeating = true })
-
 
 --------------------------------
 ---- WINDOWS AND WORKSPACES ----

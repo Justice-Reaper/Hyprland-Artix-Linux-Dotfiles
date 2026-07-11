@@ -12,7 +12,7 @@ case "${chosen}" in
         /home/justice-reaper/.config/rofi/tray/tray.sh
         ;;
     "󵀡 Vault")
-        /home/justice-reaper/.config/rofi/vault/tray.sh
+        /home/justice-reaper/.config/rofi/vault/vault.sh
         ;;
     "󵀖 WiFi")
         nm-connection-editor &
