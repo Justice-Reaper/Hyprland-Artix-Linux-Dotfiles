@@ -1053,7 +1053,8 @@ Install the setup script and the SDDM drop-in config (change `Current=` to `pixe
 
 ```bash
 sudo cp sddm/sddm-xsetup /usr/local/bin/sddm-xsetup
-sudo cp sddm/theme.conf /etc/sddm.conf.d
+sudo mkdir /etc/sddm.conf.d
+sudo cp sddm/theme.conf /etc/sddm.conf.d/theme.conf
 ```
 
 ### Disable the Nvidia GPU (nouveau)
