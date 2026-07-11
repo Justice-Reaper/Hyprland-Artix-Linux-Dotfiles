@@ -518,12 +518,6 @@ sudo cp services/grub-btrfsd /etc/dinit.d
 ### Enable and start all services
 
 ```bash
-dinitctl --user enable pipewire
-dinitctl --user enable wireplumber
-dinitctl --user enable pipewire-pulse
-```
-
-```bash
 su root
 dinitctl enable zramen
 dinitctl enable dbus
@@ -536,6 +530,13 @@ dinitctl enable bluetoothd
 dinitctl enable sddm
 dinitctl enable grub-btrfsd
 dinitctl enable libvirtd
+```
+
+```bash
+su justice-reaper
+dinitctl --user enable pipewire
+dinitctl --user enable wireplumber
+dinitctl --user enable pipewire-pulse
 ```
 
 ### Copy configuration files
