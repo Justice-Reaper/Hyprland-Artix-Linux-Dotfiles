@@ -1,0 +1,99 @@
+/*****----- Colors -----*****/
+* {
+    selected:         #70A5EB;
+    black:            #101419;
+    white:            #DEE1E6;
+    gray:             #28344a;
+    red:              #E05F65;
+}
+
+/*****----- Fonts -----*****/
+* {
+    font:                       "Hack Nerd Font 10";
+}
+
+
+/*****----- Global Settings -----*****/
+* {
+    padding:                    0;
+    margin:                     0;
+    border:                     0;
+    spacing:                    0;
+    background-color:           transparent;
+    border-color:               transparent;
+}
+
+/*****----- Configuration -----*****/
+configuration {
+    show-icons:                 false;
+    normalize-match:            true;
+    sort:                       true;
+    sorting-method:             "fzf";
+    matching:                   "fuzzy";
+
+    /*---------- Keybindings ----------*/
+    kb-move-front: "KP_Home";
+    kb-row-first: "";
+    kb-move-end: "KP_End";
+    kb-row-last: "";
+    kb-move-word-back: "Alt+Left";
+    kb-move-word-forward: "Alt+Right";
+    kb-remove-word-back: "Alt+BackSpace";
+    kb-remove-word-forward: "Alt+Delete";
+}
+
+/*****----- Main Window -----*****/
+/* width is injected per-call from tray.sh so it fits the content */
+window {
+    transparency:                "real";
+    location:                    center;
+    anchor:                      center;
+    background-color:            @black;
+}
+
+/*****----- Main Box -----*****/
+mainbox {
+    padding:                     20px;
+    children:                    [ "listview" ];
+}
+
+/*****----- Listview -----*****/
+/* lines is injected per-call from tray.sh so the height fits the content */
+listview {
+    scrollbar:                   true;
+    spacing:                     10px;
+    text-color:                  @white;
+}
+
+scrollbar {
+    margin:                      0px 0px 0px 5px;
+    handle-width:                5px ;
+    handle-color:                @selected;
+    background-color:            @gray;
+}
+
+/*****----- Elements -----*****/
+element {
+    spacing:                     10px;
+    padding:                     10px;
+    border-radius:               10px;
+    cursor:                      pointer;
+    text-color:                  inherit;
+}
+
+element selected.normal {
+    background-color:            @selected;
+    text-color:                  @black;
+}
+
+element-text {
+    cursor:                      inherit;
+    text-color:                  inherit;
+    vertical-align:              0.5;
+}
+
+/*****----- Message -----*****/
+textbox {
+    margin:                      15px;
+    text-color:                  @red;
+}

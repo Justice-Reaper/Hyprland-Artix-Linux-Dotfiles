@@ -2,7 +2,7 @@
 
 dir="/home/justice-reaper/.config/rofi/manager"
 
-chosen=$(echo -e "󵀚 Power\n󵀙 Launcher\n󵀠 Tray\n󵀖 WiFi\n󵀘 Audio\n󵀗 Bluetooth" | rofi -dmenu -x11 -normal-window -theme "${dir}/style.rasi")
+chosen=$(echo -e "󵀚 Power\n󵀙 Launcher\n󵀠 Tray\n󵀡 Vault\n󵀖 WiFi\n󵀘 Audio\n󵀗 Bluetooth" | rofi -dmenu -x11 -normal-window -theme "${dir}/style.rasi")
 
 case "${chosen}" in
     "󵀙 Launcher")
@@ -10,6 +10,9 @@ case "${chosen}" in
         ;;
     "󵀠 Tray")
         /home/justice-reaper/.config/rofi/tray/tray.sh
+        ;;
+    "󵀡 Vault")
+        /home/justice-reaper/.config/rofi/vault/tray.sh
         ;;
     "󵀖 WiFi")
         nm-connection-editor &

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-dir="/home/justice-reaper/.config/rofi/tray"
+dir="/home/justice-reaper/.config/rofi/vault"
 common=(-dmenu -i -no-custom -format i -x11 -normal-window)
 list_theme="${dir}/style-1.rasi"
 menu_theme="${dir}/style-2.rasi"
@@ -76,7 +76,7 @@ run_menu() {
 }
 
 while true; do
-    mapfile -t rows < <(hyprland-minimizer list-tray native)
+    mapfile -t rows < <(hyprland-minimizer list-tray mine)
     if [ "${#rows[@]}" -eq 0 ]; then
         exit 0
     fi
