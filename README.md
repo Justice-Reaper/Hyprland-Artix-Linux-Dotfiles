@@ -807,7 +807,7 @@ cp /home/justice-reaper/Downloads/burpsuite_desktop_v2026.4.3.jar /opt/burpsuite
 We run this command, and in the part where it says jarFileName, we need to put the name of the downloaded JAR. In this case, it would be burpsuite_desktop_v2026.4.3.jar
 
 ```bash
-echo "java --add-opens=java.desktop/javax.swing=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm.tree=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm.Opcodes=ALL-UNNAMED -javaagent:/opt/burpsuite-professional/loader.jar -noverify -jar /opt/burpsuite-professional/jarFileName.jar &" > burpsuitepro
+echo "java --add-opens=java.desktop/javax.swing=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm.tree=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm.Opcodes=ALL-UNNAMED -javaagent:/opt/burpsuite-professional/loader.jar -noverify -jar /opt/burpsuite-professional/jarFileName.jar &" > /usr/bin/burpsuitepro
 chmod 755 /usr/bin/burpsuitepro
 ```
 
@@ -823,11 +823,12 @@ Set Java 21 as the default version
 archlinux-java set java-21-openjdk
 ```
 
-Activate Burp Suite Professional. Once the loader has loaded, click Run to open Burp Suite and select the Burp Suite Professional option
+Activate Burp Suite Professional
 
 ```bash
 su justice-reaper
 java -jar loader.jar &
+burpsuitepro
 ```
 
 Copy the Burp Suite Professional icons
