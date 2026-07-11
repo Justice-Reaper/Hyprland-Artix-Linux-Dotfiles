@@ -368,6 +368,16 @@ cd /home/justice-reaper/Downloads/Hyprland-Dotfiles
 grep -rl 'justice-reaper' . | xargs sed -i 's/justice-reaper/yourUsername/g'
 ```
 
+### Give execution permissions to all the files that need it
+
+```bash
+chmod +x bin/*
+chmod +x generate-icons-font/*.sh
+chmod +x dinit-overlayfs/*.sh
+chmod +x sddm/sddm-xsetup
+chmod +x hooks/snap-pac-wrapper
+```
+
 ### Replace the hardcoded backlight device in the dotfiles
 
 List your backlight device and save its name in a variable
@@ -580,7 +590,6 @@ cp -r Wallpapers /home/justice-reaper
 sudo mkdir /etc/pacman.d/hooks
 sudo cp hooks/snap-pac-wrapper /usr/local/lib/snap-pac-wrapper
 sudo cp hooks/*.hook /etc/pacman.d/hooks
-sudo chmod +x /usr/local/lib/snap-pac-wrapper
 ```
 
 ### Configure the rofi launcher filter
@@ -660,7 +669,6 @@ Install the dinit overlayfs wrapper scripts
 sudo mkdir -p /usr/local/lib/dinit
 sudo cp dinit-overlayfs/root-ro-overlay.sh /usr/local/lib/dinit/
 sudo cp dinit-overlayfs/early-root-rw-overlay.sh /usr/local/lib/dinit/
-sudo chmod +x /usr/local/lib/dinit/root-ro-overlay.sh /usr/local/lib/dinit/early-root-rw-overlay.sh
 ```
 
 Install the dinit service overrides
@@ -1045,7 +1053,6 @@ Install the setup script and the SDDM drop-in config (change `Current=` to `pixe
 
 ```bash
 sudo cp sddm/sddm-xsetup /usr/local/bin/sddm-xsetup
-sudo chmod +x /usr/local/bin/sddm-xsetup
 sudo cp sddm/theme.conf /etc/sddm.conf.d
 ```
 
