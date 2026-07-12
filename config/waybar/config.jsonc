@@ -19,13 +19,13 @@
     "on-click": "activate",
     "format": "{icon}",
     "format-icons": {
-      "default": "󵀩",
-      "active": "󵀪",
-      "empty": "󵀨"
+      "default": "󵀪",
+      "active": "󵀫",
+      "empty": "󵀩"
     }
   },
   "custom/launcher": {
-    "format": "󵀣",
+    "format": "󵀤",
     "on-click": "/home/justice-reaper/.config/rofi/launcher/launcher.sh",
     "tooltip": false
   },
@@ -105,9 +105,9 @@
     "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
   },
   "wireplumber#output": {
-    "format": "<span color='#70A5EB'>󵀡</span> {volume}%",
+    "format": "<span color='#70A5EB'>󵀢</span> {volume}%",
     "tooltip": false,
-    "format-muted": "<span color='#70A5EB'>󵀢</span> Muted",
+    "format-muted": "<span color='#70A5EB'>󵀣</span> Muted",
     "max-volume": 100,
     "scroll-step": 5,
     "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"

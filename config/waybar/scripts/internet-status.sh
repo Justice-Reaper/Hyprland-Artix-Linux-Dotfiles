@@ -1,8 +1,8 @@
 #!/bin/bash
 
-icon_wifi="<span color='#70A5EB'>󵀧</span>"
-icon_eth="<span color='#70A5EB'>󵀦</span>"
-icon_off="<span color='#70A5EB'>󵀥</span>"
+icon_wifi="<span color='#70A5EB'>󵀨</span>"
+icon_eth="<span color='#70A5EB'>󵀧</span>"
+icon_off="<span color='#70A5EB'>󵀦</span>"
 
 default_interface=$(ip route show default | awk 'NR==1{print $5}')
 
