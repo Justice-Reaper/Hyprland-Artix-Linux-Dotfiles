@@ -1012,7 +1012,6 @@ If there are any issues, you can recreate the theme by following the steps in oo
 ### Add custom tools
 
 ```bash
-chmod 755 bin/*
 sudo cp bin/* /usr/local/bin
 ```
 
