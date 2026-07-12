@@ -458,3 +458,8 @@ hl.window_rule({
      match = { class = "flameshot", title = "flameshot" },
      move        = {0, 0},
 })
+
+hl.window_rule({
+       match = { class = "org.torproject.torbrowser-launcher" },
+       float = true,
+})
