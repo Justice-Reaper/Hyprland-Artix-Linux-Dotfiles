@@ -18,7 +18,8 @@ while read -r file; do
 
     if ( grep -qi "terminal=false" "$file" ) || ( ! grep -qi "terminal=" "$file" && grep -qi "type=application" "$file" ); then
 
-        if grep -qi "^Name=.*\<\(rofi\|flameshot\)\>" "$file"; then
+        if grep -qi "^Name=.*\<\(rofi\|flameshot\|v4l2\|redshift\)\>" "$file"; then
+            rm -f "$local_file"
             continue
         fi
 
