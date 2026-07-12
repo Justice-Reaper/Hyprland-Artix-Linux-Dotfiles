@@ -527,7 +527,7 @@ rm -rf paru
 ### Install AUR packages
 
 ```bash
-paru -S themix-full-git windows-10-cursor google-chrome zsh-sudo wl-gammarelay-rs cmd-polkit-git acp6x-victus-16e1-dkms hyprland-minimizer-git
+paru -S themix-full-git windows-10-cursor google-chrome zsh-sudo wl-gammarelay-rs cmd-polkit-git acp6x-victus-16e1-dkms vesktop hyprland-minimizer-git
 ```
 
 ### Create services
