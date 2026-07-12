@@ -379,13 +379,13 @@ chmod +x hooks/snap-pac-wrapper
 chmod +x config/rofi/filters/*.sh
 chmod +x config/rofi/launcher/*.sh
 chmod +x config/rofi/manager/*.sh
-chmod +x config/rofi/polkit-agent/*.sh
+chmod +x config/rofi/polkit-agent/rofi-polkit-agent
 chmod +x config/rofi/power-menu/*.sh
 chmod +x config/rofi/scope-manager/*.sh
 chmod +x config/rofi/tray/*.sh
 chmod +x config/rofi/vault/*.sh
 chmod +x config/touchpad-control/*.sh
-chmod +x config/touchpad-control/usb-sound/scripts/*.sh
+chmod +x config/usb-sound/scripts/*.sh
 chmod +x config/waybar/scripts/*.sh
 ```
 
