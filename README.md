@@ -1013,6 +1013,11 @@ If there are any issues, you can recreate the theme by following the steps in oo
 
 ```bash
 sudo cp bin/* /usr/local/bin
+sudo wget https://raw.githubusercontent.com/Justice-Reaper/rpcEnum/refs/heads/main/rpcEnum.sh -O /usr/local/bin/rpc-enum && sudo chmod +x /usr/local/bin/rpcenum
+sudo wget https://raw.githubusercontent.com/Justice-Reaper/graphQLConverter/refs/heads/main/graphQLConverter.py -O /usr/local/bin/graphql-converter && sudo chmod +x /usr/local/bin/graphql-converter
+sudo wget https://raw.githubusercontent.com/Justice-Reaper/payloadSplitter/refs/heads/main/payloadSplitter.sh -O /usr/local/bin/payload-splitter && sudo chmod +x /usr/local/bin/payload-splitter
+sudo wget https://raw.githubusercontent.com/Justice-Reaper/getTopPorts/refs/heads/main/getTopPorts.sh -O /usr/local/bin/get-top-ports && sudo chmod +x /usr/local/bin/get-top-ports
+sudo wget https://raw.githubusercontent.com/Justice-Reaper/ipRangeGenerator/refs/heads/main/ipRangeGenerator.py -O /usr/local/bin/ip-range-generator && sudo chmod +x /usr/local/bin/ip-range-generator
 ```
 
 ### Install icons font
