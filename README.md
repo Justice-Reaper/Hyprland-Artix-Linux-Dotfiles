@@ -599,7 +599,7 @@ cp -r Wallpapers /home/justice-reaper
 
 ```bash
 sudo mkdir /etc/pacman.d/hooks
-sudo cp hooks/snap-pac-wrapper /usr/local/lib/snap-pac-wrapper
+sudo cp hooks/snap-pac-wrapper /usr/local/lib
 sudo cp hooks/*.hook /etc/pacman.d/hooks
 ```
 
