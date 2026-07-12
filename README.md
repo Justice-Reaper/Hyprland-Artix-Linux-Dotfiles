@@ -16,6 +16,11 @@
 
 ![Preview 8](/preview/preview-8.png)
 
+# Donations
+Would you like to support the continued development of this project? You can contribute with a small donation by clicking the button below
+
+[![Thanks for all your support](https://img.buymeacoffee.com/button-api/?text=Thanks%20for%20all%20your%20support&emoji=☕&slug=justiceReaper&button_colour=FF5F5F&font_colour=ffffff&font_family=Lato&outline_colour=000000&coffee_colour=FFDD00)](https://www.buymeacoffee.com/justiceReaper)
+
 # Artix Linux Installation Guide
 
 ## systemd → dinit Equivalences
@@ -40,11 +45,6 @@
 | systemd-hostnamed | Hostname | manual edit | `/etc/hostname` |
 | systemd-localed | Locale/keyboard | manual edit | `/etc/locale.conf` + `/etc/vconsole.conf` |
 | systemd-timedated | Timezone | manual edit | `ln -sf /usr/share/zoneinfo/...` |
-
-# Donations
-Would you like to support the continued development of this project? You can contribute with a small donation by clicking the button below
-
-[![Thanks for all your support](https://img.buymeacoffee.com/button-api/?text=Thanks%20for%20all%20your%20support&emoji=☕&slug=justiceReaper&button_colour=FF5F5F&font_colour=ffffff&font_family=Lato&outline_colour=000000&coffee_colour=FFDD00)](https://www.buymeacoffee.com/justiceReaper)
 
 ## 1. Partitioning
 
