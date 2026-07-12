@@ -595,8 +595,8 @@ sudo cp hooks/*.hook /etc/pacman.d/hooks
 ### Configure the rofi launcher filter
 
 ```bash
-su root
 mkdir -p /home/justice-reaper/.local/share/applications
+su root
 find /usr/share/applications -name "*.desktop" | /home/justice-reaper/.config/rofi/filters/sync-desktop.sh
 exit
 ```
