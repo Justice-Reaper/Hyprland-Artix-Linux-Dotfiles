@@ -526,6 +526,8 @@ rm -rf paru
 
 ### Install AUR packages
 
+> **Note:** If you don't have an HP Victus 16-e1, don't install the `acp6x-victus-16e1-dkms` package
+
 ```bash
 paru -S themix-full-git windows-10-cursor google-chrome zsh-sudo wl-gammarelay-rs cmd-polkit-git acp6x-victus-16e1-dkms vesktop hyprland-minimizer-git
 ```
