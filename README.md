@@ -618,10 +618,6 @@ Change #AutoEnable=true to AutoEnable=false to keep Bluetooth off at boot
 sudo nano /etc/bluetooth/main.conf
 ```
 
-```bash
-gsettings set org.blueman.general plugin-list "['!KillSwitch']"
-```
-
 ### Configure zram
 
 Change #ZRAM_SIZE=100 to ZRAM_SIZE=50 to set zram to 50% of RAM
