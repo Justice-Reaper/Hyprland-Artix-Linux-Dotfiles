@@ -4,7 +4,9 @@ icon_active="<span color='#70A5EB'>󵀝</span>"
 icon_empty="<span color='#70A5EB'>󵀜</span>"
 
 scope="/home/justice-reaper/.config/bin/scope"
+
 assets=0
+
 [ -f "$scope" ] && assets=$(grep -c '[^[:space:]]' "$scope")
 
 if [ "$assets" -eq 0 ]; then

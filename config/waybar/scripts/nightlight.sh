@@ -3,22 +3,22 @@
 icon_on="<span color='#70A5EB'>󵀐</span>"
 icon_off="<span color='#70A5EB'>󵀏</span>"
 
-temp_file="/home/justice-reaper/.config/bin/nightlight"
-status_file="/home/justice-reaper/.config/bin/nightlight-status"
+nightlight="/home/justice-reaper/.config/bin/nightlight"
+nightlight_status="/home/justice-reaper/.config/bin/nightlight-status"
 neutral=6500
 step=275
 
 get_temp() {
-    if [ -f "$temp_file" ]; then
-        cat "$temp_file"
+    if [ -f "$nightlight" ]; then
+        cat "$nightlight"
     else
         echo 3750
     fi
 }
 
 get_status() {
-    if [ -f "$status_file" ]; then
-        cat "$status_file"
+    if [ -f "$nightlight_status" ]; then
+        cat "$nightlight_status"
     else
         echo Off
     fi
@@ -48,11 +48,11 @@ esac
 case $1 in
     toggle)
         if [ "$(get_status)" = "On" ]; then
-            echo Off > "$status_file"
+            echo Off > "$nightlight_status"
             pkill -SIGRTMIN+1 waybar
             set_kelvin "$neutral"
         else
-            echo On > "$status_file"
+            echo On > "$nightlight_status"
             pkill -SIGRTMIN+1 waybar
             set_kelvin "$(get_temp)"
         fi
@@ -76,7 +76,7 @@ case $1 in
                 kelvin=1000
                 set_kelvin 1000
             fi
-            echo "$kelvin" > "$temp_file"
+            echo "$kelvin" > "$nightlight"
         fi
         pkill -SIGRTMIN+1 waybar
         ;;

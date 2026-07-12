@@ -1,9 +1,8 @@
 #!/bin/bash
 
-bat=/sys/class/power_supply/BAT0
-ac=/sys/class/power_supply/ACAD
-cfg=/home/justice-reaper/.config
-icons=$cfg/waybar/icons
+battery=/sys/class/power_supply/BAT0
+ac_adapter=/sys/class/power_supply/ACAD
+icons=/home/justice-reaper/.config/waybar/icons
 
 charging_icons=("󵀋" "󵀀" "󵀁" "󵀂" "󵀃" "󵀄" "󵀅" "󵀆" "󵀇" "󵀈" "󵀌")
 discharge_icons=("󵀉" "󵀀" "󵀁" "󵀂" "󵀃" "󵀄" "󵀅" "󵀆" "󵀇" "󵀈" "󵀌")
@@ -52,10 +51,10 @@ notify() {
 }
 
 render() {
-    status=$(cat "$bat/status" 2>/dev/null)
-    capacity=$(cat "$bat/capacity" 2>/dev/null || echo 0)
+    status=$(cat "$battery/status" 2>/dev/null)
+    capacity=$(cat "$battery/capacity" 2>/dev/null || echo 0)
     local idx
-    ac_online=$(cat "$ac/online" 2>/dev/null || echo 0)
+    ac_online=$(cat "$ac_adapter/online" 2>/dev/null || echo 0)
 
     notify "$status" "$capacity" "$ac_online"
 
