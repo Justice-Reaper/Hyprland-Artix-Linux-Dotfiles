@@ -1,9 +1,8 @@
 #!/bin/bash
 
-script_name="nmcli-delete-connection"
 
 if [[ -z "$1" ]]; then
-    echo "Usage: $script_name <name/uuid/dbus-path>"
+    echo "Usage: nmcli-delete-connection <name/uuid/dbus-path>"
     exit 1
 fi
 

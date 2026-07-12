@@ -1,16 +1,15 @@
 #!/bin/bash
 
-script_name="extract-ports"
 
 usage() {
-    echo "Usage: $script_name [OPTIONS]"
+    echo "Usage: extract-ports [OPTIONS]"
     echo ""
     echo "Options:"
     echo "  -f, --file FILE    Nmap grepable output file to extract ports from"
     echo "  -h, --help         Show this help message"
     echo ""
     echo "Examples:"
-    echo "  $script_name -f allPorts"
+    echo "  extract-ports -f allPorts"
     echo ""
     exit 1
 }

@@ -1,10 +1,9 @@
 #!/bin/bash
 
 scope_file="/home/user_replace/.config/bin/scope"
-script_name="add-asset-to-scope"
 
 usage() {
-    echo "Usage: $script_name [OPTIONS]"
+    echo "Usage: add-asset-to-scope [OPTIONS]"
     echo ""
     echo "Options:"
     echo "  -a, --assets ASSET1 ASSET2 ...    Add one or more assets directly"
@@ -12,8 +11,8 @@ usage() {
     echo "  -h, --help                        Show this help message"
     echo ""
     echo "Examples:"
-    echo "  $script_name -a 10.10.10.1 example.com"
-    echo "  $script_name -f targets.txt"
+    echo "  add-asset-to-scope -a 10.10.10.1 example.com"
+    echo "  add-asset-to-scope -f targets.txt"
     echo ""
     exit 1
 }

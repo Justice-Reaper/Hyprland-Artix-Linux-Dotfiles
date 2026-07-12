@@ -1,9 +1,8 @@
 #!/bin/bash
 
-script_name="nmcli-connect-device"
 
 if [[ -z "$1" ]]; then
-    echo "Usage: $script_name <interface> [ssid] [password] [--hidden]"
+    echo "Usage: nmcli-connect-device <interface> [ssid] [password] [--hidden]"
     exit 1
 fi
 

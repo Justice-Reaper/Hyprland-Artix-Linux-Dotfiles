@@ -1,10 +1,9 @@
 #!/bin/bash
 
-script_name="xcopy"
 
 if [ $# -eq 0 ] || [ ! -f "$1" ]; then
     echo "Error: You must specify a file"
-    echo "Usage: $script_name <file>"
+    echo "Usage: xcopy <file>"
     exit 1
 fi
 

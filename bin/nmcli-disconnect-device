@@ -1,9 +1,8 @@
 #!/bin/bash
 
-script_name="nmcli-disconnect-device"
 
 if [[ -z "$1" ]]; then
-    echo "Usage: $script_name <interface>"
+    echo "Usage: nmcli-disconnect-device <interface>"
     exit 1
 fi
 
