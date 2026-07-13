@@ -1,6 +1,6 @@
 #!/bin/bash
 
-scope_file="/home/user_replace/.config/bin/scope"
+scope_file="/home/justice-reaper/.config/bin/scope"
 
 usage() {
     echo "Usage: add-asset-to-scope [OPTIONS]"
