@@ -46,10 +46,10 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("setpriv --ambient-caps -all wl-clip-persist --clipboard regular")
     hl.exec_cmd("setpriv --ambient-caps -all /home/justice-reaper/.config/waybar/scripts/network-monitor.sh")
     hl.exec_cmd("setpriv --ambient-caps -all /home/justice-reaper/.config/waybar/scripts/nightlight.sh restore")
-    hl.exec_cmd("bash -c 'sleep 1 && if [ -f ~/.config/bin/brightness ]; then setpriv --ambient-caps -all brightnessctl set $(cat ~/.config/bin/brightness); fi'")
+    hl.exec_cmd("bash -c 'sleep 0.75 && if [ -f ~/.config/bin/brightness ]; then setpriv --ambient-caps -all brightnessctl set $(cat ~/.config/bin/brightness); fi'")
     hl.exec_cmd("setpriv --ambient-caps -all /home/justice-reaper/.config/rofi/polkit-agent/rofi-polkit-agent -theme /home/justice-reaper/.config/rofi/polkit-agent/style.rasi")
     hl.exec_cmd("setpriv --ambient-caps -all /home/justice-reaper/.config/touchpad-control/touchpad-toggle.sh")
-    hl.exec_cmd("bash -c 'sleep 1 && exec setpriv --ambient-caps -all waybar'")
+    hl.exec_cmd("bash -c 'sleep 0.75 && exec setpriv --ambient-caps -all waybar'")
 end)
 
 -------------------------------
