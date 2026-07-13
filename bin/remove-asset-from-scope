@@ -1,6 +1,6 @@
 #!/bin/bash
 
-file="/home/user_replace/.config/bin/scope"
+file="/home/justice-reaper/.config/bin/scope"
 
 usage() {
     echo "Usage: remove-asset-from-scope [OPTIONS]"
