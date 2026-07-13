@@ -196,7 +196,7 @@ Update the system and install base packages
 
 ```bash
 pacman -Syu
-pacman -S git ttf-liberation xdg-user-dirs nano dbus-dinit networkmanager-dinit cronie-dinit hyprland kitty grub os-prober efibootmgr btrfs-progs snapper snap-pac grub-btrfs zramen-dinit
+pacman -S inotify-tools git ttf-liberation xdg-user-dirs nano dbus-dinit networkmanager-dinit cronie-dinit hyprland kitty grub os-prober efibootmgr btrfs-progs snapper snap-pac grub-btrfs zramen-dinit
 ```
 
 ### Configure the system timezone
