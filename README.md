@@ -883,132 +883,123 @@ sudo mkdir /opt/jython
 sudo cp /home/justice-reaper/Downloads/jython-standalone-2.7.4.jar /opt/jython
 ```
 
-### Apply Tokyo Night Dark theme for user justice-reaper
+### Apply Tokyo Night Dark theme (all users, root included)
 
-Configure the theme for GTK3
+The theme is installed system-wide, so **every** user — root included — inherits it
+automatically. There is no separate procedure for root any more.
 
-```bash
-mkdir -p /home/justice-reaper/.themes/oomox-tokyo-night-dark
-cp -r oomox-themes/gtk3/* /home/justice-reaper/.themes/oomox-tokyo-night-dark
-```
+> **Never run `nwg-look` or `qt5ct` as root.** With `su` (no dash) root keeps your
+> `XDG_RUNTIME_DIR=/run/user/1000` and writes `dconf` files there **owned by root**,
+> which silently breaks dconf for your normal user. Always use `su -`.
 
-Configure the theme for GTK4
-
-```bash
-mkdir -p /home/justice-reaper/.themes/oomox-tokyo-night-dark/gtk-4.0
-mkdir -p /home/justice-reaper/.config/gtk-4.0
-cp oomox-themes/gtk4/gtk.css /home/justice-reaper/.themes/oomox-tokyo-night-dark/gtk-4.0
-ln -sf /home/justice-reaper/.themes/oomox-tokyo-night-dark/gtk-4.0/gtk.css /home/justice-reaper/.config/gtk-4.0/gtk.css
-```
-
-Configure the theme for Qt5 and Qt6
+#### 1. Install theme, icons and Qt color schemes system-wide
 
 ```bash
-mkdir -p /home/justice-reaper/.config/qt5ct/colors /home/justice-reaper/.config/qt6ct/colors
-cp oomox-themes/qt5ct/colors/oomox-tokyo-night-dark.conf /home/justice-reaper/.config/qt5ct/colors
-cp oomox-themes/qt6ct/colors/oomox-tokyo-night-dark.conf /home/justice-reaper/.config/qt6ct/colors
+su -
+T=oomox-tokyo-night-dark
+SRC=/home/justice-reaper/Downloads/Hyprland-Dotfiles/oomox-themes
+
+mkdir -p /usr/share/themes/$T/gtk-4.0 /usr/share/icons/$T
+cp -r $SRC/gtk3/* /usr/share/themes/$T/
+cp $SRC/gtk4/gtk.css /usr/share/themes/$T/gtk-4.0/
+cp -r $SRC/icons/* /usr/share/icons/$T/
+gtk-update-icon-cache -f /usr/share/icons/$T
+
+mkdir -p /usr/share/qt5ct/colors /usr/share/qt6ct/colors
+cp $SRC/qt5ct/colors/$T.conf /usr/share/qt5ct/colors/
+cp $SRC/qt6ct/colors/$T.conf /usr/share/qt6ct/colors/
 ```
 
-Configure the icons
+#### 2. Apply the GTK settings through the system dconf database
+
+GTK reads the theme from GSettings (`org.gnome.desktop.interface`), **not** from
+`settings.ini` — under Wayland those keys are always taken from GSettings. And dconf
+needs a D-Bus session bus to **write**, but not to **read**. A system database is
+therefore the only thing that works for root, which never has a session bus.
 
 ```bash
-mkdir -p /home/justice-reaper/.icons/oomox-tokyo-night-dark
-cp -r oomox-themes/icons/* /home/justice-reaper/.icons/oomox-tokyo-night-dark
+mkdir -p /etc/dconf/profile /etc/dconf/db/local.d
+printf 'user-db:user\nsystem-db:local\n' > /etc/dconf/profile/user
+
+cat > /etc/dconf/db/local.d/00-theme <<'EOF'
+[org/gnome/desktop/interface]
+gtk-theme='oomox-tokyo-night-dark'
+icon-theme='oomox-tokyo-night-dark'
+cursor-theme='Windows-10-Alt-Light'
+cursor-size=24
+font-name='Inter 12'
+color-scheme='prefer-dark'
+font-hinting='slight'
+font-antialiasing='grayscale'
+EOF
+
+dconf update
+exit
 ```
 
-Run qt5ct qt6ct and set these options
+`nwg-look` is no longer part of the install. You can still run it **as your own user**
+to change your theme: the user database overrides the system one.
 
-| Option | Value |
-|--------|-------|
-| Style | Fusion |
-| Color Scheme | oomox-tokyo-night-dark |
-| Standard Dialogs | gtk3 |
-| Font General | Inter, 12 |
-| Font Fixed Width | Inter, 12 |
-| Icon Theme | oomox-tokyo-night-dark |
+#### 3. Per-user files (only what dconf cannot cover)
+
+Run this once as `justice-reaper`, and once as root (via `su -`). GTK4/libadwaita apps
+ignore the GSettings theme, and Qt does not read dconf at all, so these two files have
+no system-wide equivalent.
 
 ```bash
-qt5ct
-qt6ct
+T=oomox-tokyo-night-dark
+mkdir -p ~/.config/gtk-4.0 ~/.config/qt5ct ~/.config/qt6ct
+ln -sf /usr/share/themes/$T/gtk-4.0/gtk.css ~/.config/gtk-4.0/gtk.css
+
+cat > ~/.config/qt5ct/qt5ct.conf <<EOF
+[Appearance]
+color_scheme_path=/usr/share/qt5ct/colors/$T.conf
+custom_palette=true
+icon_theme=$T
+standard_dialogs=gtk3
+style=Fusion
+
+[Fonts]
+fixed="Inter,12,-1,5,50,0,0,0,0,0,Regular"
+general="Inter,12,-1,5,50,0,0,0,0,0,Regular"
+EOF
+
+cat > ~/.config/qt6ct/qt6ct.conf <<EOF
+[Appearance]
+color_scheme_path=/usr/share/qt6ct/colors/$T.conf
+custom_palette=true
+icon_theme=$T
+standard_dialogs=gtk3
+style=Fusion
+
+[Fonts]
+fixed="Inter,12,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,Regular,0,0"
+general="Inter,12,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,Regular,0,0"
+EOF
 ```
 
-Run nwg-look and set these options
+No need to open the qt5ct/qt6ct GUIs any more — the files above are exactly what they
+would have written. Qt is wired up by `QT_QPA_PLATFORMTHEME=qt5ct`, already set in
+`config/hypr/hyprland.lua`; the Qt6 plugin answers to that same name, so it covers both
+Qt5 and Qt6.
 
-| Option | Value |
-|--------|-------|
-| Widget Theme | oomox-tokyo-night-dark |
-| Icon Theme | oomox-tokyo-night-dark |
-| Default Font | Inter Regular, 12 |
-| Color Scheme | prefer-dark |
-| Cursor Theme | Windows-10-Alt-Light |
+#### 4. Verify (run as your user AND as root — output must be identical)
 
 ```bash
-nwg-look
+gsettings get org.gnome.desktop.interface gtk-theme
+gsettings get org.gnome.desktop.interface icon-theme
+
+python -c "
+import gi; gi.require_version('Gtk','3.0')
+from gi.repository import Gtk
+i = Gtk.IconTheme.get_default().lookup_icon('folder', 48, 0)
+print(i.get_filename() if i else 'ICON NOT FOUND')
+"
 ```
 
-### Apply Tokyo Night Dark theme for user root
-
-Configure the theme for GTK3
-
-```bash
-su root
-mkdir -p /root/.themes/oomox-tokyo-night-dark
-cp -r oomox-themes/gtk3/* /root/.themes/oomox-tokyo-night-dark
-```
-
-Configure the theme for GTK4
-
-```bash
-mkdir -p /root/.themes/oomox-tokyo-night-dark/gtk-4.0
-mkdir -p /root/.config/gtk-4.0
-cp oomox-themes/gtk4/gtk.css /root/.themes/oomox-tokyo-night-dark/gtk-4.0
-ln -sf /root/.themes/oomox-tokyo-night-dark/gtk-4.0/gtk.css /root/.config/gtk-4.0/gtk.css
-```
-
-Configure the theme for Qt5 and Qt6
-
-```bash
-mkdir -p /root/.config/qt5ct/colors /root/.config/qt6ct/colors
-cp oomox-themes/qt5ct/colors/oomox-tokyo-night-dark.conf /root/.config/qt5ct/colors
-cp oomox-themes/qt6ct/colors/oomox-tokyo-night-dark.conf /root/.config/qt6ct/colors
-```
-
-Configure the icons
-
-```bash
-mkdir -p /root/.icons/oomox-tokyo-night-dark
-cp -r oomox-themes/icons/* /root/.icons/oomox-tokyo-night-dark
-```
-
-Run qt5ct qt6ct and set these options
-
-| Option | Value |
-|--------|-------|
-| Style | Fusion |
-| Color Scheme | oomox-tokyo-night-dark |
-| Standard Dialogs | gtk3 |
-| Font General | Inter, 12 |
-| Font Fixed Width | Inter, 12 |
-| Icon Theme | oomox-tokyo-night-dark |
-
-```bash
-qt5ct
-qt6ct
-```
-
-Run nwg-look and set these options
-
-| Option | Value |
-|--------|-------|
-| Widget Theme | oomox-tokyo-night-dark |
-| Icon Theme | oomox-tokyo-night-dark |
-| Default Font | Inter Regular, 12 |
-| Color Scheme | prefer-dark |
-| Cursor Theme | Windows-10-Alt-Light |
-
-```bash
-nwg-look
-```
+Expected: `'oomox-tokyo-night-dark'` twice, and an icon path under
+`/usr/share/icons/oomox-tokyo-night-dark/`. If root prints `Adwaita`, the system dconf
+database was not picked up — re-check `/etc/dconf/profile/user` and run `dconf update`.
 
 If there are any issues, you can recreate the theme by following the steps in oomox-user-preset/RECREATE-OOMOX-THEME.md
 
