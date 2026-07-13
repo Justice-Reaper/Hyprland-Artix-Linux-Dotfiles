@@ -199,6 +199,14 @@ pacman -Syu
 pacman -S inotify-tools git ttf-liberation xdg-user-dirs nano dbus-dinit networkmanager-dinit cronie-dinit hyprland kitty grub os-prober efibootmgr btrfs-progs snapper snap-pac grub-btrfs zramen-dinit
 ```
 
+### Configure the wifi regulatory domain  
+
+Uncomment `WIRELESS_REGDOM="ES"`
+
+```bash
+nano /etc/conf.d/wireless-regdom
+```
+
 ### Configure the system timezone
 
 ```bash
@@ -509,7 +517,7 @@ pacman -S xdg-desktop-portal-hyprland xdg-desktop-portal-gtk xdg-desktop-portal 
 pacman -S ntfs-3g exfatprogs dosfstools unzip plocate wget blueman nm-connection-editor gvfs nemo xed engrampa jre21-openjdk zsh
 pacman -S waybar hyprpaper rofi dunst btop fastfetch jq lsd bat fzf grim flameshot wl-clipboard wl-clip-persist xf86-input-libinput
 pacman -S zsh-autosuggestions zsh-completions zsh-syntax-highlighting celluloid qt5ct qt6ct gthumb net-tools nwg-look brightnessctl
-pacman -S libvirt-dinit qemu-desktop virt-manager dnsmasq edk2-ovmf swtpm dmidecode libosinfo guestfs-tools qrencode
+pacman -S libvirt-dinit qemu-desktop virt-manager dnsmasq edk2-ovmf swtpm dmidecode libosinfo guestfs-tools qrencode wireless-regdb
 pacman -S obsidian seclists nmap openbsd-netcat exiftool netexec kerbrute windapsearch pycharm-community-edition torbrowser-launcher
 pacman -S ffuf
 exit
