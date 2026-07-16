@@ -2599,18 +2599,18 @@ window.ssd { box-shadow: 0 0 0 1px RGB(0 0 0 / 5%); }
 @define-color accent_bg_color #5d84d6;
 @define-color accent_fg_color #d8e2ec;
 @define-color accent_color #7aa2f7;
-@define-color destructive_bg_color #f7768e;
+@define-color destructive_bg_color #d64f6a;
 @define-color destructive_fg_color #171d23;
-@define-color destructive_color    #f7768e;
+@define-color destructive_color    #d64f6a;
 @define-color success_bg_color #9ece6a;
 @define-color success_fg_color #171d23;
 @define-color success_color    #9ece6a;
 @define-color warning_bg_color #e0af68;
 @define-color warning_fg_color #171d23;
 @define-color warning_color    #e0af68;
-@define-color error_bg_color #f7768e;
+@define-color error_bg_color #d64f6a;
 @define-color error_fg_color #171d23;
-@define-color error_color    #f7768e;
+@define-color error_color    #d64f6a;
 @define-color window_bg_color #171d23;
 @define-color window_fg_color #d8e2ec;
 @define-color view_bg_color #1d252c;
@@ -2635,18 +2635,6 @@ window.ssd { box-shadow: 0 0 0 1px RGB(0 0 0 / 5%); }
 /*@define-color sidebar_fg_color #f6f6f8;*/
 @define-color sidebar_bg_color #171d23;
 @define-color sidebar_fg_color #d8e2ec;
-@define-color sidebar_backdrop_color @window_bg_color;
-@define-color sidebar_border_color rgba(0, 0, 0, 0.36);
-@define-color sidebar_shade_color rgba(0, 0, 0, 0.25);
-@define-color secondary_sidebar_bg_color @sidebar_bg_color;
-@define-color secondary_sidebar_fg_color @sidebar_fg_color;
-@define-color secondary_sidebar_backdrop_color @sidebar_backdrop_color;
-@define-color secondary_sidebar_border_color @sidebar_border_color;
-@define-color secondary_sidebar_shade_color @sidebar_shade_color;
-@define-color popover_shade_color rgba(0, 0, 0, 0.25);
-@define-color headerbar_darker_shade_color rgba(0, 0, 0, 0.9);
-@define-color thumbnail_bg_color #1d252c;
-@define-color thumbnail_fg_color #f6f6f8;
 
 * {
     font-weight: 400;

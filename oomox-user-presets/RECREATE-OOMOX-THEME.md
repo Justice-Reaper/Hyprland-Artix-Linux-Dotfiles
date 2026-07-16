@@ -59,8 +59,9 @@ With the contents of `oomox-patches/change_color.sh`. The change is on line 149:
 Copy the presets to the oomox configuration folder:
 
 ```bash
-cp presets/base16-project/tokyo-night-dark ~/.config/oomox/colors/base16-project/
-cp presets/tokyo-night-dark-gtk4 ~/.config/oomox/colors/
+mkdir -p /home/justice-reaper/.config/oomox/colors/base16-project
+cp /home/justice-reaper/Downloads/Hyprland-Dotfiles/oomox-user-presets/presets/base16-project/tokyo-night-dark /home/justice-reaper/.config/oomox/colors/base16-project/
+cp /home/justice-reaper/Downloads/Hyprland-Dotfiles/oomox-user-presets/presets/tokyo-night-dark-gtk4 /home/justice-reaper/.config/oomox/colors/
 ```
 
 When opening Themix, they will appear under **User Presets**:
@@ -74,20 +75,22 @@ When opening Themix, they will appear under **User Presets**:
 
 This preset has the BG/FG, TXT_BG/TXT_FG and BTN_BG/BTN_FG colors **swapped** because the SCSS template with `$variant: "dark"` inverts them during compilation. The remaining colors (HDR, SEL, MENU, ICONS, TERMINAL) use the real Tokyo Night values
 
-Export from Themix:
+Select the **`base16-project: tokyo-night-dark`** preset and export directly with the top buttons (no extra options to select):
 
-1. **Theme** (GTK3) → installs to `~/.themes/oomox-tokyo-night-dark/`
-2. **Icons** (Papirus) → installs to `~/.icons/oomox-tokyo-night-dark/`
+1. **Theme** (GTK3): just click **Export theme** → installs to `~/.themes/oomox-tokyo-night-dark/`
+2. **Icons** (Papirus): just click **Export icons** → installs to `~/.icons/oomox-tokyo-night-dark/`
 
 ### Preset `tokyo-night-dark-gtk4` (GTK4 + Qt5 + Qt6)
 
 This preset has the **real colors without swap** because the Base16 plugin reads them directly without any variant logic
 
-Export from Themix:
+Select the **`tokyo-night-dark-gtk4`** preset and use **Multi-Export**. The dialog starts empty; add each target with **Add export target... > Base16-Based Templates...**:
 
-1. **Base16 > gtk4-oodwaita** → generates the CSS for GTK4/libadwaita
-2. **Base16 > qt5ct (fusion)** → generates the color scheme for Qt5
-3. **Base16 > qt6ct (fusion)** → generates the color scheme for Qt6
+1. **gtk4-oodwaita** → `~/.themes/oomox-tokyo-night-dark-gtk4/gtk-4.0/gtk.css` (GTK4/libadwaita CSS)
+2. **qt5ct (fusion)** → `~/.config/qt5ct/colors/oomox-tokyo-night-dark-gtk4.conf`
+3. **qt6ct (fusion)** → `~/.config/qt6ct/colors/oomox-tokyo-night-dark-gtk4.conf`
+
+With the three targets added, click **Export All**.
 
 ## Difference Between the Two Presets
 

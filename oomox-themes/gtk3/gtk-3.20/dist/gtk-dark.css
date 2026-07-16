@@ -35,11 +35,11 @@
 @define-color question_fg_color #171d23;
 @define-color question_bg_color #7aa2f7;
 @define-color error_fg_color #171d23;
-@define-color error_bg_color #f7768e;
+@define-color error_bg_color #d64f6a;
 @define-color link_color #7aa2f7;
 @define-color success_color #9ece6a;
 @define-color warning_color #e0af68;
-@define-color error_color #f7768e;
+@define-color error_color #d64f6a;
 /* widget colors */
 @define-color titlebar_bg_focused @dark_bg_color;
 @define-color titlebar_bg_unfocused @theme_bg_color;
@@ -757,39 +757,39 @@ combobox menu menuitem {
   #login_window entry.error,
   #XfceNotifyWindow entry.error, popover.background entry.error, entry.error {
     color: #171d23;
-    border-color: #f33155;
-    background-color: mix(#1d252c,#f7768e,0.6); }
+    border-color: #be2c49;
+    background-color: mix(#1d252c,#d64f6a,0.6); }
     #login_window entry.error image,
     #XfceNotifyWindow entry.error image, entry.error image {
       color: #171d23; }
     #login_window entry.error:focus,
     #XfceNotifyWindow entry.error:focus, entry.error:focus {
       color: #171d23;
-      border-color: mix(#5d84d6,#f7768e,0.3);
-      background-color: #f7768e;
+      border-color: mix(#5d84d6,#d64f6a,0.3);
+      background-color: #d64f6a;
       box-shadow: none; }
     #login_window entry.error selection,
     #XfceNotifyWindow entry.error selection, entry.error selection {
       background-color: #171d23;
-      color: #f7768e; }
+      color: #d64f6a; }
   #login_window entry.search-missing,
   #XfceNotifyWindow entry.search-missing, popover.background entry.search-missing, entry.search-missing {
     color: #171d23;
-    border-color: #f33155;
-    background-color: mix(#1d252c,#f7768e,0.6); }
+    border-color: #be2c49;
+    background-color: mix(#1d252c,#d64f6a,0.6); }
     #login_window entry.search-missing image,
     #XfceNotifyWindow entry.search-missing image, entry.search-missing image {
       color: #171d23; }
     #login_window entry.search-missing:focus,
     #XfceNotifyWindow entry.search-missing:focus, entry.search-missing:focus {
       color: #171d23;
-      border-color: mix(#5d84d6,#f7768e,0.3);
-      background-color: #f7768e;
+      border-color: mix(#5d84d6,#d64f6a,0.3);
+      background-color: #d64f6a;
       box-shadow: none; }
     #login_window entry.search-missing selection,
     #XfceNotifyWindow entry.search-missing selection, entry.search-missing selection {
       background-color: #171d23;
-      color: #f7768e; }
+      color: #d64f6a; }
 
 entry {
   background-color: #1d252c;
@@ -1879,7 +1879,7 @@ searchbar,
     background-image: image(mix(#d8e2ec,#9ece6a,0.9)); }
 
 .destructive-action {
-  background-color: #f7768e;
+  background-color: #d64f6a;
   background-image: none;
   border-color: rgba(155, 181, 206, 0.22);
   color: #d8e2ec;
@@ -1918,12 +1918,12 @@ searchbar,
       box-shadow: inset 0 -1px mix(#5d84d6,rgba(93, 132, 214, 0.36),0.3); }
   .destructive-action.flat {
     color: #d8e2ec;
-    border-color: rgba(247, 118, 142, 0);
-    background-color: rgba(247, 118, 142, 0);
+    border-color: rgba(214, 79, 106, 0);
+    background-color: rgba(214, 79, 106, 0);
     background-image: none;
     box-shadow: none; }
   .destructive-action:hover, .destructive-action.flat:hover {
-    background-color: #f8879c;
+    background-color: #d95b74;
     background-image: none;
     border-color: rgba(155, 181, 206, 0.3);
     color: #d8e2ec;
@@ -1937,7 +1937,7 @@ searchbar,
     .destructive-action:hover:active:disabled, .destructive-action:hover:checked:disabled, .destructive-action.flat:hover:active:disabled, .destructive-action.flat:hover:checked:disabled {
       border-color: rgba(155, 181, 206, 0.3); }
   .destructive-action:focus, .destructive-action.flat:focus {
-    background-color: #f8879c;
+    background-color: #d95b74;
     background-image: none;
     border-color: rgba(216, 226, 236, 0.22);
     outline-color: rgba(93, 132, 214, 0.5);
@@ -1947,7 +1947,7 @@ searchbar,
     color: #d8e2ec;
     box-shadow: 0 1px 2px -1px rgba(30, 45, 61, 0.32); }
     .destructive-action:focus:hover, .destructive-action.flat:focus:hover {
-      background-color: #f998aa;
+      background-color: #dc677e;
       background-image: none;
       border-color: rgba(155, 181, 206, 0.3);
       box-shadow: 0 1px 2px -1px rgba(30, 45, 61, 0.38); }
@@ -1982,14 +1982,14 @@ searchbar,
   .destructive-action:focus, .destructive-action:hover, .destructive-action.flat:focus, .destructive-action.flat:hover {
     color: #d8e2ec; }
   .destructive-action:disabled:disabled, .destructive-action.flat:disabled:disabled {
-    background-color: alpha(mix(#f7768e,#d8e2ec,0.2),0.4);
+    background-color: alpha(mix(#d64f6a,#d8e2ec,0.2),0.4);
     background-image: none;
     /*border: 1px solid alpha($bg, .2);*/
     opacity: .6;
-    color: mix(#f7768e,#d8e2ec,0.6);
+    color: mix(#d64f6a,#d8e2ec,0.6);
     box-shadow: none; }
     .destructive-action:disabled:disabled :disabled, .destructive-action.flat:disabled:disabled :disabled {
-      color: mix(#f7768e,#d8e2ec,0.6); }
+      color: mix(#d64f6a,#d8e2ec,0.6); }
   .destructive-action:active:disabled, .destructive-action:checked:disabled, .destructive-action.flat:active:disabled, .destructive-action.flat:checked:disabled {
     background-color: rgba(93, 132, 214, 0.6);
     background-image: none;
@@ -2001,11 +2001,11 @@ searchbar,
     color: mix(#fbfbfd,mix(#d8e2ec,#171d23,0.5),0.8); }
   .destructive-action.separator, .destructive-action .separator {
     border: 1px solid currentColor;
-    color: rgba(247, 118, 142, 0.9); }
+    color: rgba(214, 79, 106, 0.9); }
     .destructive-action.separator:disabled, .destructive-action .separator:disabled {
-      color: rgba(247, 118, 142, 0.85); }
+      color: rgba(214, 79, 106, 0.85); }
   .destructive-action separator {
-    background-image: image(mix(#d8e2ec,#f7768e,0.9)); }
+    background-image: image(mix(#d8e2ec,#d64f6a,0.9)); }
 
 /******************
  ! Selection mode *
@@ -3433,14 +3433,14 @@ infobar {
     infobar.question button separator, infobar.question button.nautilus-circular-button.image-button separator {
       background-image: image(mix(#171d23,#7aa2f7,0.9)); }
   infobar.error, infobar.error:backdrop {
-    background-color: #f7768e;
+    background-color: #d64f6a;
     background-image: none;
-    border: 1px solid #f33155;
+    border: 1px solid #be2c49;
     caret-color: currentColor; }
     infobar.error label, infobar.error, infobar.error:backdrop label, infobar.error:backdrop {
       color: #171d23; }
   infobar.error button, infobar.error button.nautilus-circular-button.image-button {
-    background-color: #f7768e;
+    background-color: #d64f6a;
     background-image: none;
     border-color: rgba(18, 23, 28, 0.32);
     color: #171d23;
@@ -3479,12 +3479,12 @@ infobar {
         box-shadow: inset 0 -1px mix(#5d84d6,rgba(93, 132, 214, 0.36),0.3); }
     infobar.error button.flat {
       color: #171d23;
-      border-color: rgba(247, 118, 142, 0);
-      background-color: rgba(247, 118, 142, 0);
+      border-color: rgba(214, 79, 106, 0);
+      background-color: rgba(214, 79, 106, 0);
       background-image: none;
       box-shadow: none; }
     infobar.error button:hover, infobar.error button.flat:hover {
-      background-color: #f8879c;
+      background-color: #d95b74;
       background-image: none;
       border-color: rgba(18, 23, 28, 0.4);
       color: #171d23;
@@ -3498,7 +3498,7 @@ infobar {
       infobar.error button:hover:active:disabled, infobar.error button:hover:checked:disabled, infobar.error button.flat:hover:active:disabled, infobar.error button.flat:hover:checked:disabled {
         border-color: rgba(18, 23, 28, 0.4); }
     infobar.error button:focus, infobar.error button.flat:focus {
-      background-color: #f8879c;
+      background-color: #d95b74;
       background-image: none;
       border-color: rgba(23, 29, 35, 0.32);
       outline-color: rgba(93, 132, 214, 0.5);
@@ -3508,7 +3508,7 @@ infobar {
       color: #171d23;
       box-shadow: 0 1px 2px -1px rgba(30, 45, 61, 0.32); }
       infobar.error button:focus:hover, infobar.error button.flat:focus:hover {
-        background-color: #f998aa;
+        background-color: #dc677e;
         background-image: none;
         border-color: rgba(18, 23, 28, 0.4);
         box-shadow: 0 1px 2px -1px rgba(30, 45, 61, 0.38); }
@@ -3543,14 +3543,14 @@ infobar {
     infobar.error button:focus, infobar.error button:hover, infobar.error button.flat:focus, infobar.error button.flat:hover {
       color: #171d23; }
     infobar.error button:disabled:disabled, infobar.error button.flat:disabled:disabled {
-      background-color: alpha(mix(#f7768e,#171d23,0.2),0.4);
+      background-color: alpha(mix(#d64f6a,#171d23,0.2),0.4);
       background-image: none;
       /*border: 1px solid alpha($bg, .2);*/
       opacity: .6;
-      color: mix(#f7768e,#171d23,0.6);
+      color: mix(#d64f6a,#171d23,0.6);
       box-shadow: none; }
       infobar.error button:disabled:disabled :disabled, infobar.error button.flat:disabled:disabled :disabled {
-        color: mix(#f7768e,#171d23,0.6); }
+        color: mix(#d64f6a,#171d23,0.6); }
     infobar.error button:active:disabled, infobar.error button:checked:disabled, infobar.error button.flat:active:disabled, infobar.error button.flat:checked:disabled {
       background-color: rgba(93, 132, 214, 0.6);
       background-image: none;
@@ -3562,11 +3562,11 @@ infobar {
       color: mix(#fbfbfd,mix(#d8e2ec,#171d23,0.5),0.8); }
     infobar.error button.separator, infobar.error button .separator {
       border: 1px solid currentColor;
-      color: rgba(247, 118, 142, 0.9); }
+      color: rgba(214, 79, 106, 0.9); }
       infobar.error button.separator:disabled, infobar.error button .separator:disabled {
-        color: rgba(247, 118, 142, 0.85); }
+        color: rgba(214, 79, 106, 0.85); }
     infobar.error button separator, infobar.error button.nautilus-circular-button.image-button separator {
-      background-image: image(mix(#171d23,#f7768e,0.9)); }
+      background-image: image(mix(#171d23,#d64f6a,0.9)); }
 
 /*********
  ! Entry *
@@ -3682,39 +3682,39 @@ infobar {
   #login_window entry.error,
   #XfceNotifyWindow entry.error, popover.background entry.error, entry.error {
     color: #171d23;
-    border-color: #f33155;
-    background-color: mix(#1d252c,#f7768e,0.6); }
+    border-color: #be2c49;
+    background-color: mix(#1d252c,#d64f6a,0.6); }
     #login_window entry.error image,
     #XfceNotifyWindow entry.error image, entry.error image {
       color: #171d23; }
     #login_window entry.error:focus,
     #XfceNotifyWindow entry.error:focus, entry.error:focus {
       color: #171d23;
-      border-color: mix(#5d84d6,#f7768e,0.3);
-      background-color: #f7768e;
+      border-color: mix(#5d84d6,#d64f6a,0.3);
+      background-color: #d64f6a;
       box-shadow: none; }
     #login_window entry.error selection,
     #XfceNotifyWindow entry.error selection, entry.error selection {
       background-color: #171d23;
-      color: #f7768e; }
+      color: #d64f6a; }
   #login_window entry.search-missing,
   #XfceNotifyWindow entry.search-missing, popover.background entry.search-missing, entry.search-missing {
     color: #171d23;
-    border-color: #f33155;
-    background-color: mix(#1d252c,#f7768e,0.6); }
+    border-color: #be2c49;
+    background-color: mix(#1d252c,#d64f6a,0.6); }
     #login_window entry.search-missing image,
     #XfceNotifyWindow entry.search-missing image, entry.search-missing image {
       color: #171d23; }
     #login_window entry.search-missing:focus,
     #XfceNotifyWindow entry.search-missing:focus, entry.search-missing:focus {
       color: #171d23;
-      border-color: mix(#5d84d6,#f7768e,0.3);
-      background-color: #f7768e;
+      border-color: mix(#5d84d6,#d64f6a,0.3);
+      background-color: #d64f6a;
       box-shadow: none; }
     #login_window entry.search-missing selection,
     #XfceNotifyWindow entry.search-missing selection, entry.search-missing selection {
       background-color: #171d23;
-      color: #f7768e; }
+      color: #d64f6a; }
 
 /*********
  ! Menubar
@@ -4697,7 +4697,7 @@ notebook {
         padding: 0;
         color: mix(#171d23,#d8e2ec,0.35); }
         notebook > header > tabs > tab button.flat:hover {
-          color: #fbbeca; }
+          color: #e48d9f; }
         notebook > header > tabs > tab button.flat:active, notebook > header > tabs > tab button.flat:active:hover {
           color: #5d84d6; }
     notebook > header.top > tabs > tab:hover:not(:checked) {
@@ -7683,7 +7683,7 @@ GeditViewFrame .gedit-search-slider {
   border-color: #171e23;
   background-color: #1d252c; }
   GeditViewFrame .gedit-search-slider .not-found {
-    background-color: #f7768e;
+    background-color: #d64f6a;
     background-image: none;
     color: #171d23; }
 
@@ -7757,10 +7757,10 @@ paned.titlebar {
 
 .conflict-row.activatable, .conflict-row.activatable:active {
   color: #171d23;
-  background-color: #f7768e; }
+  background-color: #d64f6a; }
 
 .conflict-row.activatable:hover {
-  background-color: #f998aa; }
+  background-color: #dc677e; }
 
 .conflict-row.activatable:selected {
   color: #d8e2ec;
@@ -8204,7 +8204,7 @@ SheetStyleDialog.unity-force-quit {
 
 /* shutdown button */
 #shutdown_button button {
-  background-color: #f7768e;
+  background-color: #d64f6a;
   background-image: none;
   border-color: rgba(18, 23, 28, 0.32);
   color: #171d23;
@@ -8243,12 +8243,12 @@ SheetStyleDialog.unity-force-quit {
       box-shadow: inset 0 -1px mix(#5d84d6,rgba(93, 132, 214, 0.36),0.3); }
   #shutdown_button button.flat {
     color: #171d23;
-    border-color: rgba(247, 118, 142, 0);
-    background-color: rgba(247, 118, 142, 0);
+    border-color: rgba(214, 79, 106, 0);
+    background-color: rgba(214, 79, 106, 0);
     background-image: none;
     box-shadow: none; }
   #shutdown_button button:hover, #shutdown_button button.flat:hover {
-    background-color: #f8879c;
+    background-color: #d95b74;
     background-image: none;
     border-color: rgba(18, 23, 28, 0.4);
     color: #171d23;
@@ -8262,7 +8262,7 @@ SheetStyleDialog.unity-force-quit {
     #shutdown_button button:hover:active:disabled, #shutdown_button button:hover:checked:disabled, #shutdown_button button.flat:hover:active:disabled, #shutdown_button button.flat:hover:checked:disabled {
       border-color: rgba(18, 23, 28, 0.4); }
   #shutdown_button button:focus, #shutdown_button button.flat:focus {
-    background-color: #f8879c;
+    background-color: #d95b74;
     background-image: none;
     border-color: rgba(23, 29, 35, 0.32);
     outline-color: rgba(93, 132, 214, 0.5);
@@ -8272,7 +8272,7 @@ SheetStyleDialog.unity-force-quit {
     color: #171d23;
     box-shadow: 0 1px 2px -1px rgba(30, 45, 61, 0.32); }
     #shutdown_button button:focus:hover, #shutdown_button button.flat:focus:hover {
-      background-color: #f998aa;
+      background-color: #dc677e;
       background-image: none;
       border-color: rgba(18, 23, 28, 0.4);
       box-shadow: 0 1px 2px -1px rgba(30, 45, 61, 0.38); }
@@ -8307,14 +8307,14 @@ SheetStyleDialog.unity-force-quit {
   #shutdown_button button:focus, #shutdown_button button:hover, #shutdown_button button.flat:focus, #shutdown_button button.flat:hover {
     color: #171d23; }
   #shutdown_button button:disabled:disabled, #shutdown_button button.flat:disabled:disabled {
-    background-color: alpha(mix(#f7768e,#171d23,0.2),0.4);
+    background-color: alpha(mix(#d64f6a,#171d23,0.2),0.4);
     background-image: none;
     /*border: 1px solid alpha($bg, .2);*/
     opacity: .6;
-    color: mix(#f7768e,#171d23,0.6);
+    color: mix(#d64f6a,#171d23,0.6);
     box-shadow: none; }
     #shutdown_button button:disabled:disabled :disabled, #shutdown_button button.flat:disabled:disabled :disabled {
-      color: mix(#f7768e,#171d23,0.6); }
+      color: mix(#d64f6a,#171d23,0.6); }
   #shutdown_button button:active:disabled, #shutdown_button button:checked:disabled, #shutdown_button button.flat:active:disabled, #shutdown_button button.flat:checked:disabled {
     background-color: rgba(93, 132, 214, 0.6);
     background-image: none;
@@ -8326,11 +8326,11 @@ SheetStyleDialog.unity-force-quit {
     color: mix(#fbfbfd,mix(#d8e2ec,#171d23,0.5),0.8); }
   #shutdown_button button.separator, #shutdown_button button .separator {
     border: 1px solid currentColor;
-    color: rgba(247, 118, 142, 0.9); }
+    color: rgba(214, 79, 106, 0.9); }
     #shutdown_button button.separator:disabled, #shutdown_button button .separator:disabled {
-      color: rgba(247, 118, 142, 0.85); }
+      color: rgba(214, 79, 106, 0.85); }
   #shutdown_button button separator {
-    background-image: image(mix(#171d23,#f7768e,0.9)); }
+    background-image: image(mix(#171d23,#d64f6a,0.9)); }
 
 /* restart button */
 #restart_button button {

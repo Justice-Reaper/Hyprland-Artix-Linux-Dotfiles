@@ -898,6 +898,13 @@ Configure your user with the GUI tools, root mirrors your user and inherits ever
 > **Never run `nwg-look`, `qt5ct` or `qt6ct` as root**
 > Root has no D-Bus session bus, so dconf cannot save and nothing is applied
 
+#### Rename the exported Qt color schemes
+
+```bash
+mv /home/justice-reaper/Downloads/Hyprland-Dotfiles/oomox-themes/qt5ct/colors/oomox-tokyo-night-dark-gtk4.conf /home/justice-reaper/Downloads/Hyprland-Dotfiles/oomox-themes/qt5ct/colors/oomox-tokyo-night-dark.conf
+mv /home/justice-reaper/Downloads/Hyprland-Dotfiles/oomox-themes/qt6ct/colors/oomox-tokyo-night-dark-gtk4.conf /home/justice-reaper/Downloads/Hyprland-Dotfiles/oomox-themes/qt6ct/colors/oomox-tokyo-night-dark.conf
+```
+
 #### Install the theme system-wide
 
 ```bash
