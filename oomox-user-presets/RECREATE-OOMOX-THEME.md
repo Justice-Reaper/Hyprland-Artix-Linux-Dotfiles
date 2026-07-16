@@ -92,6 +92,42 @@ Select the **`tokyo-night-dark-gtk4`** preset and use **Multi-Export**. The dial
 
 With the three targets added, click **Export All**.
 
+## Copy the generated files into the repo and clean up
+
+Themix writes the exports to your home (`~/.themes`, `~/.icons`, `~/.config`). Copy them into `oomox-themes/` (the single source of truth the install uses) and then delete the generated copies so they don't create duplicate themes in `qt5ct` / `nwg-look`
+
+### Copy into the repo
+
+```bash
+# GTK3
+rm -rf /home/justice-reaper/Downloads/Hyprland-Dotfiles/oomox-themes/gtk3/*
+cp -r /home/justice-reaper/.themes/oomox-tokyo-night-dark/* /home/justice-reaper/Downloads/Hyprland-Dotfiles/oomox-themes/gtk3/
+
+# GTK4
+rm -rf /home/justice-reaper/Downloads/Hyprland-Dotfiles/oomox-themes/gtk4/*
+cp /home/justice-reaper/.themes/oomox-tokyo-night-dark-gtk4/gtk-4.0/gtk.css /home/justice-reaper/Downloads/Hyprland-Dotfiles/oomox-themes/gtk4/gtk.css
+
+# Icons
+rm -rf /home/justice-reaper/Downloads/Hyprland-Dotfiles/oomox-themes/icons/*
+cp -r /home/justice-reaper/.icons/oomox-tokyo-night-dark/* /home/justice-reaper/Downloads/Hyprland-Dotfiles/oomox-themes/icons/
+
+# Qt5 / Qt6 (keep the -gtk4 name; the install step renames it)
+rm -f /home/justice-reaper/Downloads/Hyprland-Dotfiles/oomox-themes/qt5ct/colors/*
+cp /home/justice-reaper/.config/qt5ct/colors/oomox-tokyo-night-dark-gtk4.conf /home/justice-reaper/Downloads/Hyprland-Dotfiles/oomox-themes/qt5ct/colors/
+rm -f /home/justice-reaper/Downloads/Hyprland-Dotfiles/oomox-themes/qt6ct/colors/*
+cp /home/justice-reaper/.config/qt6ct/colors/oomox-tokyo-night-dark-gtk4.conf /home/justice-reaper/Downloads/Hyprland-Dotfiles/oomox-themes/qt6ct/colors/
+```
+
+### Remove the generated files
+
+```bash
+rm -rf /home/justice-reaper/.themes/oomox-tokyo-night-dark
+rm -rf /home/justice-reaper/.themes/oomox-tokyo-night-dark-gtk4
+rm -rf /home/justice-reaper/.icons/oomox-tokyo-night-dark
+rm -f /home/justice-reaper/.config/qt5ct/colors/oomox-tokyo-night-dark-gtk4.conf
+rm -f /home/justice-reaper/.config/qt6ct/colors/oomox-tokyo-night-dark-gtk4.conf
+```
+
 ## Difference Between the Two Presets
 
 | Field   | `tokyo-night-dark` (GTK3) | `tokyo-night-dark-gtk4` (GTK4/Qt) |
