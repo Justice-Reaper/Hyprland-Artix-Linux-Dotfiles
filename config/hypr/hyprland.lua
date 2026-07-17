@@ -455,7 +455,6 @@ hl.window_rule({
 hl.window_rule({
      match = { class = "flameshot", title = "flameshot" },
      move        = {0, 0},
-     no_initial_focus = true,
 })
 
 hl.window_rule({
