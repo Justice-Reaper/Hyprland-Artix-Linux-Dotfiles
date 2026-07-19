@@ -448,13 +448,13 @@ hl.window_rule({
 hl.window_rule({
      match = { class = "flameshot" },
      float = true,
-     move        = {0, 0},
+     move = {0, 0},
      pin = true,
 })
 
 hl.window_rule({
      match = { class = "flameshot", title = "flameshot" },
-     move        = {0, 0},
+     move = {0, 0},
 })
 
 hl.window_rule({
