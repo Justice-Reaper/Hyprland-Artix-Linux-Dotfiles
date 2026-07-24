@@ -223,9 +223,10 @@ hl.config({
 
 hl.config({
     misc = {
-        force_default_wallpaper = 0,    -- Set to 0 or 1 to disable the anime mascot wallpapers
-        disable_hyprland_logo   = true, -- If true disables the random hyprland logo / anime girl background. :(
-        focus_on_activate       = true, -- Auto-focus a window when it requests activation (e.g. clicking a notification to jump to Discord)
+        force_default_wallpaper    = 0,    -- Set to 0 or 1 to disable the anime mascot wallpapers
+        disable_hyprland_logo      = true, -- If true disables the random hyprland logo / anime girl background. :(
+        focus_on_activate          = true, -- Auto-focus a window when it requests activation (e.g. clicking a notification to jump to Discord)
+        allow_session_lock_restore = true, -- Let a new locker take over an existing lock after a crash (prevents lockout)    
     },
 })
 
