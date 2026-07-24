@@ -74,6 +74,8 @@ hl.env("QT_QPA_PLATFORM", "wayland;xcb")
 hl.config({
     ecosystem = {
         enforce_permissions = false,
+        no_update_news = true,
+        no_donation_nag = true,
     },
 })
 
@@ -144,7 +146,7 @@ hl.curve("almostLinear",   { type = "bezier", points = { {0.5, 0.5},   {0.75, 1}
 hl.curve("quick",          { type = "bezier", points = { {0.15, 0},    {0.1, 1}     } })
 
 -- Default springs
-hl.curve("easy",           { type = "spring", mass = 1, stiffness = 238.1191, dampening = 24.21279333 })
+hl.curve("easy",           { type = "spring", mass = 1, stiffness = 878.5, dampening = 59.29 })
 
 hl.animation({ leaf = "global",        enabled = true,  speed = 10,   bezier = "default" })
 hl.animation({ leaf = "border",        enabled = true,  speed = 5.5, bezier = "easeOutQuint" })
@@ -226,7 +228,13 @@ hl.config({
         force_default_wallpaper    = 0,    -- Set to 0 or 1 to disable the anime mascot wallpapers
         disable_hyprland_logo      = true, -- If true disables the random hyprland logo / anime girl background. :(
         focus_on_activate          = true, -- Auto-focus a window when it requests activation (e.g. clicking a notification to jump to Discord)
-        allow_session_lock_restore = true, -- Let a new locker take over an existing lock after a crash (prevents lockout)    
+        allow_session_lock_restore = true, -- Let a new locker take over an existing lock after a crash (prevents lockout)
+    },
+})
+
+hl.config({
+    cursor = {
+        enable_hyprcursor = false,
     },
 })
 
