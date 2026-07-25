@@ -1042,7 +1042,7 @@ Install the dependencies
 sudo pacman -S xorg-xsetroot xorg-xrdb redshift
 ```
 
-Install the setup script and the SDDM drop-in config (change `Current=` to `pixel-waterfall` if you prefer that theme)
+Install the setup script and the SDDM drop-in config (change `Current=` to `pixel-aquarium` if you prefer that theme)
 
 ```bash
 sudo cp sddm/sddm-xsetup /usr/local/bin/sddm-xsetup
