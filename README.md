@@ -65,7 +65,7 @@ Copy/paste with mouse
 
 ```bash
 cd /home/artix
-git clone https://github.com/Justice-Reaper/Hyprland-Dotfiles.git
+git clone https://github.com/Justice-Reaper/Hyprland-Artix-Linux-Dotfiles.git
 ```
 
 Open the guide in TTY 1
@@ -362,7 +362,7 @@ start-hyprland
 
 ```bash
 cd /home/justice-reaper/Downloads
-git clone https://github.com/Justice-Reaper/Hyprland-Dotfiles.git
+git clone https://github.com/Justice-Reaper/Hyprland-Artix-Linux-Dotfiles.git
 ```
 
 ```bash
