@@ -519,7 +519,7 @@ pacman -S waybar hyprpaper rofi dunst btop fastfetch jq lsd bat fzf grim flamesh
 pacman -S zsh-autosuggestions zsh-completions zsh-syntax-highlighting celluloid qt5ct qt6ct gthumb net-tools nwg-look brightnessctl
 pacman -S libvirt-dinit qemu-desktop virt-manager dnsmasq edk2-ovmf swtpm dmidecode libosinfo guestfs-tools qrencode wireless-regdb
 pacman -S obsidian seclists nmap openbsd-netcat exiftool netexec kerbrute windapsearch pycharm-community-edition torbrowser-launcher
-pacman -S ffuf arp-scan perl-text-csv perl-lwp-protocol-https sqlmap python-pwntools wcvs katana-pd bind
+pacman -S ffuf arp-scan perl-text-csv perl-lwp-protocol-https sqlmap python-pwntools wcvs katana-pd bind moreutils
 exit
 ```
 
