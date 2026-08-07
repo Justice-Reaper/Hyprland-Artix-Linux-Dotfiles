@@ -519,7 +519,7 @@ pacman -S waybar hyprpaper rofi dunst btop fastfetch jq lsd bat fzf grim flamesh
 pacman -S zsh-autosuggestions zsh-completions zsh-syntax-highlighting celluloid qt5ct qt6ct gthumb net-tools nwg-look brightnessctl
 pacman -S libvirt-dinit qemu-desktop virt-manager dnsmasq edk2-ovmf swtpm dmidecode libosinfo guestfs-tools qrencode wireless-regdb
 pacman -S obsidian seclists nmap openbsd-netcat exiftool netexec kerbrute windapsearch pycharm-community-edition torbrowser-launcher
-pacman -S ffuf arp-scan perl-text-csv perl-lwp-protocol-https sqlmap python-pwntools wcvs katana-pd bind moreutils
+pacman -S ffuf arp-scan perl-text-csv perl-lwp-protocol-https sqlmap python-pwntools wcvs katana-pd bind moreutils smbclient
 exit
 ```
 
@@ -991,11 +991,11 @@ If there are any issues, you can recreate the theme by following the steps in oo
 
 ```bash
 sudo cp bin/* /usr/local/bin
-sudo wget https://raw.githubusercontent.com/Justice-Reaper/rpcEnum/refs/heads/main/rpcEnum.sh -O /usr/local/bin/rpc-enum && sudo chmod +x /usr/local/bin/rpcenum
-sudo wget https://raw.githubusercontent.com/Justice-Reaper/graphQLConverter/refs/heads/main/graphQLConverter.py -O /usr/local/bin/graphql-converter && sudo chmod +x /usr/local/bin/graphql-converter
-sudo wget https://raw.githubusercontent.com/Justice-Reaper/payloadSplitter/refs/heads/main/payloadSplitter.sh -O /usr/local/bin/payload-splitter && sudo chmod +x /usr/local/bin/payload-splitter
-sudo wget https://raw.githubusercontent.com/Justice-Reaper/getTopPorts/refs/heads/main/getTopPorts.sh -O /usr/local/bin/get-top-ports && sudo chmod +x /usr/local/bin/get-top-ports
-sudo wget https://raw.githubusercontent.com/Justice-Reaper/ipRangeGenerator/refs/heads/main/ipRangeGenerator.py -O /usr/local/bin/ip-range-generator && sudo chmod +x /usr/local/bin/ip-range-generator
+sudo wget https://raw.githubusercontent.com/Justice-Reaper/rpc-enum/refs/heads/main/rpc-enum -O /usr/local/bin/rpc-enum && sudo chmod +x /usr/local/bin/rpc-enum
+sudo wget https://raw.githubusercontent.com/Justice-Reaper/graphql-converter/refs/heads/main/graphql-converter -O /usr/local/bin/graphql-converter && sudo chmod +x /usr/local/bin/graphql-converter
+sudo wget https://raw.githubusercontent.com/Justice-Reaper/payload-splitter/refs/heads/main/payload-splitter -O /usr/local/bin/payload-splitter && sudo chmod +x /usr/local/bin/payload-splitter
+sudo wget https://raw.githubusercontent.com/Justice-Reaper/get-top-ports/refs/heads/main/get-top-ports -O /usr/local/bin/get-top-ports && sudo chmod +x /usr/local/bin/get-top-ports
+sudo wget https://raw.githubusercontent.com/Justice-Reaper/ip-range-generator/refs/heads/main/ip-range-generator -O /usr/local/bin/ip-range-generator && sudo chmod +x /usr/local/bin/ip-range-generator
 ```
 
 ### Install icons font
