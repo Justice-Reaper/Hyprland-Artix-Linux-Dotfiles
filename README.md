@@ -520,7 +520,7 @@ pacman -S zsh-autosuggestions zsh-completions zsh-syntax-highlighting celluloid 
 pacman -S libvirt-dinit qemu-desktop virt-manager dnsmasq edk2-ovmf swtpm dmidecode libosinfo guestfs-tools qrencode wireless-regdb
 pacman -S obsidian seclists nmap openbsd-netcat exiftool netexec kerbrute windapsearch pycharm-community-edition torbrowser-launcher
 pacman -S ffuf arp-scan perl-text-csv perl-lwp-protocol-https sqlmap python-pwntools wcvs katana-pd bind moreutils smbclient phpggc
-pacman -S jdk8-openjdk
+pacman -S jdk8-openjdk ysoserial
 exit
 ```
 
