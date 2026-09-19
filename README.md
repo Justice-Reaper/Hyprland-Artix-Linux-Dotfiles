@@ -520,8 +520,12 @@ pacman -S zsh-autosuggestions zsh-completions zsh-syntax-highlighting celluloid 
 pacman -S libvirt-dinit qemu-desktop virt-manager dnsmasq edk2-ovmf swtpm dmidecode libosinfo guestfs-tools qrencode wireless-regdb
 pacman -S obsidian seclists python-html2text nmap openbsd-netcat exiftool netexec kerbrute windapsearch pycharm-community-edition
 pacman -S ffuf arp-scan perl-text-csv perl-lwp-protocol-https sqlmap python-pwntools wcvs katana-pd bind moreutils smbclient phpggc
-pacman -S jdk8-openjdk ysoserial tinja sstimap torbrowser-launcher
+pacman -S jdk8-openjdk ysoserial tinja sstimap torbrowser-launcher exploitdb
 exit
+```
+
+```
+go install github.com/Chocapikk/cewlai/cmd/cewlai@latest
 ```
 
 ### Install paru as AUR helper
